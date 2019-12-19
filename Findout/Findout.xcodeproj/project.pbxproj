@@ -13,6 +13,14 @@
 		633D45B023AB9EE700FE24F1 /* UserDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45A523AB9EE700FE24F1 /* UserDao.swift */; };
 		633D45B123AB9EE700FE24F1 /* PlaceAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45AA23AB9EE700FE24F1 /* PlaceAPIService.swift */; };
 		633D45B223AB9EE700FE24F1 /* UserAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45AC23AB9EE700FE24F1 /* UserAPIService.swift */; };
+		633D45B523AB9FE300FE24F1 /* SettingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45B323AB9FE300FE24F1 /* SettingScreenViewController.swift */; };
+		633D45B623AB9FE300FE24F1 /* SettingScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633D45B423AB9FE300FE24F1 /* SettingScreenViewController.xib */; };
+		633D45B923AB9FF300FE24F1 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45B723AB9FF300FE24F1 /* HomeScreenViewController.swift */; };
+		633D45BA23AB9FF300FE24F1 /* HomeScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633D45B823AB9FF300FE24F1 /* HomeScreenViewController.xib */; };
+		633D45BD23ABA01000FE24F1 /* PlacesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45BB23ABA01000FE24F1 /* PlacesScreenViewController.swift */; };
+		633D45BE23ABA01000FE24F1 /* PlacesScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633D45BC23ABA01000FE24F1 /* PlacesScreenViewController.xib */; };
+		633D45C123ABA02000FE24F1 /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45BF23ABA02000FE24F1 /* LoginScreenViewController.swift */; };
+		633D45C223ABA02000FE24F1 /* LoginScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633D45C023ABA02000FE24F1 /* LoginScreenViewController.xib */; };
 		634A296723AB9E010002D3BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A296623AB9E010002D3BA /* AppDelegate.swift */; };
 		634A296923AB9E010002D3BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A296823AB9E010002D3BA /* SceneDelegate.swift */; };
 		634A296B23AB9E010002D3BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A296A23AB9E010002D3BA /* ViewController.swift */; };
@@ -28,6 +36,14 @@
 		633D45A523AB9EE700FE24F1 /* UserDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDao.swift; sourceTree = "<group>"; };
 		633D45AA23AB9EE700FE24F1 /* PlaceAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceAPIService.swift; sourceTree = "<group>"; };
 		633D45AC23AB9EE700FE24F1 /* UserAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIService.swift; sourceTree = "<group>"; };
+		633D45B323AB9FE300FE24F1 /* SettingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreenViewController.swift; sourceTree = "<group>"; };
+		633D45B423AB9FE300FE24F1 /* SettingScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingScreenViewController.xib; sourceTree = "<group>"; };
+		633D45B723AB9FF300FE24F1 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
+		633D45B823AB9FF300FE24F1 /* HomeScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeScreenViewController.xib; sourceTree = "<group>"; };
+		633D45BB23ABA01000FE24F1 /* PlacesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesScreenViewController.swift; sourceTree = "<group>"; };
+		633D45BC23ABA01000FE24F1 /* PlacesScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlacesScreenViewController.xib; sourceTree = "<group>"; };
+		633D45BF23ABA02000FE24F1 /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
+		633D45C023ABA02000FE24F1 /* LoginScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginScreenViewController.xib; sourceTree = "<group>"; };
 		634A296323AB9E010002D3BA /* Findout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Findout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		634A296623AB9E010002D3BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		634A296823AB9E010002D3BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +79,8 @@
 		633D459B23AB9EE700FE24F1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				633D45B323AB9FE300FE24F1 /* SettingScreenViewController.swift */,
+				633D45B423AB9FE300FE24F1 /* SettingScreenViewController.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -70,6 +88,8 @@
 		633D459C23AB9EE700FE24F1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				633D45B723AB9FF300FE24F1 /* HomeScreenViewController.swift */,
+				633D45B823AB9FF300FE24F1 /* HomeScreenViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -77,6 +97,8 @@
 		633D459D23AB9EE700FE24F1 /* Place */ = {
 			isa = PBXGroup;
 			children = (
+				633D45BB23ABA01000FE24F1 /* PlacesScreenViewController.swift */,
+				633D45BC23ABA01000FE24F1 /* PlacesScreenViewController.xib */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -84,6 +106,8 @@
 		633D459E23AB9EE700FE24F1 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				633D45BF23ABA02000FE24F1 /* LoginScreenViewController.swift */,
+				633D45C023ABA02000FE24F1 /* LoginScreenViewController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -248,7 +272,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				634A297323AB9E030002D3BA /* LaunchScreen.storyboard in Resources */,
+				633D45C223ABA02000FE24F1 /* LoginScreenViewController.xib in Resources */,
+				633D45B623AB9FE300FE24F1 /* SettingScreenViewController.xib in Resources */,
+				633D45BA23AB9FF300FE24F1 /* HomeScreenViewController.xib in Resources */,
 				634A297023AB9E030002D3BA /* Assets.xcassets in Resources */,
+				633D45BE23ABA01000FE24F1 /* PlacesScreenViewController.xib in Resources */,
 				634A296E23AB9E010002D3BA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,14 +288,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				633D45BD23ABA01000FE24F1 /* PlacesScreenViewController.swift in Sources */,
 				633D45B123AB9EE700FE24F1 /* PlaceAPIService.swift in Sources */,
 				633D45B223AB9EE700FE24F1 /* UserAPIService.swift in Sources */,
 				634A296B23AB9E010002D3BA /* ViewController.swift in Sources */,
+				633D45B523AB9FE300FE24F1 /* SettingScreenViewController.swift in Sources */,
 				634A296723AB9E010002D3BA /* AppDelegate.swift in Sources */,
+				633D45B923AB9FF300FE24F1 /* HomeScreenViewController.swift in Sources */,
 				633D45AE23AB9EE700FE24F1 /* PlaceDao.swift in Sources */,
 				633D45B023AB9EE700FE24F1 /* UserDao.swift in Sources */,
 				634A296923AB9E010002D3BA /* SceneDelegate.swift in Sources */,
 				633D45AF23AB9EE700FE24F1 /* UserServices.swift in Sources */,
+				633D45C123ABA02000FE24F1 /* LoginScreenViewController.swift in Sources */,
 				633D45AD23AB9EE700FE24F1 /* PlaceServices.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
