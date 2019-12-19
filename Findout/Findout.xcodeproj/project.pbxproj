@@ -21,6 +21,16 @@
 		633D45BE23ABA01000FE24F1 /* PlacesScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633D45BC23ABA01000FE24F1 /* PlacesScreenViewController.xib */; };
 		633D45C123ABA02000FE24F1 /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45BF23ABA02000FE24F1 /* LoginScreenViewController.swift */; };
 		633D45C223ABA02000FE24F1 /* LoginScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633D45C023ABA02000FE24F1 /* LoginScreenViewController.xib */; };
+		633D45C423ABBAD500FE24F1 /* ActivityServicies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45C323ABBAD500FE24F1 /* ActivityServicies.swift */; };
+		633D45C723ABBC1900FE24F1 /* ActivityDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45C623ABBC1900FE24F1 /* ActivityDao.swift */; };
+		633D45CA23ABC55400FE24F1 /* CategoriesDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45C923ABC55400FE24F1 /* CategoriesDao.swift */; };
+		633D45CC23ABC6F800FE24F1 /* CategoryServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45CB23ABC6F800FE24F1 /* CategoryServices.swift */; };
+		633D45D123ABC77800FE24F1 /* CommentDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45D023ABC77800FE24F1 /* CommentDao.swift */; };
+		633D45D323ABC89B00FE24F1 /* CommentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45D223ABC89B00FE24F1 /* CommentServices.swift */; };
+		633D45DB23ABCB8B00FE24F1 /* FavPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45DA23ABCB8B00FE24F1 /* FavPlace.swift */; };
+		633D45DD23ABCBDE00FE24F1 /* FavPlaceServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45DC23ABCBDE00FE24F1 /* FavPlaceServices.swift */; };
+		633D45E023ABCC4A00FE24F1 /* DisponibilityDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45DF23ABCC4A00FE24F1 /* DisponibilityDao.swift */; };
+		633D45E223ABCE0500FE24F1 /* DisponibilityServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45E123ABCE0500FE24F1 /* DisponibilityServices.swift */; };
 		634A296723AB9E010002D3BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A296623AB9E010002D3BA /* AppDelegate.swift */; };
 		634A296923AB9E010002D3BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A296823AB9E010002D3BA /* SceneDelegate.swift */; };
 		634A296B23AB9E010002D3BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A296A23AB9E010002D3BA /* ViewController.swift */; };
@@ -44,6 +54,16 @@
 		633D45BC23ABA01000FE24F1 /* PlacesScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlacesScreenViewController.xib; sourceTree = "<group>"; };
 		633D45BF23ABA02000FE24F1 /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
 		633D45C023ABA02000FE24F1 /* LoginScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginScreenViewController.xib; sourceTree = "<group>"; };
+		633D45C323ABBAD500FE24F1 /* ActivityServicies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityServicies.swift; sourceTree = "<group>"; };
+		633D45C623ABBC1900FE24F1 /* ActivityDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDao.swift; sourceTree = "<group>"; };
+		633D45C923ABC55400FE24F1 /* CategoriesDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesDao.swift; sourceTree = "<group>"; };
+		633D45CB23ABC6F800FE24F1 /* CategoryServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryServices.swift; sourceTree = "<group>"; };
+		633D45D023ABC77800FE24F1 /* CommentDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDao.swift; sourceTree = "<group>"; };
+		633D45D223ABC89B00FE24F1 /* CommentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentServices.swift; sourceTree = "<group>"; };
+		633D45DA23ABCB8B00FE24F1 /* FavPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavPlace.swift; sourceTree = "<group>"; };
+		633D45DC23ABCBDE00FE24F1 /* FavPlaceServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavPlaceServices.swift; sourceTree = "<group>"; };
+		633D45DF23ABCC4A00FE24F1 /* DisponibilityDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisponibilityDao.swift; sourceTree = "<group>"; };
+		633D45E123ABCE0500FE24F1 /* DisponibilityServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisponibilityServices.swift; sourceTree = "<group>"; };
 		634A296323AB9E010002D3BA /* Findout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Findout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		634A296623AB9E010002D3BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		634A296823AB9E010002D3BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +135,11 @@
 		633D459F23AB9EE700FE24F1 /* Domains */ = {
 			isa = PBXGroup;
 			children = (
+				633D45DE23ABCC3000FE24F1 /* Disponibilities */,
+				633D45D923ABCB7800FE24F1 /* Favorite Places */,
+				633D45CF23ABC74100FE24F1 /* Comments */,
+				633D45C823ABC53C00FE24F1 /* Categories */,
+				633D45C523ABBC0700FE24F1 /* Activities */,
 				633D45A023AB9EE700FE24F1 /* Places */,
 				633D45A323AB9EE700FE24F1 /* User */,
 			);
@@ -178,6 +203,51 @@
 				633D45AC23AB9EE700FE24F1 /* UserAPIService.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		633D45C523ABBC0700FE24F1 /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				633D45C323ABBAD500FE24F1 /* ActivityServicies.swift */,
+				633D45C623ABBC1900FE24F1 /* ActivityDao.swift */,
+			);
+			path = Activities;
+			sourceTree = "<group>";
+		};
+		633D45C823ABC53C00FE24F1 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				633D45C923ABC55400FE24F1 /* CategoriesDao.swift */,
+				633D45CB23ABC6F800FE24F1 /* CategoryServices.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		633D45CF23ABC74100FE24F1 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				633D45D023ABC77800FE24F1 /* CommentDao.swift */,
+				633D45D223ABC89B00FE24F1 /* CommentServices.swift */,
+			);
+			path = Comments;
+			sourceTree = "<group>";
+		};
+		633D45D923ABCB7800FE24F1 /* Favorite Places */ = {
+			isa = PBXGroup;
+			children = (
+				633D45DA23ABCB8B00FE24F1 /* FavPlace.swift */,
+				633D45DC23ABCBDE00FE24F1 /* FavPlaceServices.swift */,
+			);
+			path = "Favorite Places";
+			sourceTree = "<group>";
+		};
+		633D45DE23ABCC3000FE24F1 /* Disponibilities */ = {
+			isa = PBXGroup;
+			children = (
+				633D45DF23ABCC4A00FE24F1 /* DisponibilityDao.swift */,
+				633D45E123ABCE0500FE24F1 /* DisponibilityServices.swift */,
+			);
+			path = Disponibilities;
 			sourceTree = "<group>";
 		};
 		634A295A23AB9E010002D3BA = {
@@ -288,18 +358,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				633D45D123ABC77800FE24F1 /* CommentDao.swift in Sources */,
 				633D45BD23ABA01000FE24F1 /* PlacesScreenViewController.swift in Sources */,
 				633D45B123AB9EE700FE24F1 /* PlaceAPIService.swift in Sources */,
+				633D45C423ABBAD500FE24F1 /* ActivityServicies.swift in Sources */,
+				633D45DB23ABCB8B00FE24F1 /* FavPlace.swift in Sources */,
 				633D45B223AB9EE700FE24F1 /* UserAPIService.swift in Sources */,
 				634A296B23AB9E010002D3BA /* ViewController.swift in Sources */,
 				633D45B523AB9FE300FE24F1 /* SettingScreenViewController.swift in Sources */,
+				633D45DD23ABCBDE00FE24F1 /* FavPlaceServices.swift in Sources */,
 				634A296723AB9E010002D3BA /* AppDelegate.swift in Sources */,
 				633D45B923AB9FF300FE24F1 /* HomeScreenViewController.swift in Sources */,
+				633D45E223ABCE0500FE24F1 /* DisponibilityServices.swift in Sources */,
+				633D45CA23ABC55400FE24F1 /* CategoriesDao.swift in Sources */,
 				633D45AE23AB9EE700FE24F1 /* PlaceDao.swift in Sources */,
 				633D45B023AB9EE700FE24F1 /* UserDao.swift in Sources */,
+				633D45E023ABCC4A00FE24F1 /* DisponibilityDao.swift in Sources */,
 				634A296923AB9E010002D3BA /* SceneDelegate.swift in Sources */,
 				633D45AF23AB9EE700FE24F1 /* UserServices.swift in Sources */,
+				633D45CC23ABC6F800FE24F1 /* CategoryServices.swift in Sources */,
+				633D45D323ABC89B00FE24F1 /* CommentServices.swift in Sources */,
 				633D45C123ABA02000FE24F1 /* LoginScreenViewController.swift in Sources */,
+				633D45C723ABBC1900FE24F1 /* ActivityDao.swift in Sources */,
 				633D45AD23AB9EE700FE24F1 /* PlaceServices.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
