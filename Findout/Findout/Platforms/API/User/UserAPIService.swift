@@ -8,6 +8,6 @@
 
 import Foundation
 
-class UserAPIService: UserServices{
+class UserAPIService{
     
 }

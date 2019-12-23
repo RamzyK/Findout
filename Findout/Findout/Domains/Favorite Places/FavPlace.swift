@@ -10,8 +10,8 @@ import Foundation
 
 
 struct FavPlace {
-    var id_place String = ""
-    var id_user String = ""
+    var id_place: String = ""
+    var id_user: String = ""
     
     
     init(placeId: String, userId: String){

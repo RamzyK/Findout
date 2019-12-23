@@ -24,7 +24,7 @@ struct DisponibilityDao {
                 let date = jsonResponse["date"] as? String,
                 let start = jsonResponse["start_time"] as? String,
                 let end = jsonResponse["end_time"] as? String,
-                let placesCount = jsonResponse["nb_places"] as? String,
+                let placesCount = jsonResponse["nb_places"] as? Int,
                 let userId = jsonResponse["id_user"] as? String,
                 let placeId = jsonResponse["id_place"] as? String else{
                 return
@@ -32,7 +32,7 @@ struct DisponibilityDao {
         
         self.id_disponibility = dispoId
         self.date = date
-        self.start_time = start
+        self.startTime = start
         self.endTime = end
         self.nbPlace = placesCount
         self.id_user = userId

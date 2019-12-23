@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+protocol CategoryServices {
+    func getAll(completion: @escaping ([CategoryDao]) -> Void);
+    func getById(_ id: String, completion: @escaping (CategoryDao?) -> Void);
+    func create(cat: CategoryDao);
+}
