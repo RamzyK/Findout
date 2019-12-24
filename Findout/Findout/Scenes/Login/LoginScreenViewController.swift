@@ -15,6 +15,11 @@ class LoginScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "FINDOUT"
+        self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2193810642, green: 0.7583789825, blue: 0.4023743272, alpha: 1)
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        
         passwordTf.isSecureTextEntry = true
     }
     
@@ -23,6 +28,6 @@ class LoginScreenViewController: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
-        self.navigationController?.pushViewController(CategoriesListViewController(), animated: true)
+        self.navigationController?.pushViewController(ActivityViewController(), animated: true)
     }
 }

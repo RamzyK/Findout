@@ -10,18 +10,41 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ER_TYPE_CELL" id="gTV-IL-0wX" customClass="CategoryCollectionViewCell" customModule="Findout" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6g4-pa-BtL">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="CATEGORY_CELL" translatesAutoresizingMaskIntoConstraints="NO" id="PXh-ai-8AD">
+                                <rect key="frame" x="40" y="17" width="70" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="fh7-vW-qMW"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIl-Hh-KMA">
+                                <rect key="frame" x="20" y="75" width="110" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Zkk-Pb-cKt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="200" id="8fQ-Wm-Vgt"/>
-                            <constraint firstAttribute="height" constant="200" id="A52-zY-tqo"/>
+                            <constraint firstItem="PXh-ai-8AD" firstAttribute="top" secondItem="6g4-pa-BtL" secondAttribute="top" constant="17" id="07D-FO-Gjc"/>
+                            <constraint firstAttribute="trailing" secondItem="PXh-ai-8AD" secondAttribute="trailing" constant="40" id="0AJ-xM-FLX"/>
+                            <constraint firstItem="PXh-ai-8AD" firstAttribute="leading" secondItem="6g4-pa-BtL" secondAttribute="leading" constant="40" id="105-6i-Wxf"/>
+                            <constraint firstItem="PIl-Hh-KMA" firstAttribute="leading" secondItem="6g4-pa-BtL" secondAttribute="leading" constant="20" id="22j-H2-OEm"/>
+                            <constraint firstAttribute="width" constant="150" id="8fQ-Wm-Vgt"/>
+                            <constraint firstAttribute="height" constant="150" id="A52-zY-tqo"/>
+                            <constraint firstItem="PIl-Hh-KMA" firstAttribute="top" secondItem="PXh-ai-8AD" secondAttribute="bottom" constant="8" id="VIY-n6-Owr"/>
+                            <constraint firstAttribute="trailing" secondItem="PIl-Hh-KMA" secondAttribute="trailing" constant="20" id="cCC-0M-Eul"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -34,6 +57,10 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="50" height="50"/>
+            <connections>
+                <outlet property="categoryImage" destination="PXh-ai-8AD" id="U7j-3z-0JL"/>
+                <outlet property="categoryName" destination="PIl-Hh-KMA" id="z9C-8P-1HY"/>
+            </connections>
             <point key="canvasLocation" x="-263.768115942029" y="-117.85714285714285"/>
         </collectionViewCell>
     </objects>

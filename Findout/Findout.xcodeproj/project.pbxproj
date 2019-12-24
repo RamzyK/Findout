@@ -41,6 +41,9 @@
 		633D45E223ABCE0500FE24F1 /* DisponibilityServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45E123ABCE0500FE24F1 /* DisponibilityServices.swift */; };
 		634A296723AB9E010002D3BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A296623AB9E010002D3BA /* AppDelegate.swift */; };
 		634A297023AB9E030002D3BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 634A296F23AB9E030002D3BA /* Assets.xcassets */; };
+		6368378723B259750042D6F5 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368378523B259750042D6F5 /* ActivityViewController.swift */; };
+		6368378823B259750042D6F5 /* ActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6368378623B259750042D6F5 /* ActivityViewController.xib */; };
+		6368378B23B265620042D6F5 /* ActivityMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368378A23B265620042D6F5 /* ActivityMockServices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +84,9 @@
 		634A296F23AB9E030002D3BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		634A297223AB9E030002D3BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		634A297423AB9E030002D3BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6368378523B259750042D6F5 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		6368378623B259750042D6F5 /* ActivityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityViewController.xib; sourceTree = "<group>"; };
+		6368378A23B265620042D6F5 /* ActivityMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMockServices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +147,7 @@
 		633D459A23AB9EE700FE24F1 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				6368378423B259390042D6F5 /* Activities */,
 				631BCEE223B10208003FC0CE /* Categories */,
 				633D459E23AB9EE700FE24F1 /* Login */,
 				631BCEDD23B0FC12003FC0CE /* Signup */,
@@ -231,6 +238,7 @@
 		633D45A723AB9EE700FE24F1 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				6368378923B2654C0042D6F5 /* Activities */,
 				631BCED823B0E6F3003FC0CE /* Categories */,
 				631BCED523B0E349003FC0CE /* User */,
 			);
@@ -337,6 +345,23 @@
 			path = Findout;
 			sourceTree = "<group>";
 		};
+		6368378423B259390042D6F5 /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				6368378523B259750042D6F5 /* ActivityViewController.swift */,
+				6368378623B259750042D6F5 /* ActivityViewController.xib */,
+			);
+			path = Activities;
+			sourceTree = "<group>";
+		};
+		6368378923B2654C0042D6F5 /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				6368378A23B265620042D6F5 /* ActivityMockServices.swift */,
+			);
+			path = Activities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -395,6 +420,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6368378823B259750042D6F5 /* ActivityViewController.xib in Resources */,
 				631BCEE123B0FC28003FC0CE /* SignupViewController.xib in Resources */,
 				633D45C223ABA02000FE24F1 /* LoginScreenViewController.xib in Resources */,
 				633D45B623AB9FE300FE24F1 /* SettingScreenViewController.xib in Resources */,
@@ -417,9 +443,11 @@
 				633D45BD23ABA01000FE24F1 /* PlacesScreenViewController.swift in Sources */,
 				633D45B123AB9EE700FE24F1 /* PlaceAPIService.swift in Sources */,
 				633D45C423ABBAD500FE24F1 /* ActivityServicies.swift in Sources */,
+				6368378723B259750042D6F5 /* ActivityViewController.swift in Sources */,
 				633D45DB23ABCB8B00FE24F1 /* FavPlace.swift in Sources */,
 				633D45B223AB9EE700FE24F1 /* UserAPIService.swift in Sources */,
 				631BCEEB23B10C0B003FC0CE /* CategoryCollectionViewCell.swift in Sources */,
+				6368378B23B265620042D6F5 /* ActivityMockServices.swift in Sources */,
 				633D45B523AB9FE300FE24F1 /* SettingScreenViewController.swift in Sources */,
 				633D45DD23ABCBDE00FE24F1 /* FavPlaceServices.swift in Sources */,
 				634A296723AB9E010002D3BA /* AppDelegate.swift in Sources */,

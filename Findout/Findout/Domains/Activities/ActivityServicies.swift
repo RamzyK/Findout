@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+protocol ActivityServices {
+    func getAll(completion: @escaping ([ActivityDao]) -> Void);
+    func create(cat: ActivityDao);
+}
+

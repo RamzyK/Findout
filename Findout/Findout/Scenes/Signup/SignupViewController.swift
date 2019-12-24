@@ -20,7 +20,7 @@ class SignupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // TODO: METTRE LES CHAMPS DANS UNE SRCOLL VIEW POUR GERER L4APPARITION DU CLAVIER
         // Do any additional setup after loading the view.
     }
 

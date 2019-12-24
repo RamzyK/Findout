@@ -7,9 +7,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoriesListViewController" customModule="Findout" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActivityViewController" customModule="Findout" customModuleProvider="target">
             <connections>
-                <outlet property="categoryGrid" destination="7Ij-BP-A2E" id="vJI-c8-QbF"/>
+                <outlet property="activitiesCollectionView" destination="8La-0l-yoi" id="heC-kZ-Bzh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,10 +18,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="7Ij-BP-A2E">
-                    <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8La-0l-yoi">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="40" minimumInteritemSpacing="30" id="QRT-cl-R5l">
+                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="40" minimumInteritemSpacing="30" id="Ff9-VE-8HU">
                         <size key="itemSize" width="150" height="150"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -29,14 +29,13 @@
                     </collectionViewFlowLayout>
                 </collectionView>
             </subviews>
-            <color key="backgroundColor" red="0.97253721950000005" green="0.97254294159999999" blue="0.97255772350000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="7Ij-BP-A2E" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="TMC-lc-uBJ"/>
-                <constraint firstItem="7Ij-BP-A2E" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Ulc-YD-kM6"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7Ij-BP-A2E" secondAttribute="trailing" id="dfs-B3-P9F"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="7Ij-BP-A2E" secondAttribute="bottom" id="e1P-nD-XB4"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8La-0l-yoi" secondAttribute="bottom" id="7Ne-Jx-W7N"/>
+                <constraint firstItem="8La-0l-yoi" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Sha-ip-9Cs"/>
+                <constraint firstItem="8La-0l-yoi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="U2U-J8-TfA"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8La-0l-yoi" secondAttribute="trailing" id="ZUY-vM-Lhm"/>
             </constraints>
-            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="139" y="137"/>
         </view>
