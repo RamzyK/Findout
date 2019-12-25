@@ -60,7 +60,7 @@ extension CategoriesListViewController: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        self.navigationController?.pushViewController(PlacesScreenViewController(), animated: true)
     }
     
 }

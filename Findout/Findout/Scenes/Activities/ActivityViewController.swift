@@ -38,9 +38,7 @@ class ActivityViewController: UIViewController {
         self.activityServices.getAll { (list) in
             self.activityList = list
         }
-        
     }
-
 }
 
 

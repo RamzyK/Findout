@@ -9,5 +9,17 @@
 import Foundation
 
 class PlaceAPIService: PlaceServices{
+    func getAll(completion: @escaping ([PlaceDao]) -> Void) {
+        
+    }
+    
+    func getById(_ id: String, completion: @escaping (PlaceDao?) -> Void) {
+        
+    }
+    
+    func create(place: PlaceDao) {
+        
+    }
+    
     
 }

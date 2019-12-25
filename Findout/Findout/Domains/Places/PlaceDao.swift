@@ -7,27 +7,30 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct PlaceDao {
     
      var id_place: String = ""
      var name: String = ""
-     var coordinate: [String: Float] = [:]
+     var coordinate: [String: Double] = [:]
+     var location: CLLocation
      var nb_seat: Int = 0
      var nb_seat_free: Int = 0
      var address: String = ""
-     var disponibilityStartTime: DisponibilityDao?
-    var disponibilityEndTime: DisponibilityDao?
+     var disponibilityStartTime: String?
+     var disponibilityEndTime: String?
      var id_notation_list: String = ""
      var id_user: String = ""
-     
+
     init?(jsonResponse: [String: Any]){
+        location = CLLocation()
         guard let idPlace = jsonResponse["id_place"] as? String,
                 let placeName = jsonResponse["name"] as? String,
-                let coordinates = jsonResponse["coordinate"] as? [String: Float],
+                let coordinates = jsonResponse["coordinate"] as? [String: Double],
                 let nbSeat = jsonResponse["nb_seat"] as? Int,
                 let nbSeatFree = jsonResponse["nb_seat_free"] as? Int,
-                let placeAdress = jsonResponse["adress"] as? String,
+                let placeAdress = jsonResponse["address"] as? String,
                 let idNotationList = jsonResponse["id_nnotation_list"] as? String,
                 let idUser = jsonResponse["id_user"] as? String else{
                 return
@@ -36,11 +39,28 @@ struct PlaceDao {
         self.id_place = idPlace
         self.name = placeName
         self.coordinate = coordinates
+        self.location = CLLocation(latitude: self.coordinate["lat"]!, longitude: self.coordinate["long"]!)
+        //self.location = CLLocation(latitude: 48.849329, longitude: 2.3875453)
         self.nb_seat = nbSeat
         self.nb_seat_free = nbSeatFree
         self.address = placeAdress
         self.id_notation_list = idNotationList
         self.id_user = idUser
+        
+    }
+    
+    init(id_place: String, placeName: String, coordinates: [String: Double], nb_seat: Int, nb_seat_free: Int, address: String, disponibilityStartTime: String?, disponibilityEndTime: String?, id_notation_list: String, id_user: String) {
+        self.id_place = id_place
+        self.name = placeName
+        self.coordinate = coordinates
+        self.nb_seat = nb_seat
+        self.nb_seat_free = nb_seat_free
+        self.address = address
+        self.location = CLLocation(latitude: coordinates["lat"]!, longitude: coordinates["long"]!)
+        self.disponibilityStartTime = disponibilityStartTime
+        self.disponibilityEndTime = disponibilityEndTime
+        self.id_notation_list = id_notation_list
+        self.id_user = id_user
         
     }
 }

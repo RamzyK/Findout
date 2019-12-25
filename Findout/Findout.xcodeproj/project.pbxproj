@@ -44,6 +44,8 @@
 		6368378723B259750042D6F5 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368378523B259750042D6F5 /* ActivityViewController.swift */; };
 		6368378823B259750042D6F5 /* ActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6368378623B259750042D6F5 /* ActivityViewController.xib */; };
 		6368378B23B265620042D6F5 /* ActivityMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368378A23B265620042D6F5 /* ActivityMockServices.swift */; };
+		6368378F23B3A47A0042D6F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6368378E23B3A47A0042D6F5 /* MapKit.framework */; };
+		63C759DE23B3AC630019247E /* PlaceMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C759DD23B3AC630019247E /* PlaceMockServices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +89,8 @@
 		6368378523B259750042D6F5 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		6368378623B259750042D6F5 /* ActivityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityViewController.xib; sourceTree = "<group>"; };
 		6368378A23B265620042D6F5 /* ActivityMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMockServices.swift; sourceTree = "<group>"; };
+		6368378E23B3A47A0042D6F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		63C759DD23B3AC630019247E /* PlaceMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMockServices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6368378F23B3A47A0042D6F5 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +152,7 @@
 		633D459A23AB9EE700FE24F1 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				6368378C23B3A2E40042D6F5 /* Map */,
 				6368378423B259390042D6F5 /* Activities */,
 				631BCEE223B10208003FC0CE /* Categories */,
 				633D459E23AB9EE700FE24F1 /* Login */,
@@ -179,8 +185,6 @@
 		633D459D23AB9EE700FE24F1 /* Place */ = {
 			isa = PBXGroup;
 			children = (
-				633D45BB23ABA01000FE24F1 /* PlacesScreenViewController.swift */,
-				633D45BC23ABA01000FE24F1 /* PlacesScreenViewController.xib */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -238,6 +242,7 @@
 		633D45A723AB9EE700FE24F1 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				63C759DC23B3AC1F0019247E /* Places */,
 				6368378923B2654C0042D6F5 /* Activities */,
 				631BCED823B0E6F3003FC0CE /* Categories */,
 				631BCED523B0E349003FC0CE /* User */,
@@ -320,6 +325,7 @@
 			children = (
 				634A296523AB9E010002D3BA /* Findout */,
 				634A296423AB9E010002D3BA /* Products */,
+				6368378D23B3A47A0042D6F5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -360,6 +366,31 @@
 				6368378A23B265620042D6F5 /* ActivityMockServices.swift */,
 			);
 			path = Activities;
+			sourceTree = "<group>";
+		};
+		6368378C23B3A2E40042D6F5 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				633D45BB23ABA01000FE24F1 /* PlacesScreenViewController.swift */,
+				633D45BC23ABA01000FE24F1 /* PlacesScreenViewController.xib */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		6368378D23B3A47A0042D6F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6368378E23B3A47A0042D6F5 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		63C759DC23B3AC1F0019247E /* Places */ = {
+			isa = PBXGroup;
+			children = (
+				63C759DD23B3AC630019247E /* PlaceMockServices.swift */,
+			);
+			path = Places;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -463,6 +494,7 @@
 				631BCEE023B0FC28003FC0CE /* SignupViewController.swift in Sources */,
 				633D45D323ABC89B00FE24F1 /* CommentServices.swift in Sources */,
 				631BCEE623B1023A003FC0CE /* CategoriesListViewController.swift in Sources */,
+				63C759DE23B3AC630019247E /* PlaceMockServices.swift in Sources */,
 				633D45C123ABA02000FE24F1 /* LoginScreenViewController.swift in Sources */,
 				633D45C723ABBC1900FE24F1 /* ActivityDao.swift in Sources */,
 				631BCED723B0E3D8003FC0CE /* UserMockServices.swift in Sources */,

@@ -22,8 +22,8 @@ class ActivityMockServices: ActivityServices{
     }
     
     
-    func create(cat: ActivityDao) {
-        self.categories.append(cat)
+    func create(activity: ActivityDao) {
+        self.categories.append(activity)
     }
     
     
