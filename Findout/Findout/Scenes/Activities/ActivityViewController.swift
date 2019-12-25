@@ -35,20 +35,9 @@ class ActivityViewController: UIViewController {
         self.activitiesCollectionView.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil),
         forCellWithReuseIdentifier: "CATEGORY_CELL")
         
-        let addActivityButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchAddButton))
-        addActivityButton.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        
-        self.navigationItem.rightBarButtonItems = [
-            addActivityButton
-        ]
         self.activityServices.getAll { (list) in
             self.activityList = list
         }
-        
-    }
-    
-    @objc func touchAddButton(){
-        self.activityList.append(ActivityDao(activityName: "KELBAI", activityId: "2222", catListId: ""))
         
     }
 
