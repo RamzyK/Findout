@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E0377F023B3A4C000059D11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E0377F223B3A4C000059D11 /* Localizable.strings */; };
 		631BCED723B0E3D8003FC0CE /* UserMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BCED623B0E3D8003FC0CE /* UserMockServices.swift */; };
 		631BCEDA23B0E70A003FC0CE /* CategoriesMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BCED923B0E70A003FC0CE /* CategoriesMockServices.swift */; };
 		631BCEE023B0FC28003FC0CE /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BCEDE23B0FC28003FC0CE /* SignupViewController.swift */; };
@@ -49,6 +50,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E0377F123B3A4C000059D11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5E0377F323B3A4D500059D11 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		631BCED623B0E3D8003FC0CE /* UserMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMockServices.swift; sourceTree = "<group>"; };
 		631BCED923B0E70A003FC0CE /* CategoriesMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesMockServices.swift; sourceTree = "<group>"; };
 		631BCEDE23B0FC28003FC0CE /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -347,6 +350,7 @@
 				634A296F23AB9E030002D3BA /* Assets.xcassets */,
 				634A297123AB9E030002D3BA /* LaunchScreen.storyboard */,
 				634A297423AB9E030002D3BA /* Info.plist */,
+				5E0377F223B3A4C000059D11 /* Localizable.strings */,
 			);
 			path = Findout;
 			sourceTree = "<group>";
@@ -435,6 +439,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 634A295A23AB9E010002D3BA;
 			productRefGroup = 634A296423AB9E010002D3BA /* Products */;
@@ -456,6 +461,7 @@
 				633D45C223ABA02000FE24F1 /* LoginScreenViewController.xib in Resources */,
 				633D45B623AB9FE300FE24F1 /* SettingScreenViewController.xib in Resources */,
 				633D45BA23AB9FF300FE24F1 /* HomeScreenViewController.xib in Resources */,
+				5E0377F023B3A4C000059D11 /* Localizable.strings in Resources */,
 				631BCEEC23B10C0B003FC0CE /* CategoryCollectionViewCell.xib in Resources */,
 				634A297023AB9E030002D3BA /* Assets.xcassets in Resources */,
 				633D45BE23ABA01000FE24F1 /* PlacesScreenViewController.xib in Resources */,
@@ -505,6 +511,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		5E0377F223B3A4C000059D11 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5E0377F123B3A4C000059D11 /* en */,
+				5E0377F323B3A4D500059D11 /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		634A297123AB9E030002D3BA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -520,6 +535,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -566,7 +582,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -580,6 +596,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -620,7 +637,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

@@ -23,13 +23,22 @@ class ActivityViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        setupView()
+        setupActivityCollectionView()
+    }
+    
+    func setupView() {
+        self.title = NSLocalizedString("activities.title", comment: "")
+        setupNavigationBar()
+    }
+    
+    func setupNavigationBar() {
         self.navigationItem.setHidesBackButton(true, animated:true);
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2193810642, green: 0.7583789825, blue: 0.4023743272, alpha: 1)
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-
-
-        self.title = "Which activity?"
+    }
+    
+    func setupActivityCollectionView() {
         self.activitiesCollectionView.delegate = self
         self.activitiesCollectionView.dataSource = self
         self.activitiesCollectionView.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil),
