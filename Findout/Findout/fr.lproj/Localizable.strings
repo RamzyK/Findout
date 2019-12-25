@@ -21,6 +21,8 @@
 "signup.phoneLabel" = "Téléphone";
 "signup.signupButtonLabel" = "Continuer";
 
+"places.title" = "Carte";
+
 "activities.title" = "Quelle activité ?";
 
 "categories.title" = "Catégorie de ";

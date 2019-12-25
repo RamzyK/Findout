@@ -44,9 +44,7 @@ class PlacesScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.title = "Map"
-        self.navigationController?.navigationBar.topItem?.title = "";
+        setupNavigationBar()
         self.map.delegate = self
     }
     
@@ -54,6 +52,11 @@ class PlacesScreenViewController: UIViewController {
         self.placesServices.getAll { (placeList) in
             self.places = placeList
         }
+    }
+    
+    func setupNavigationBar() {
+        self.title = NSLocalizedString("places.title", comment: "")
+        self.navigationController?.navigationBar.topItem?.title = ""
     }
 }
 
