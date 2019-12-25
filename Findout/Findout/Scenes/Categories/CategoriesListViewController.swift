@@ -10,12 +10,12 @@ import UIKit
 
 class CategoriesListViewController: UIViewController {
         
-    @IBOutlet weak var categoryGrid: UICollectionView!
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
     var activityLabel = ""
     
     var categories: [CategoryDao] = [] {
         didSet {
-            self.categoryGrid.reloadData()
+            self.categoryCollectionView.reloadData()
         }
     }
     var categoriyServices: CategoryServices {
@@ -24,16 +24,26 @@ class CategoriesListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
+        setupNavigationBar()
+        setupCategoryCollectionView()
+    }
+    
+    func setupView() {
+        self.title = NSLocalizedString("categories.title", comment: "") + activityLabel
+    }
+    
+    func setupNavigationBar() {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2193810642, green: 0.7583789825, blue: 0.4023743272, alpha: 1)
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-
-        self.title = NSLocalizedString("categories.title", comment: "") + activityLabel
-        categoryGrid.delegate = self
-        categoryGrid.dataSource = self
-        self.categoryGrid.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil),
+    }
+    
+    func setupCategoryCollectionView() {
+        categoryCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
+        self.categoryCollectionView.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil),
         forCellWithReuseIdentifier: "CATEGORY_CELL")
         self.categoriyServices.getAll { (categoryList) in
             self.categories = categoryList

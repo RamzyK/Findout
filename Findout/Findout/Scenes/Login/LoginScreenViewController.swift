@@ -21,7 +21,12 @@ class LoginScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
+        setupNavigationBar()
+        passwordTf.isSecureTextEntry = true
+    }
+    
+    func setupView() {
         self.title = "FINDOUT"
         self.welcomeLabel.text = NSLocalizedString("login.welcomeLabel", comment: "")
         self.signinLabel.text = NSLocalizedString("login.signinLabel", comment: "")
@@ -29,10 +34,11 @@ class LoginScreenViewController: UIViewController {
         self.passwordLabel.text = NSLocalizedString("login.passwordLabel", comment: "")
         self.emailLabel.text = NSLocalizedString("login.emailLabel", comment: "")
         self.loginButton.setTitle( NSLocalizedString("login.loginButtonLabel", comment: ""), for: .normal)
+    }
+    
+    func setupNavigationBar() {
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2193810642, green: 0.7583789825, blue: 0.4023743272, alpha: 1)
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        passwordTf.isSecureTextEntry = true
     }
     
     @IBAction func goToSignup(_ sender: Any) {

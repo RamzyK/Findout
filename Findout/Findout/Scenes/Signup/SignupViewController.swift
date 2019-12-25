@@ -29,6 +29,17 @@ class SignupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+        // TODO: METTRE LES CHAMPS DANS UNE SRCOLL VIEW POUR GERER L4APPARITION DU CLAVIER
+        // Do any additional setup after loading the view.
+    }
+
+    @IBAction func signup(_ sender: Any) {
+        // Sign user up
+        // Create new user
+    }
+    
+    func setupView() {
         self.signupLabel.text = NSLocalizedString("signup.signupLabel", comment: "")
         self.nameLabel.text = NSLocalizedString("signup.nameLabel", comment: "")
         self.lastnameLabel.text = NSLocalizedString("signup.lastnameLabel", comment: "")
@@ -37,12 +48,5 @@ class SignupViewController: UIViewController {
         self.birthdateLabel.text = NSLocalizedString("signup.birthdateLabel", comment: "")
         self.phoneLabel.text = NSLocalizedString("signup.phoneLabel", comment: "")
         self.signupButton.setTitle(NSLocalizedString("signup.signupButtonLabel", comment: ""), for: .normal)
-        // TODO: METTRE LES CHAMPS DANS UNE SRCOLL VIEW POUR GERER L4APPARITION DU CLAVIER
-        // Do any additional setup after loading the view.
-    }
-
-    @IBAction func signup(_ sender: Any) {
-        // Sign user up
-        // Create new user
     }
 }
