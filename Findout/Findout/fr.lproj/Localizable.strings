@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  Findout
+
+  Created by Nassim Morouche on 25/12/2019.
+  Copyright © 2019 Ramzy Kermad. All rights reserved.
+*/
+"login.welcomeLabel" = "Bienvenue";
+"login.signinLabel" = "Connecte toi pour continuer";
+"login.signupButtonLabel" = "S'inscrire";
+"login.passwordLabel" = "Mot de passe";
+"login.emailLabel" = "Courriel";
+"login.loginButtonLabel" = "Se connecter";
+
+"signup.signupLabel" = "S'inscrire";
+"signup.nameLabel" = "Prénom *";
+"signup.lastnameLabel" = "Nom *";
+"signup.emailLabel" = "Courriel *";
+"signup.passwordLabel" = "Mot de passe *";
+"signup.birthdateLabel" = "Date de naissance";
+"signup.phoneLabel" = "Téléphone";
+"signup.signupButtonLabel" = "Continuer";
+
+"activities.title" = "Quelle activité ?";
+
+"categories.title" = "Catégorie de ";

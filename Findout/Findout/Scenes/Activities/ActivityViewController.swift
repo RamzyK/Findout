@@ -29,7 +29,7 @@ class ActivityViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
 
 
-        self.title = "Which activity?"
+        self.title = NSLocalizedString("activities.title", comment: "")
         self.activitiesCollectionView.delegate = self
         self.activitiesCollectionView.dataSource = self
         self.activitiesCollectionView.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil),

@@ -30,7 +30,7 @@ class CategoriesListViewController: UIViewController {
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2193810642, green: 0.7583789825, blue: 0.4023743272, alpha: 1)
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
 
-        self.title = "Categories of " + activityLabel
+        self.title = NSLocalizedString("categories.title", comment: "") + activityLabel
         categoryGrid.delegate = self
         categoryGrid.dataSource = self
         self.categoryGrid.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil),
