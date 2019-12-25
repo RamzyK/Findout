@@ -10,6 +10,7 @@ import UIKit
 
 class SignupViewController: UIViewController {
     
+    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var signupLabel: UILabel!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var lastnameLabel: UILabel!
@@ -30,8 +31,17 @@ class SignupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        // TODO: METTRE LES CHAMPS DANS UNE SRCOLL VIEW POUR GERER L4APPARITION DU CLAVIER
-        // Do any additional setup after loading the view.
+        hideKeyboard()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addObservers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeObserver()
     }
 
     @IBAction func signup(_ sender: Any) {
@@ -48,5 +58,41 @@ class SignupViewController: UIViewController {
         self.birthdateLabel.text = NSLocalizedString("signup.birthdateLabel", comment: "")
         self.phoneLabel.text = NSLocalizedString("signup.phoneLabel", comment: "")
         self.signupButton.setTitle(NSLocalizedString("signup.signupButtonLabel", comment: ""), for: .normal)
+    }
+    
+    func addObservers() {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { notification in
+            self.keyboardWillHide(notification: notification)
+        }
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { notification in
+            self.keyboardWillShow(notification: notification)
+        }
+    }
+    
+    func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func hideKeyboard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let frame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+        }
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+        scrollView.contentInset = contentInset
+    }
+    
+    func keyboardWillHide(notification: Notification) {
+        scrollView.contentInset = UIEdgeInsets.zero
+    }
+    
+    @objc
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

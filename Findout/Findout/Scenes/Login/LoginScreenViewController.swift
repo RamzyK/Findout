@@ -23,6 +23,7 @@ class LoginScreenViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupNavigationBar()
+        hideKeyboard()
         passwordTf.isSecureTextEntry = true
     }
     
@@ -39,6 +40,16 @@ class LoginScreenViewController: UIViewController {
     func setupNavigationBar() {
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2193810642, green: 0.7583789825, blue: 0.4023743272, alpha: 1)
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+    }
+    
+    func hideKeyboard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @IBAction func goToSignup(_ sender: Any) {
