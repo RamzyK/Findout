@@ -32,6 +32,7 @@ class SignupViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         hideKeyboard()
+        setupCloseButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,6 +90,21 @@ class SignupViewController: UIViewController {
     
     func keyboardWillHide(notification: Notification) {
         scrollView.contentInset = UIEdgeInsets.zero
+    }
+    
+    func setupCloseButton() {
+        let closeButton = UIButton(frame: CGRect(x: 5, y: 40, width: 40, height: 40))
+        closeButton.setTitle("\u{2715}", for: .normal)
+        closeButton.setTitleColor(UIColor.black, for: .normal)
+        closeButton.addTarget(self, action: #selector(dismissScreen), for: .touchUpInside)
+        closeButton.backgroundColor = UIColor.clear
+        self.scrollView.addSubview(closeButton)
+    }
+    
+    @objc
+    func dismissScreen() {
+        self.dismiss(animated: true) {
+        }
     }
     
     @objc
