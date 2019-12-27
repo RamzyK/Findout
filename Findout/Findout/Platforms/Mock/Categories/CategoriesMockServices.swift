@@ -11,13 +11,13 @@ import Foundation
 class CategoryMockServices: CategoryServices{
     
     private var categories: [CategoryDao] = [
-        CategoryDao(name: "Sport", idCat: "1", idPlace: "1111"),
-        CategoryDao(name: "Détente", idCat: "2", idPlace: "222"),
-        CategoryDao(name: "Sortie", idCat: "3", idPlace: "333"),
-        CategoryDao(name: "Restaurant", idCat: "4", idPlace: "4444"),
-        CategoryDao(name: "Exposition", idCat: "5", idPlace: "5555"),
-        CategoryDao(name: "Bar/café", idCat: "6", idPlace: "6666"),
-        CategoryDao(name: "Plein air", idCat: "7", idPlace: "7777"),
+        CategoryDao(name: "Sport", imageUrl: "", idCat: "1", idPlace: "1111"),
+        CategoryDao(name: "Détente", imageUrl: "", idCat: "2", idPlace: "222"),
+        CategoryDao(name: "Sortie", imageUrl: "", idCat: "3", idPlace: "333"),
+        CategoryDao(name: "Restaurant", imageUrl: "", idCat: "4", idPlace: "4444"),
+        CategoryDao(name: "Exposition", imageUrl: "", idCat: "5", idPlace: "5555"),
+        CategoryDao(name: "Bar/café", imageUrl: "", idCat: "6", idPlace: "6666"),
+        CategoryDao(name: "Plein air", imageUrl: "", idCat: "7", idPlace: "7777"),
     ]
     
     func getAll(completion: @escaping ([CategoryDao]) -> Void) {

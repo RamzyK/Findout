@@ -10,25 +10,25 @@ import Foundation
 
 class PlacesMockServices: PlaceServices {
     private var allPlaces: [PlaceDao] = [
-        PlaceDao(id_place: "1111", placeName: "L'ESGI",
+        PlaceDao(id_place: "1111", place_Name: "L'ESGI",
                  coordinates: ["lat": 48.849329, "long": 2.3875453],
                  nb_seat: 10, nb_seat_free: 10,
                  address: "123 Avenue de ta grand mère",
-                 disponibilityStartTime: "DisponibilityDao", disponibilityEndTime: "",
+                 disponibility_start_time: "DisponibilityDao", disponibility_end_time: "",
                  id_notation_list: "1919", id_user: "1A1A"),
         
-        PlaceDao(id_place: "2222", placeName: "Boulbi",
-                coordinates: ["lat": 48.9460785, "long": 2.3168825],
-                nb_seat: 10, nb_seat_free: 10,
-                address: "123 Avenue de ton grand père",
-                disponibilityStartTime: "XXXX/XX/XX", disponibilityEndTime: "XXXX/XX/XX",
+        PlaceDao(id_place: "2222", place_Name: "Boulbi",
+                 coordinates: ["lat": 48.9460785, "long": 2.3168825],
+                 nb_seat: 10, nb_seat_free: 10,
+                 address: "123 Avenue de ton grand père",
+                 disponibility_start_time: "XXXX/XX/XX", disponibility_end_time: "XXXX/XX/XX",
                 id_notation_list: "2929", id_user: "2Z2Z"),
         
-        PlaceDao(id_place: "3333", placeName: "Gringny la grande borne",
+        PlaceDao(id_place: "3333", place_Name: "Gringny la grande borne",
                  coordinates: ["lat": 48.8580021, "long": 2.345054],
-                nb_seat: 10, nb_seat_free: 10,
-                address: "123 Avenue de ton daron",
-                disponibilityStartTime: "DisponibilityDao", disponibilityEndTime: "",
+                 nb_seat: 10, nb_seat_free: 10,
+                 address: "123 Avenue de ton daron",
+                 disponibility_start_time: "DisponibilityDao", disponibility_end_time: "",
                 id_notation_list: "3939", id_user: "3E3E"),
         
     ]

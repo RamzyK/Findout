@@ -35,7 +35,7 @@ struct CategoryDao {
     }
     
     init(name: String,imageUrl: String ,idCat: String, idPlace: String){
-        self.imageUrl = name
+        self.name = name
         self.imageUrl = imageUrl
         self.idCategory = idCat
         self.idPlaceList = idPlace

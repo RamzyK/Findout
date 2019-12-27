@@ -69,8 +69,11 @@ extension CategoriesListViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CATEGORY_CELL", for: indexPath) as! CategoryCollectionViewCell
-        self.categories[indexPath.row] cell.categoryImage.image = UIImage(named: "sport-category-icon")
-        cell.categoryName.text = self.categories[indexPath.row].name
+        if(self.categories[indexPath.row].imageUrl != ""){
+            cell.categoryImage.image = UIImage(named: "sport-category-icon")
+        }else{
+            cell.categoryImage.image = UIImage(named: "sport-category-icon")
+        }
         
         return cell
     }
