@@ -209,6 +209,10 @@ extension PlacesScreenViewController: MKMapViewDelegate {
     }
         
     @objc func touchCallout(_ sender: UIButton) {
+        self.placeName.text = self.places[sender.tag].name
+        self.placeAdress.text = self.places[sender.tag].address
+        self.placeRating.text = Int.random(in: 0...5).description + "/5"
+        
         self.showBottomSheet()
         let place = self.places[sender.tag]
         let geocoder = CLGeocoder()
