@@ -122,13 +122,13 @@ class PlacesScreenViewController: UIViewController {
     var placesServices: PlaceServices{
         return PlacesMockServices()
     }
+    var segmentedController: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         self.map.delegate = self
         closeBottomSheet.addTarget(self, action: #selector(hideBottomSheet(_:)), for: .touchUpInside)
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -137,7 +137,42 @@ class PlacesScreenViewController: UIViewController {
         }
         setBottomSheetView()
         self.setBottomSheetViewsConstraints()
-
+        self.setSegmentedControllerConstraints()
+    }
+    
+    private func setSegmentedControllerConstraints(){
+        let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
+        let segmentedControllerWidth = Int(self.view.frame.width - 140)
+        
+        let items = ["< 2 km", "< 5 km", "< 10 km", "All"]
+        segmentedController = UISegmentedControl(items: items)
+        segmentedController.addTarget(self, action: #selector(switchView), for: .valueChanged)
+        segmentedController.selectedSegmentIndex = 0
+        segmentedController.frame = CGRect(x: 70, y: navigationBarY + 20,
+                                width: segmentedControllerWidth, height: 40)
+        segmentedController.layer.cornerRadius = 5.0
+        segmentedController.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        segmentedController.tintColor = UIColor.secondarySystemBackground
+        self.view.addSubview(segmentedController)
+    }
+    
+    @objc func switchView(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            print("1er filtre")
+            break
+        case 1:
+            print("2eme filtre")
+            break
+        case 2:
+            print("3eme filtre")
+            break
+        case 3:
+            print("4eme filtre")
+            break
+        default:
+            break
+        }
     }
     
     private func setBottomSheetView(){
