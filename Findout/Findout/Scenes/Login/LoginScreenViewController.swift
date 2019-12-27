@@ -25,6 +25,12 @@ class LoginScreenViewController: UIViewController {
         setupNavigationBar()
         hideKeyboard()
         passwordTf.isSecureTextEntry = true
+        
+        emailTf.delegate = self
+        passwordTf.delegate = self
+    }
+    var userServices: UserServices{
+        return UserMockServices()
     }
     
     func setupView() {
@@ -57,6 +63,109 @@ class LoginScreenViewController: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
-        self.navigationController?.pushViewController(ActivityViewController(), animated: true)
+        if(checkIfUserExist()){
+            self.navigationController?.pushViewController(ActivityViewController(), animated: true)
+        }else{
+            print("User does not exist!")
+        }
+    }
+    
+    private func checkIfUserExist() -> Bool{
+        var userExist = false
+        if(isFormFilled()){
+            userServices.getAll { (users) in
+                let userInMocks = users.first(where: { (r) -> Bool in
+                    return r.email == self.emailTf.text
+                })
+                if(userInMocks != nil){
+                    userExist = true
+                }else{
+                    userExist = false
+                }
+            }
+        }else{
+            print("U must fill all the form befor signin")
+        }
+        return userExist
+    }
+    
+    private func isFormFilled() -> Bool{
+        guard let emailText = emailTf.text,
+            let passwordText = passwordTf.text else{
+                return false
+        }
+        if(emailText.count > 0 && passwordText.count > 0){
+            return true
+        }else{
+            checkOnWichTextFieldIsError()
+        }
+        return false
+    }
+    
+    private func checkOnWichTextFieldIsError(){
+        if(emailTf.text!.count == 0){
+            emailTf.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+        if(passwordTf.text!.count == 0){
+            passwordTf.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+    }
+}
+
+
+extension LoginScreenViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == self.emailTf {
+            self.passwordTf.becomeFirstResponder() // open keyboard
+        } else if textField == self.passwordTf {
+            self.passwordTf.resignFirstResponder() // close keyboard
+        }
+        return true
+    }
+    
+    // Check error
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case emailTf:
+            if(emailTf.text!.count > 0){
+                emailTf.layer.shadowOffset.height = 0
+            }
+            break
+        case passwordTf:
+            if(passwordTf.text!.count > 0){
+                passwordTf.layer.shadowOffset.height = 0
+            }
+            break
+        default:
+            break
+        }
+    }
+    
+}
+
+
+extension UITextField {
+    
+    func isError(baseColor: CGColor, numberOfShakes shakes: Float, revert: Bool) {
+        self.layer.shadowColor = baseColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 0.0
+        
+        let animation: CABasicAnimation = CABasicAnimation(keyPath: "shadowColor")
+        animation.fromValue = baseColor
+        animation.toValue = UIColor.red.cgColor
+        animation.duration = 0.4
+        if revert { animation.autoreverses = true } else { animation.autoreverses = false }
+        self.layer.add(animation, forKey: "")
+
+        let shake: CABasicAnimation = CABasicAnimation(keyPath: "position")
+        shake.duration = 0.07
+        shake.repeatCount = shakes
+        if revert { shake.autoreverses = true  } else { shake.autoreverses = false }
+        shake.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 10, y: self.center.y))
+        shake.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 10, y: self.center.y))
+        self.layer.add(shake, forKey: "position")
     }
 }

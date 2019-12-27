@@ -42,6 +42,8 @@
 		633D45E223ABCE0500FE24F1 /* DisponibilityServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45E123ABCE0500FE24F1 /* DisponibilityServices.swift */; };
 		634A296723AB9E010002D3BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A296623AB9E010002D3BA /* AppDelegate.swift */; };
 		634A297023AB9E030002D3BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 634A296F23AB9E030002D3BA /* Assets.xcassets */; };
+		634FFD0223B68B6800424409 /* TextFieldUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634FFD0123B68B6800424409 /* TextFieldUtils.swift */; };
+		634FFD0423B68BBC00424409 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634FFD0323B68BBC00424409 /* Validator.swift */; };
 		6368378723B259750042D6F5 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368378523B259750042D6F5 /* ActivityViewController.swift */; };
 		6368378823B259750042D6F5 /* ActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6368378623B259750042D6F5 /* ActivityViewController.xib */; };
 		6368378B23B265620042D6F5 /* ActivityMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368378A23B265620042D6F5 /* ActivityMockServices.swift */; };
@@ -90,6 +92,8 @@
 		634A296F23AB9E030002D3BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		634A297223AB9E030002D3BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		634A297423AB9E030002D3BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		634FFD0123B68B6800424409 /* TextFieldUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldUtils.swift; sourceTree = "<group>"; };
+		634FFD0323B68BBC00424409 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		6368378523B259750042D6F5 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		6368378623B259750042D6F5 /* ActivityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityViewController.xib; sourceTree = "<group>"; };
 		6368378A23B265620042D6F5 /* ActivityMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMockServices.swift; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 				633D45C523ABBC0700FE24F1 /* Activities */,
 				633D45A023AB9EE700FE24F1 /* Places */,
 				633D45A323AB9EE700FE24F1 /* User */,
+				634FFD0123B68B6800424409 /* TextFieldUtils.swift */,
+				634FFD0323B68BBC00424409 /* Validator.swift */,
 			);
 			path = Domains;
 			sourceTree = "<group>";
@@ -497,11 +503,13 @@
 				631BCEEB23B10C0B003FC0CE /* CategoryCollectionViewCell.swift in Sources */,
 				6368378B23B265620042D6F5 /* ActivityMockServices.swift in Sources */,
 				633D45B523AB9FE300FE24F1 /* SettingScreenViewController.swift in Sources */,
+				634FFD0223B68B6800424409 /* TextFieldUtils.swift in Sources */,
 				633D45DD23ABCBDE00FE24F1 /* FavPlaceServices.swift in Sources */,
 				634A296723AB9E010002D3BA /* AppDelegate.swift in Sources */,
 				633D45B923AB9FF300FE24F1 /* HomeScreenViewController.swift in Sources */,
 				63C759E523B501430019247E /* MapBottomSheetExtension.swift in Sources */,
 				633D45E223ABCE0500FE24F1 /* DisponibilityServices.swift in Sources */,
+				634FFD0423B68BBC00424409 /* Validator.swift in Sources */,
 				633D45CA23ABC55400FE24F1 /* CategoriesDao.swift in Sources */,
 				633D45AE23AB9EE700FE24F1 /* PlaceDao.swift in Sources */,
 				633D45B023AB9EE700FE24F1 /* UserDao.swift in Sources */,

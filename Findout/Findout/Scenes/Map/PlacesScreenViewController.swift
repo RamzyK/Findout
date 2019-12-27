@@ -249,7 +249,7 @@ extension PlacesScreenViewController: MKMapViewDelegate {
         self.placeRating.text = Int.random(in: 0...5).description + "/5"
         
         self.showBottomSheet()
-        let place = self.places[sender.tag]
+        /*let place = self.places[sender.tag]
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(place.location) { (placemarks, err) in
             guard err == nil,
@@ -257,6 +257,6 @@ extension PlacesScreenViewController: MKMapViewDelegate {
                     return
             }
             print(adress) // Affiche l'adresse
-        }
+        }*/
     }
 }

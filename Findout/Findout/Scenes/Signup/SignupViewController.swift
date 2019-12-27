@@ -33,6 +33,13 @@ class SignupViewController: UIViewController {
         setupView()
         hideKeyboard()
         setupCloseButton()
+        
+        userName.delegate = self
+        userLastName.delegate = self
+        userEmail.delegate = self
+        userPassword!.delegate = self
+        userBirthDate.delegate = self
+        userPhoneNumber.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +55,43 @@ class SignupViewController: UIViewController {
     @IBAction func signup(_ sender: Any) {
         // Sign user up
         // Create new user
+        if(isFormFilled()){
+            print("signup done!")
+        }else{
+            print("Please fill the obligatory fields")
+        }
+    }
+    
+    private func isFormFilled() -> Bool{
+        guard let nameText = userName.text,
+            let lastnameText = userLastName.text,
+            let passwordText = userPassword.text,
+            let emailText = userEmail.text else{
+                return false
+        }
+        if(nameText.count > 0 && lastnameText.count > 0
+        && emailText.count > 0 && passwordText.count > 0){
+            return true
+        }else{
+                checkOnWichTextFieldIsError()
+        }
+        return false
+    }
+        
+    private func checkOnWichTextFieldIsError(){
+        if(userName.text!.count == 0){
+            userName.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+        if(userLastName.text!.count == 0){
+            userLastName.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+        
+        if(userPassword.text!.count == 0){
+            userPassword.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+        if(userEmail.text!.count == 0){
+            userEmail.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
     }
     
     func setupView() {
@@ -111,4 +155,73 @@ class SignupViewController: UIViewController {
     func dismissKeyboard() {
         view.endEditing(true)
     }
+}
+
+
+extension SignupViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case self.userName:
+            self.userLastName.becomeFirstResponder()
+            break
+        case self.userLastName:
+            self.userEmail.becomeFirstResponder()
+            break
+        case self.userEmail:
+            self.userPassword.becomeFirstResponder()
+            break
+        case self.userPassword:
+            self.userBirthDate.becomeFirstResponder()
+            break
+        case self.userBirthDate:
+            self.userPhoneNumber.becomeFirstResponder()
+            break
+        case self.userPhoneNumber:
+            self.userPhoneNumber.resignFirstResponder()
+            break
+        default:
+            break
+        }
+        return true
+    }
+    
+    // Check error
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case self.userName:
+            if(userName.text!.count > 0){
+                userName.layer.shadowOffset.height = 0
+            }
+            break
+        case self.userLastName:
+            if(userLastName.text!.count > 0){
+                userLastName.layer.shadowOffset.height = 0
+            }
+            break
+        case self.userEmail:
+            if(userEmail.text!.count > 0){
+                userEmail.layer.shadowOffset.height = 0
+            }
+            break
+        case self.userPassword:
+            if(userPassword.text!.count > 0){
+                userPassword.layer.shadowOffset.height = 0
+            }
+            break
+        case self.userBirthDate:
+            if(userBirthDate.text!.count > 0){
+                userBirthDate.layer.shadowOffset.height = 0
+            }
+            break
+        case self.userPhoneNumber:
+            if(userPhoneNumber.text!.count > 0){
+                userPhoneNumber.layer.shadowOffset.height = 0
+            }
+            break
+        default:
+            break
+        }
+    }
+    
 }
