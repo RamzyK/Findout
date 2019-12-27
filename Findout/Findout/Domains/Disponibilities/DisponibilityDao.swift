@@ -11,13 +11,13 @@ import Foundation
 
 struct DisponibilityDao {
     
-     var id_disponibility: String = ""
+     var id: String = ""
      var date: String = ""
      var startTime: String = ""
      var endTime: String = ""
-     var nbPlace: Int = 0
-     var id_user: String = ""
-     var id_place: String = ""
+     var placesAvailable: Int = 0
+     var userID: String = ""
+     var placeID: String = ""
     
     init?(jsonResponse: [String: Any]) {
         guard let dispoId = jsonResponse["id_disponibility"] as? String,
@@ -30,12 +30,12 @@ struct DisponibilityDao {
                 return
         }
         
-        self.id_disponibility = dispoId
+        self.id = dispoId
         self.date = date
         self.startTime = start
         self.endTime = end
-        self.nbPlace = placesCount
-        self.id_user = userId
-        self.id_place = placeId
+        self.placesAvailable = placesCount
+        self.userID = userId
+        self.placeID = placeId
     }
 }

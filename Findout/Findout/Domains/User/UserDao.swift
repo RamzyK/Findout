@@ -10,7 +10,7 @@ import Foundation
 
 struct UserDao{
     
-    var id_user: String
+    var userID: String
     var firstname: String
     var lastname: String
     var birthDate: String?
@@ -19,7 +19,7 @@ struct UserDao{
     
     
     init?(jsonResponse : [String: Any]) {
-        self.id_user = ""
+        self.userID = ""
         self.firstname = ""
         self.lastname = ""
         self.telephone = ""
@@ -29,7 +29,7 @@ struct UserDao{
                 let telephone = jsonResponse["telephone"] as? String else{
                     return
         }
-        self.id_user = id
+        self.userID = id
         self.firstname = firstname
         self.lastname = lastname
         self.telephone = telephone
@@ -44,7 +44,7 @@ struct UserDao{
     }
     
     init(id: String, firstname: String, lastname: String, birthDate: String?, email: String?, tel: String){
-        self.id_user = id
+        self.userID = id
         self.firstname = firstname
         self.lastname = lastname
         self.birthDate = birthDate

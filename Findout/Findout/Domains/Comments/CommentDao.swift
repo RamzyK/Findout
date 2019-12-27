@@ -9,8 +9,8 @@
 import Foundation
 
 struct CommentDao {
-    var comment: String = ""
-    var score: Int = 0
+    var message: String = ""
+    var ratingScore: Int = 0
     var userID = ""
     var placeID = ""
     
@@ -21,15 +21,15 @@ struct CommentDao {
             let place_id = jsonResponse["place_id"] as? String else{
                 return
         }
-        self.comment = message
-        self.score = score
+        self.message = message
+        self.ratingScore = score
         self.userID = user_id
         self.placeID = place_id
     }
     
     init(message: String, score: Int, userId: String, placeId: String){
-        self.comment = message
-        self.score = score
+        self.message = message
+        self.ratingScore = score
         self.userID = userId
         self.placeID = placeId
     }

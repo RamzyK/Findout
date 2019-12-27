@@ -22,7 +22,7 @@ class UserMockServices: UserServices{
        
        func getById(_ id: String, completion: @escaping (UserDao?) -> Void) {
            completion(self.users.first(where: { (r) -> Bool in
-               return r.id_user == id
+               return r.userID == id
            }))
        }
        

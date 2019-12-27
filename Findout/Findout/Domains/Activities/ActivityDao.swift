@@ -13,23 +13,26 @@ struct ActivityDao {
     // Elle comprend 0, 1 ou plusieurs catégories d'activités
     
     var name: String
-    var activityID: String
+    var id: String
     var categoryListID: String
     
     init?(jsonResponse: [String: Any]){
         self.name = ""
-        self.activityID = ""
+        self.id = ""
         self.categoryListID = ""
         guard let name = jsonResponse["name"] as? String,
                 let activityId = jsonResponse["activity_id"] as? String,
                 let catListId = jsonResponse["category_list_id"] as? String else{
                 return
         }
+        self.name = name
+        self.id = activityId
+        self.categoryListID = catListId
     }
     
     init(activityName: String, activityId: String, catListId: String){
         self.name = activityName
-        self.activityID = activityId
+        self.id = activityId
         self.categoryListID = catListId
     }
 }

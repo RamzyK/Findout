@@ -234,7 +234,7 @@ extension PlacesScreenViewController: MKMapViewDelegate {
             pin.pinTintColor = .purple
             pin.canShowCallout = true
             let button = UIButton(type: .infoLight)
-            let index = self.places.firstIndex { $0.id_place == r.id_place }
+            let index = self.places.firstIndex { $0.id == r.id }
             button.tag = index ?? -1
             button.addTarget(self, action: #selector(touchCallout(_:)), for: .touchUpInside)
             pin.rightCalloutAccessoryView = button

@@ -9,14 +9,13 @@
 import Foundation
 
 
-struct FavPlace {
-    var id_place: String = ""
-    var id_user: String = ""
+struct FavPlaceDao {
+    var id: String = ""
+    var userID: String = ""
     
     
     init(placeId: String, userId: String){
-        self.id_place = placeId
-        self.id_user = userId
+        self.id = placeId
+        self.userID = userId
     }
-    
 }

@@ -36,7 +36,7 @@
 		633D45CC23ABC6F800FE24F1 /* CategoryServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45CB23ABC6F800FE24F1 /* CategoryServices.swift */; };
 		633D45D123ABC77800FE24F1 /* CommentDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45D023ABC77800FE24F1 /* CommentDao.swift */; };
 		633D45D323ABC89B00FE24F1 /* CommentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45D223ABC89B00FE24F1 /* CommentServices.swift */; };
-		633D45DB23ABCB8B00FE24F1 /* FavPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45DA23ABCB8B00FE24F1 /* FavPlace.swift */; };
+		633D45DB23ABCB8B00FE24F1 /* FavPlaceDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45DA23ABCB8B00FE24F1 /* FavPlaceDao.swift */; };
 		633D45DD23ABCBDE00FE24F1 /* FavPlaceServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45DC23ABCBDE00FE24F1 /* FavPlaceServices.swift */; };
 		633D45E023ABCC4A00FE24F1 /* DisponibilityDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45DF23ABCC4A00FE24F1 /* DisponibilityDao.swift */; };
 		633D45E223ABCE0500FE24F1 /* DisponibilityServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D45E123ABCE0500FE24F1 /* DisponibilityServices.swift */; };
@@ -81,7 +81,7 @@
 		633D45CB23ABC6F800FE24F1 /* CategoryServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryServices.swift; sourceTree = "<group>"; };
 		633D45D023ABC77800FE24F1 /* CommentDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDao.swift; sourceTree = "<group>"; };
 		633D45D223ABC89B00FE24F1 /* CommentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentServices.swift; sourceTree = "<group>"; };
-		633D45DA23ABCB8B00FE24F1 /* FavPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavPlace.swift; sourceTree = "<group>"; };
+		633D45DA23ABCB8B00FE24F1 /* FavPlaceDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavPlaceDao.swift; sourceTree = "<group>"; };
 		633D45DC23ABCBDE00FE24F1 /* FavPlaceServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavPlaceServices.swift; sourceTree = "<group>"; };
 		633D45DF23ABCC4A00FE24F1 /* DisponibilityDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisponibilityDao.swift; sourceTree = "<group>"; };
 		633D45E123ABCE0500FE24F1 /* DisponibilityServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisponibilityServices.swift; sourceTree = "<group>"; };
@@ -310,7 +310,7 @@
 		633D45D923ABCB7800FE24F1 /* Favorite Places */ = {
 			isa = PBXGroup;
 			children = (
-				633D45DA23ABCB8B00FE24F1 /* FavPlace.swift */,
+				633D45DA23ABCB8B00FE24F1 /* FavPlaceDao.swift */,
 				633D45DC23ABCBDE00FE24F1 /* FavPlaceServices.swift */,
 			);
 			path = "Favorite Places";
@@ -492,7 +492,7 @@
 				633D45B123AB9EE700FE24F1 /* PlaceAPIService.swift in Sources */,
 				633D45C423ABBAD500FE24F1 /* ActivityServicies.swift in Sources */,
 				6368378723B259750042D6F5 /* ActivityViewController.swift in Sources */,
-				633D45DB23ABCB8B00FE24F1 /* FavPlace.swift in Sources */,
+				633D45DB23ABCB8B00FE24F1 /* FavPlaceDao.swift in Sources */,
 				633D45B223AB9EE700FE24F1 /* UserAPIService.swift in Sources */,
 				631BCEEB23B10C0B003FC0CE /* CategoryCollectionViewCell.swift in Sources */,
 				6368378B23B265620042D6F5 /* ActivityMockServices.swift in Sources */,

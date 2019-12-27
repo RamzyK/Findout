@@ -38,7 +38,7 @@ class PlacesMockServices: PlaceServices {
     
     func getById(_ id: String, completion: @escaping (PlaceDao?) -> Void) {
         completion(self.allPlaces.first(where: { (r) -> Bool in
-            return r.id_place == id
+            return r.id == id
         }))
     }
     

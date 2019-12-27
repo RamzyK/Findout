@@ -26,7 +26,7 @@ class CategoryMockServices: CategoryServices{
     
     func getById(_ id: String, completion: @escaping (CategoryDao?) -> Void) {
         completion(self.categories.first(where: { (r) -> Bool in
-            return r.id_category == id
+            return r.idCategory == id
         }))
     }
     

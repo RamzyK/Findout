@@ -11,12 +11,12 @@ import CoreLocation
 
 struct PlaceDao {
     
-     var id_place: String = ""
+     var id: String = ""
      var name: String = ""
      var coordinate: [String: Double] = [:]
      var location: CLLocation
-     var nb_seat: Int = 0
-     var nb_seat_free: Int = 0
+     var totalSeat: Int = 0
+     var availableSeat: Int = 0
      var address: String = ""
      var disponibilityStartTime: String?
      var disponibilityEndTime: String?
@@ -36,13 +36,13 @@ struct PlaceDao {
                 return
         }
         
-        self.id_place = idPlace
+        self.id = idPlace
         self.name = placeName
         self.coordinate = coordinates
         self.location = CLLocation(latitude: self.coordinate["lat"]!, longitude: self.coordinate["long"]!)
         //self.location = CLLocation(latitude: 48.849329, longitude: 2.3875453)
-        self.nb_seat = nbSeat
-        self.nb_seat_free = nbSeatFree
+        self.totalSeat = nbSeat
+        self.availableSeat = nbSeatFree
         self.address = placeAdress
         self.id_notation_list = idNotationList
         self.id_user = idUser
@@ -50,11 +50,11 @@ struct PlaceDao {
     }
     
     init(id_place: String, placeName: String, coordinates: [String: Double], nb_seat: Int, nb_seat_free: Int, address: String, disponibilityStartTime: String?, disponibilityEndTime: String?, id_notation_list: String, id_user: String) {
-        self.id_place = id_place
+        self.id = id_place
         self.name = placeName
         self.coordinate = coordinates
-        self.nb_seat = nb_seat
-        self.nb_seat_free = nb_seat_free
+        self.totalSeat = nb_seat
+        self.availableSeat = nb_seat_free
         self.address = address
         self.location = CLLocation(latitude: coordinates["lat"]!, longitude: coordinates["long"]!)
         self.disponibilityStartTime = disponibilityStartTime
