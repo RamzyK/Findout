@@ -47,6 +47,9 @@
 		6368378B23B265620042D6F5 /* ActivityMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368378A23B265620042D6F5 /* ActivityMockServices.swift */; };
 		6368378F23B3A47A0042D6F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6368378E23B3A47A0042D6F5 /* MapKit.framework */; };
 		63C759DE23B3AC630019247E /* PlaceMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C759DD23B3AC630019247E /* PlaceMockServices.swift */; };
+		63C759E223B3DC250019247E /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C759E023B3DC250019247E /* BottomSheetViewController.swift */; };
+		63C759E323B3DC250019247E /* BottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63C759E123B3DC250019247E /* BottomSheetViewController.xib */; };
+		63C759E523B501430019247E /* MapBottomSheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C759E423B501430019247E /* MapBottomSheetExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +97,9 @@
 		6368378A23B265620042D6F5 /* ActivityMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMockServices.swift; sourceTree = "<group>"; };
 		6368378E23B3A47A0042D6F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		63C759DD23B3AC630019247E /* PlaceMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMockServices.swift; sourceTree = "<group>"; };
+		63C759E023B3DC250019247E /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		63C759E123B3DC250019247E /* BottomSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSheetViewController.xib; sourceTree = "<group>"; };
+		63C759E423B501430019247E /* MapBottomSheetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBottomSheetExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -375,6 +381,8 @@
 		6368378C23B3A2E40042D6F5 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				63C759DF23B3DBFE0019247E /* Map Bottomsheet */,
+				63C759E423B501430019247E /* MapBottomSheetExtension.swift */,
 				633D45BB23ABA01000FE24F1 /* PlacesScreenViewController.swift */,
 				633D45BC23ABA01000FE24F1 /* PlacesScreenViewController.xib */,
 			);
@@ -395,6 +403,15 @@
 				63C759DD23B3AC630019247E /* PlaceMockServices.swift */,
 			);
 			path = Places;
+			sourceTree = "<group>";
+		};
+		63C759DF23B3DBFE0019247E /* Map Bottomsheet */ = {
+			isa = PBXGroup;
+			children = (
+				63C759E023B3DC250019247E /* BottomSheetViewController.swift */,
+				63C759E123B3DC250019247E /* BottomSheetViewController.xib */,
+			);
+			path = "Map Bottomsheet";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -465,6 +482,7 @@
 				631BCEEC23B10C0B003FC0CE /* CategoryCollectionViewCell.xib in Resources */,
 				634A297023AB9E030002D3BA /* Assets.xcassets in Resources */,
 				633D45BE23ABA01000FE24F1 /* PlacesScreenViewController.xib in Resources */,
+				63C759E323B3DC250019247E /* BottomSheetViewController.xib in Resources */,
 				631BCEE723B1023A003FC0CE /* CategoriesListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,6 +507,8 @@
 				633D45DD23ABCBDE00FE24F1 /* FavPlaceServices.swift in Sources */,
 				634A296723AB9E010002D3BA /* AppDelegate.swift in Sources */,
 				633D45B923AB9FF300FE24F1 /* HomeScreenViewController.swift in Sources */,
+				63C759E523B501430019247E /* MapBottomSheetExtension.swift in Sources */,
+				63C759E223B3DC250019247E /* BottomSheetViewController.swift in Sources */,
 				633D45E223ABCE0500FE24F1 /* DisponibilityServices.swift in Sources */,
 				633D45CA23ABC55400FE24F1 /* CategoriesDao.swift in Sources */,
 				633D45AE23AB9EE700FE24F1 /* PlaceDao.swift in Sources */,
