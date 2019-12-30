@@ -129,6 +129,7 @@ class PlacesScreenViewController: UIViewController {
         setupNavigationBar()
         self.map.delegate = self
         closeBottomSheet.addTarget(self, action: #selector(hideBottomSheet(_:)), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -173,6 +174,10 @@ class PlacesScreenViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    @objc func openAddPlace() {
+        self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
     }
     
     private func setBottomSheetView(){

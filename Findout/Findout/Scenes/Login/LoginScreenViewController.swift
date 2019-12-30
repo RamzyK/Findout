@@ -63,8 +63,15 @@ class LoginScreenViewController: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
-        if(checkIfUserExist()){
-            self.navigationController?.pushViewController(ActivityViewController(), animated: true)
+        if(isFormFilled()){
+            UserAPIService.default.connect(email: self.emailTf.text!, password: self.passwordTf.text!) { (user) in
+                print("log : \(user)")
+                if(user.userID != "") {
+                    self.navigationController?.pushViewController(ActivityViewController(), animated: true)
+                } else {
+                    print("User does not exist!")
+                }
+            }
         }else{
             print("User does not exist!")
         }

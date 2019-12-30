@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import Alamofire
 
 class PlacesMockServices: PlaceServices {
     private var allPlaces: [PlaceDao] = [
@@ -42,7 +44,7 @@ class PlacesMockServices: PlaceServices {
         }))
     }
     
-    func create(place: PlaceDao) {
+    func create(params: [String:Any], image: UIImage, completion: @escaping (SessionManager.MultipartFormDataEncodingResult) -> Void) {
         
     }
     
