@@ -7,11 +7,15 @@
 //
 
 import Foundation
+import UIKit
+import Alamofire
+import CoreLocation
 
 class PlacesMockServices: PlaceServices {
     private var allPlaces: [PlaceDao] = [
         PlaceDao(id_place: "1111", place_Name: "L'ESGI",
                  coordinates: ["lat": 48.849329, "long": 2.3875453],
+                 location: CLLocation(latitude: 48.849329, longitude: 2.3875453),
                  nb_seat: 10, nb_seat_free: 10,
                  address: "123 Avenue de ta grand mère",
                  disponibility_start_time: "DisponibilityDao", disponibility_end_time: "",
@@ -19,6 +23,7 @@ class PlacesMockServices: PlaceServices {
         
         PlaceDao(id_place: "2222", place_Name: "Boulbi",
                  coordinates: ["lat": 48.9460785, "long": 2.3168825],
+                 location: CLLocation(latitude: 48.9460785, longitude: 2.3168825),
                  nb_seat: 10, nb_seat_free: 10,
                  address: "123 Avenue de ton grand père",
                  disponibility_start_time: "XXXX/XX/XX", disponibility_end_time: "XXXX/XX/XX",
@@ -26,6 +31,7 @@ class PlacesMockServices: PlaceServices {
         
         PlaceDao(id_place: "3333", place_Name: "Gringny la grande borne",
                  coordinates: ["lat": 48.8580021, "long": 2.345054],
+                 location: CLLocation(latitude: 48.8580021, longitude: 2.345054),
                  nb_seat: 10, nb_seat_free: 10,
                  address: "123 Avenue de ton daron",
                  disponibility_start_time: "DisponibilityDao", disponibility_end_time: "",
@@ -36,13 +42,13 @@ class PlacesMockServices: PlaceServices {
         completion(allPlaces)
     }
     
-    func getById(_ id: String, completion: @escaping (PlaceDao?) -> Void) {
-        completion(self.allPlaces.first(where: { (r) -> Bool in
-            return r.id == id
-        }))
+    func getById(id: String, completion: @escaping ([PlaceDao]) -> Void) {
+//        completion(self.allPlaces.first(where: { (r) -> Bool in
+//            return r.id == id
+//        }))
     }
     
-    func create(place: PlaceDao) {
+    func create(params: [String:Any], image: UIImage, completion: @escaping (SessionManager.MultipartFormDataEncodingResult) -> Void) {
         
     }
     

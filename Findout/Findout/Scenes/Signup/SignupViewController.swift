@@ -56,7 +56,10 @@ class SignupViewController: UIViewController {
         // Sign user up
         // Create new user
         if(isFormFilled()){
-            print("signup done!")
+            let user = UserDao(id: "", firstname: userName.text!, lastname: userLastName.text!, birthDate: userBirthDate.text!, email: userEmail.text!, tel: userPhoneNumber.text!)
+            UserAPIService.default.addUser(user: user, password: userPassword.text!) { (res) in
+                print("signup done!")
+            }
         }else{
             print("Please fill the obligatory fields")
         }

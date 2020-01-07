@@ -49,16 +49,20 @@ struct PlaceDao {
         
     }
     
-    init(id_place: String, place_Name: String, coordinates: [String: Double], nb_seat: Int, nb_seat_free: Int, address: String, disponibility_start_time: String?, disponibility_end_time: String?, id_notation_list: String, id_user: String) {
+    init(id_place: String, place_Name: String, coordinates: [String: Double], location: CLLocation, nb_seat: Int, nb_seat_free: Int, address: String, disponibility_start_time: String?, disponibility_end_time: String?, id_notation_list: String, id_user: String) {
         self.id = id_place
         self.name = place_Name
         self.coordinate = coordinates
         self.totalSeat = nb_seat
         self.availableSeat = nb_seat_free
         self.address = address
-        self.location = CLLocation(latitude: coordinates["lat"]!, longitude: coordinates["long"]!)
-        self.disponibilityStartTime = disponibility_start_time
-        self.disponibilityEndTime = disponibility_end_time
+        self.location = location
+        if(disponibility_end_time == nil) {
+            self.disponibilityStartTime = disponibility_start_time
+        }
+        if(disponibility_end_time == nil) {
+            self.disponibilityEndTime = disponibility_end_time
+        }
         self.id_notation_list = id_notation_list
         self.id_user = id_user
         

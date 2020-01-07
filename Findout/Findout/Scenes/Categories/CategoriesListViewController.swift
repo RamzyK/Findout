@@ -12,6 +12,7 @@ class CategoriesListViewController: UIViewController {
         
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     var activityLabel = ""
+    var activityId : String = ""
     
     var categories: [CategoryDao] = [] {
         didSet {
@@ -28,6 +29,7 @@ class CategoriesListViewController: UIViewController {
         setupView()
         setupNavigationBar()
         setupCategoryCollectionView()
+        print(activityId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,8 +53,11 @@ class CategoriesListViewController: UIViewController {
         categoryCollectionView.dataSource = self
         self.categoryCollectionView.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil),
         forCellWithReuseIdentifier: "CATEGORY_CELL")
-        self.categoriyServices.getAll { (categoryList) in
-            self.categories = categoryList
+//        self.categoriyServices.getAll { (categoryList) in
+//            self.categories = categoryList
+//        }
+        CategoryAPIService.default.getById(activityId) { (cat) in
+            self.categories = cat
         }
     }
 }
@@ -74,12 +79,15 @@ extension CategoriesListViewController: UICollectionViewDataSource{
         }else{
             cell.categoryImage.image = UIImage(named: "sport-category-icon")
         }
-        
+        cell.categoryName.text = self.categories[indexPath.row].name
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(PlacesScreenViewController(), animated: true)
+        let placeVC = PlacesScreenViewController()
+        placeVC.categoryId = categories[indexPath.row].idCategory
+        print("phase 0 \(placeVC.categoryId) = \(categories[indexPath.row].idCategory)")
+        self.navigationController?.pushViewController(placeVC, animated: true)
     }
     
 }

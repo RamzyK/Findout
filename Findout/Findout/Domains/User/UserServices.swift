@@ -12,5 +12,6 @@ import CoreLocation
 protocol UserServices{
     func getAll(completion: @escaping ([UserDao]) -> Void)
     func getById(_ id: String, completion: @escaping (UserDao?) -> Void)
-    func create(name: String, lastname: String, birthdate: String, email: String, number: String, completion: @escaping (UserDao) -> Void)
+    func addUser(user: UserDao, password: String, completion: @escaping (UserDao) -> Void)
+    func connect(email: String, password: String, completion: @escaping(UserDao) -> Void)
 }
