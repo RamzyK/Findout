@@ -14,25 +14,20 @@ struct ActivityDao {
     
     var name: String
     var id: String
-    var categoryListID: String
     
     init?(jsonResponse: [String: Any]){
         self.name = ""
         self.id = ""
-        self.categoryListID = ""
         guard let name = jsonResponse["name"] as? String,
-                let activityId = jsonResponse["activity_id"] as? String,
-                let catListId = jsonResponse["category_list_id"] as? String else{
+                let activityId = jsonResponse["activity_id"] as? String else{
                 return
         }
         self.name = name
         self.id = activityId
-        self.categoryListID = catListId
     }
     
-    init(activityName: String, activityId: String, catListId: String){
+    init(activityName: String, activityId: String){
         self.name = activityName
         self.id = activityId
-        self.categoryListID = catListId
     }
 }

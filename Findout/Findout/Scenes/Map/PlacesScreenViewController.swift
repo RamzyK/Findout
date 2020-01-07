@@ -27,6 +27,7 @@ fileprivate class PlaceAnnotation: NSObject, MKAnnotation {
 
 class PlacesScreenViewController: UIViewController {
     @IBOutlet weak var map: MKMapView!
+    var categoryId : String = ""
     
     var bottomSheetView = UIView()
     var blurEffectView = UIVisualEffectView()
@@ -122,6 +123,7 @@ class PlacesScreenViewController: UIViewController {
     var placesServices: PlaceServices{
         return PlacesMockServices()
     }
+    
     var segmentedController: UISegmentedControl!
     
     override func viewDidLoad() {
@@ -130,15 +132,20 @@ class PlacesScreenViewController: UIViewController {
         self.map.delegate = self
         closeBottomSheet.addTarget(self, action: #selector(hideBottomSheet(_:)), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
+        print("phase 2 \(categoryId)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.placesServices.getAll { (placeList) in
-            self.places = placeList
+//        self.placesServices.getAll { (placeList) in
+//            self.places = placeList
+//        }
+        PlaceAPIService.default.getById(id: categoryId) { (place) in
+            self.places = place
         }
         setBottomSheetView()
         self.setBottomSheetViewsConstraints()
         self.setSegmentedControllerConstraints()
+        print("phase 1 \(categoryId)")
     }
     
     private func setSegmentedControllerConstraints(){

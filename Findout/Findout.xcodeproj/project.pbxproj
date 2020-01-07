@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0C042FC323B8C3C2000C0198 /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C042FC123B8C3C2000C0198 /* AddPlaceViewController.swift */; };
 		0C042FC423B8C3C2000C0198 /* AddPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C042FC223B8C3C2000C0198 /* AddPlaceViewController.xib */; };
+		0C042FC723C2B6EB000C0198 /* CategoryAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C042FC623C2B6EB000C0198 /* CategoryAPIService.swift */; };
+		0C042FCC23C3C27F000C0198 /* ActivityAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C042FCB23C3C27F000C0198 /* ActivityAPIService.swift */; };
 		5E0377F023B3A4C000059D11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E0377F223B3A4C000059D11 /* Localizable.strings */; };
 		631BCED723B0E3D8003FC0CE /* UserMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BCED623B0E3D8003FC0CE /* UserMockServices.swift */; };
 		631BCEDA23B0E70A003FC0CE /* CategoriesMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BCED923B0E70A003FC0CE /* CategoriesMockServices.swift */; };
@@ -58,6 +60,8 @@
 /* Begin PBXFileReference section */
 		0C042FC123B8C3C2000C0198 /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
 		0C042FC223B8C3C2000C0198 /* AddPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPlaceViewController.xib; sourceTree = "<group>"; };
+		0C042FC623C2B6EB000C0198 /* CategoryAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAPIService.swift; sourceTree = "<group>"; };
+		0C042FCB23C3C27F000C0198 /* ActivityAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAPIService.swift; sourceTree = "<group>"; };
 		17E4066902694D5016841807 /* Pods-Findout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Findout.debug.xcconfig"; path = "Target Support Files/Pods-Findout/Pods-Findout.debug.xcconfig"; sourceTree = "<group>"; };
 		5E0377F123B3A4C000059D11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5E0377F323B3A4D500059D11 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -123,6 +127,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C042FC523C2B17E000C0198 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				0C042FC623C2B6EB000C0198 /* CategoryAPIService.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		0C042FCA23C3C248000C0198 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				0C042FCB23C3C27F000C0198 /* ActivityAPIService.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
 		631BCED523B0E349003FC0CE /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,6 +293,8 @@
 		633D45A823AB9EE700FE24F1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				0C042FCA23C3C248000C0198 /* Activity */,
+				0C042FC523C2B17E000C0198 /* Category */,
 				633D45A923AB9EE700FE24F1 /* Places */,
 				633D45AB23AB9EE700FE24F1 /* User */,
 			);
@@ -570,6 +592,7 @@
 				631BCEEB23B10C0B003FC0CE /* CategoryCollectionViewCell.swift in Sources */,
 				6368378B23B265620042D6F5 /* ActivityMockServices.swift in Sources */,
 				633D45B523AB9FE300FE24F1 /* SettingScreenViewController.swift in Sources */,
+				0C042FCC23C3C27F000C0198 /* ActivityAPIService.swift in Sources */,
 				634FFD0223B68B6800424409 /* TextFieldUtils.swift in Sources */,
 				633D45DD23ABCBDE00FE24F1 /* FavPlaceServices.swift in Sources */,
 				0C042FC323B8C3C2000C0198 /* AddPlaceViewController.swift in Sources */,
@@ -582,6 +605,7 @@
 				633D45AE23AB9EE700FE24F1 /* PlaceDao.swift in Sources */,
 				633D45B023AB9EE700FE24F1 /* UserDao.swift in Sources */,
 				633D45E023ABCC4A00FE24F1 /* DisponibilityDao.swift in Sources */,
+				0C042FC723C2B6EB000C0198 /* CategoryAPIService.swift in Sources */,
 				631BCEDA23B0E70A003FC0CE /* CategoriesMockServices.swift in Sources */,
 				633D45AF23AB9EE700FE24F1 /* UserServices.swift in Sources */,
 				633D45CC23ABC6F800FE24F1 /* CategoryServices.swift in Sources */,

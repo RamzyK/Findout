@@ -44,9 +44,13 @@ class ActivityViewController: UIViewController {
         self.activitiesCollectionView.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil),
         forCellWithReuseIdentifier: "CATEGORY_CELL")
         
-        self.activityServices.getAll { (list) in
-            self.activityList = list
+//        self.activityServices.getAll { (list) in
+//            self.activityList = list
+//        }
+        ActivityAPIService.default.getAll { (res) in
+            self.activityList = res
         }
+        
     }
 }
 
@@ -69,6 +73,7 @@ extension ActivityViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let categoriesVC = CategoriesListViewController()
         categoriesVC.activityLabel = activityList[indexPath.row].name
+        categoriesVC.activityId = activityList[indexPath.row].id
         self.navigationController?.pushViewController(categoriesVC, animated: true)
     }
     

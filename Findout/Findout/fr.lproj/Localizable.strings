@@ -36,3 +36,4 @@
 "place.send" = "Envoyer";
 "place.start"  = "Début";
 "place.end" = "Fin";
+"place.category" = "Categorie";

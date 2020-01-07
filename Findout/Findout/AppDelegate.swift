@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = UINavigationController(rootViewController: LoginScreenViewController())
         window.makeKeyAndVisible()
         self.window = window
-        
         return true
     }
 

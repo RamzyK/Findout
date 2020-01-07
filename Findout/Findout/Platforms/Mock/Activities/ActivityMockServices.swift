@@ -11,10 +11,10 @@ import Foundation
 class ActivityMockServices: ActivityServices{
     
     private var categories: [ActivityDao] = [
-        ActivityDao(activityName: "Sortie", activityId: "1111", catListId: ""),
-        ActivityDao(activityName: "Bar", activityId: "1111", catListId: ""),
-        ActivityDao(activityName: "Restaurant", activityId: "1111", catListId: ""),
-        ActivityDao(activityName: "Sport", activityId: "1111", catListId: ""),
+        ActivityDao(activityName: "Sortie", activityId: "1111"),
+        ActivityDao(activityName: "Bar", activityId: "1111"),
+        ActivityDao(activityName: "Restaurant", activityId: "1111"),
+        ActivityDao(activityName: "Sport", activityId: "1111"),
     ]
     
     func getAll(completion: @escaping ([ActivityDao]) -> Void) {

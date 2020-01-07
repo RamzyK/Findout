@@ -70,10 +70,12 @@ class LoginScreenViewController: UIViewController {
                     self.navigationController?.pushViewController(ActivityViewController(), animated: true)
                 } else {
                     print("User does not exist!")
+                    self.warningAlert(message: "User does not exist!")
                 }
             }
         }else{
             print("User does not exist!")
+            self.warningAlert(message: "User does not exist!")
         }
     }
     
@@ -92,6 +94,7 @@ class LoginScreenViewController: UIViewController {
             }
         }else{
             print("U must fill all the form befor signin")
+            self.warningAlert(message: "U must fill all the form befor signin")
         }
         return userExist
     }
@@ -149,7 +152,15 @@ extension LoginScreenViewController: UITextFieldDelegate {
         }
     }
     
+    func warningAlert(message : String) {
+        let alertWarn = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
+        alertWarn.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertWarn, animated: true, completion: nil)
+    }
+    
 }
+
+
 
 
 extension UITextField {

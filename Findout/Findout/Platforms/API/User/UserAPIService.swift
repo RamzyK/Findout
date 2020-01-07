@@ -45,7 +45,7 @@ class UserAPIService : UserServices{
             "password" : password
         ]
         print(params)
-        Alamofire.request("\(localServiceAddress)/connect/\(email)/\(password)").responseJSON { (res) in
+        Alamofire.request("\(onlineServiceAddress)/connect/\(email)/\(password)").responseJSON { (res) in
             guard let jsonUser = res.result.value as? [String:Any] else {
                 return
             }

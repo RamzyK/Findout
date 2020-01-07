@@ -27,12 +27,28 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
     @IBOutlet weak var sendBtn: UIButton!
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var categoryTextField: UITextField!
+    
+    let thePicker = UIPickerView()
+    let myPickerData = [String](arrayLiteral: "Peter", "Jane", "Paul", "Mary", "Kevin", "Lucy")
+    var categoryList : [CategoryDao] = []{
+        didSet{
+            thePicker.reloadAllComponents()
+        }
+    }
+    var categoryId : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupCategoryPicker()
         //styleDescription()
         hideKeyboard()
+        
+        CategoryAPIService.default.getAll { (res) in
+            self.categoryList = res
+        }
     }
     
     @IBAction func uploadPlace(_ sender: UIButton) {
@@ -65,6 +81,7 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
                 "nb_seat" : self.seatTextField.text!,
                 "nb_seat_free" : self.seatTextField.text!,
                 "address" : self.addressTextField.text!,
+                "idCategory" : self.categoryId,
                 "disponibilityStartTime" : self.dispoStartTextField.text!,
                 "disponibilityEndTime" : self.dispoEndTextField.text!
             ]
@@ -136,10 +153,40 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         self.cameraBtn.setTitle(NSLocalizedString("place.camera", comment: ""), for: .normal)
         self.dispoStartTextField.placeholder = NSLocalizedString("place.start", comment: "")
         self.dispoEndTextField.placeholder = NSLocalizedString("place.end", comment: "")
+        self.categoryLabel.text = NSLocalizedString("place.category", comment: "")
+    }
+    
+    func setupCategoryPicker() {
+        categoryTextField.inputView = thePicker
+        thePicker.delegate = self
     }
     
     @objc
     func dismissKeyboard() {
         view.endEditing(true)
     }
+}
+
+extension AddPlaceViewController: UIPickerViewDelegate {
+    
+}
+
+extension AddPlaceViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categoryList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categoryList[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categoryTextField.text = categoryList[row].name
+        categoryId = categoryList[row].idActivity
+    }
+    
 }
