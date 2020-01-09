@@ -32,6 +32,21 @@ class PlacesScreenViewController: UIViewController {
     var blurEffectView = UIVisualEffectView()
     var bottomSheetShowed = false
     var bottomSheetExtanded = false
+    var segmentedController: UISegmentedControl!
+    var locationManager = CLLocationManager()
+    var places: [PlaceDao] = []{
+        didSet{
+           self.map.addAnnotations(
+                self.places.map({
+                    PlaceAnnotation(place: $0)
+                })
+            )
+        }
+    }
+    var placesServices: PlaceServices{
+        return PlacesMockServices()
+    }
+    
     
     // views
     var placeImageViewCtn = UIView()
@@ -170,24 +185,6 @@ class PlacesScreenViewController: UIViewController {
         return b;
     }()
     
-    
-    var places: [PlaceDao] = []{
-        didSet{
-           self.map.addAnnotations(
-                self.places.map({
-                    PlaceAnnotation(place: $0)
-                })
-            )
-        }
-    }
-    
-    var placesServices: PlaceServices{
-        return PlacesMockServices()
-    }
-    var segmentedController: UISegmentedControl!
-    let locationManager = CLLocationManager()
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -200,7 +197,7 @@ class PlacesScreenViewController: UIViewController {
         self.placesServices.getAll { (placeList) in
             self.places = placeList
         }
-        self.setBottomSheetView()
+        self.setBottomSheetViewcConstraint()
         self.setBottomSheetViewsConstraints()
         self.setSegmentedControllerConstraints()
         self.setLocalizeUserButton()
@@ -208,6 +205,7 @@ class PlacesScreenViewController: UIViewController {
     
     @objc func bookPlace(){
         print("Booked!")
+        // TODO
         //self.navigationController?.pushViewController(BookingPage(), animated: true)
     }
     
@@ -235,6 +233,10 @@ class PlacesScreenViewController: UIViewController {
         self.map.zoomToUserLocation()
     }
     
+    @objc func closeBottomSheet(_ sender: UIButton){
+       hideBottomSheet()
+    }
+    
     @objc func switchView(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -246,10 +248,6 @@ class PlacesScreenViewController: UIViewController {
         default:
             break
         }
-    }
-    
-    @objc func closeBottomSheet(_ sender: UIButton){
-       hideBottomSheet()
     }
     
     @objc func showMoreOnBottomSheet() {
@@ -267,14 +265,10 @@ class PlacesScreenViewController: UIViewController {
     }
     
     private func askUserForLocation(){
-        // Ask for Authorisation from the User.
         map.showsUserLocation = true
-
         self.locationManager.requestAlwaysAuthorization()
-
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
-
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -306,8 +300,8 @@ class PlacesScreenViewController: UIViewController {
         localizeUserView.frame = CGRect(x: Int(buttonOriginX), y: navigationBarY + 20, width: 70, height: 40)
         
         showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
-        localizeUserView.addSubview(showUserPositionOnMap)
         
+        localizeUserView.addSubview(showUserPositionOnMap)
         self.view.addSubview(localizeUserView)
         NSLayoutConstraint.activate([
             showUserPositionOnMap.centerXAnchor.constraint(equalTo: localizeUserView.centerXAnchor),
@@ -318,7 +312,7 @@ class PlacesScreenViewController: UIViewController {
         ])
     }
     
-    private func setBottomSheetView(){
+    private func setBottomSheetViewcConstraint(){
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
         
@@ -334,14 +328,6 @@ class PlacesScreenViewController: UIViewController {
         
         self.view.addSubview(blurEffectView)
         self.view.addSubview(bottomSheetView)
-    }
-    
-    private func setPlaceAdress(index: Int){
-        self.placeName.text = self.places[index].name
-        self.placeStreetLabel.text = self.places[index].address[0]
-        self.placeRegionLabel.text = self.places[index].address[1]
-        self.placeCountryLabel.text = self.places[index].address[2]
-        self.placeRating.text = Int.random(in: 0...5).description
     }
     
     private func hideBottomSheet(){
@@ -363,6 +349,14 @@ class PlacesScreenViewController: UIViewController {
             }
         }, completion: nil)
         self.setBottomSheetViewsConstraints()
+    }
+    
+    private func setPlaceAdress(index: Int){
+        self.placeName.text = self.places[index].name
+        self.placeStreetLabel.text = self.places[index].address[0]
+        self.placeRegionLabel.text = self.places[index].address[1]
+        self.placeCountryLabel.text = self.places[index].address[2]
+        self.placeRating.text = Int.random(in: 0...5).description
     }
     
     func setupNavigationBar() {
@@ -416,8 +410,7 @@ extension PlacesScreenViewController: MKMapViewDelegate {
 
 extension PlacesScreenViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        //print("locations = \(locValue.latitude) \(locValue.longitude)")
+        
     }
 }
 

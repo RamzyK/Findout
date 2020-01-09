@@ -45,7 +45,6 @@ extension PlacesScreenViewController{
         placeName.addGestureRecognizer(tap)
         
         self.bottomSheetView.addSubview(placeName)
-        
         NSLayoutConstraint.activate([
             placeName.leftAnchor.constraint(equalTo: bottomSheetView.leftAnchor, constant: 20),
             placeName.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 20),
@@ -109,11 +108,9 @@ extension PlacesScreenViewController{
         sharePlaceButton.layer.cornerRadius = 25
         
         shareButton.setBackgroundImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
-        
         sharePlaceButton.addSubview(shareButton)
+        
         self.bottomSheetView.addSubview(sharePlaceButton)
-
-                    
         NSLayoutConstraint.activate([
             placeStreetLabel.leftAnchor.constraint(equalTo: bottomSheetView.leftAnchor, constant: 20),
             placeStreetLabel.topAnchor.constraint(equalTo: bookingButton.bottomAnchor, constant: 30),
@@ -141,6 +138,7 @@ extension PlacesScreenViewController{
     
     private func setPlaceImageConstraints(){
         let yOrigin = placeCountryLabel.frame.origin.y + placeCountryLabel.frame.height + 40
+        
         placeImageViewCtn.frame = CGRect(x: 20, y: yOrigin, width: self.view.frame.width - 40, height: 170)
         placeImageViewCtn.addSubview(placeImage)
         placeImageViewCtn.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
@@ -155,7 +153,6 @@ extension PlacesScreenViewController{
         self.bottomSheetView.addSubview(placeDisponitbilitiesTitle)
         self.bottomSheetView.addSubview(placeDisponobolitiesStartTime)
         self.bottomSheetView.addSubview(placeDisponobolitiesEndTime)
-
         
         NSLayoutConstraint.activate([
             placeDisponitbilitiesTitle.leftAnchor.constraint(equalTo: bottomSheetView.leftAnchor, constant: 20),
@@ -177,5 +174,4 @@ extension PlacesScreenViewController{
             placeDisponobolitiesEndTime.widthAnchor.constraint(equalToConstant: width/2),
         ])
     }
-    
 }
