@@ -63,10 +63,19 @@ class LoginScreenViewController: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
-        if(checkIfUserExist()){
-            self.navigationController?.pushViewController(ActivityViewController(), animated: true)
+        if(isFormFilled()){
+            UserAPIService.default.connect(email: self.emailTf.text!, password: self.passwordTf.text!) { (user) in
+                print("log : \(user)")
+                if(user.userID != "") {
+                    self.navigationController?.pushViewController(ActivityViewController(), animated: true)
+                } else {
+                    print("User does not exist!")
+                    self.warningAlert(message: "User does not exist!")
+                }
+            }
         }else{
             print("User does not exist!")
+            self.warningAlert(message: "User does not exist!")
         }
     }
     
@@ -85,6 +94,7 @@ class LoginScreenViewController: UIViewController {
             }
         }else{
             print("U must fill all the form befor signin")
+            self.warningAlert(message: "U must fill all the form befor signin")
         }
         return userExist
     }
@@ -142,7 +152,15 @@ extension LoginScreenViewController: UITextFieldDelegate {
         }
     }
     
+    func warningAlert(message : String) {
+        let alertWarn = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
+        alertWarn.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertWarn, animated: true, completion: nil)
+    }
+    
 }
+
+
 
 
 extension UITextField {

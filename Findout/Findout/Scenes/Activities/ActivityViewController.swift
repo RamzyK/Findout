@@ -18,7 +18,7 @@ class ActivityViewController: UIViewController {
         }
     }
     var activityServices: ActivityServices{
-        return ActivityMockServices()
+        return ActivityAPIService()
     }
     
     override func viewDidLoad() {
@@ -47,6 +47,7 @@ class ActivityViewController: UIViewController {
         self.activityServices.getAll { (list) in
             self.activityList = list
         }
+        
     }
 }
 
@@ -69,6 +70,7 @@ extension ActivityViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let categoriesVC = CategoriesListViewController()
         categoriesVC.activityLabel = activityList[indexPath.row].name
+        categoriesVC.activityId = activityList[indexPath.row].id
         self.navigationController?.pushViewController(categoriesVC, animated: true)
     }
     

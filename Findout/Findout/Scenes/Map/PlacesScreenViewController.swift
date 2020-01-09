@@ -27,6 +27,7 @@ fileprivate class PlaceAnnotation: NSObject, MKAnnotation {
 
 class PlacesScreenViewController: UIViewController {
     @IBOutlet weak var map: MKMapView!
+    var categoryId : String = ""
     
     var bottomSheetView = UIView()
     var blurEffectView = UIVisualEffectView()
@@ -185,17 +186,39 @@ class PlacesScreenViewController: UIViewController {
         return b;
     }()
     
+    var places: [PlaceDao] = []{
+        didSet{
+           self.map.addAnnotations(
+                self.places.map({
+                    PlaceAnnotation(place: $0)
+                })
+            )
+        }
+    }
+    
+    var placesServices: PlaceServices{
+        return PlacesMockServices()
+    }
+    
+    var segmentedController: UISegmentedControl!
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         askUserForLocation()
         self.map.delegate = self
-        closeBottomSheet.addTarget(self, action: #selector(closeBottomSheet(_:)), for: .touchUpInside)
+        closeBottomSheet.addTarget(self, action: #selector(hideBottomSheet(_:)), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
+        print("phase 2 \(categoryId)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.placesServices.getAll { (placeList) in
-            self.places = placeList
+//        self.placesServices.getAll { (placeList) in
+//            self.places = placeList
+//        }
+        PlaceAPIService.default.getById(id: categoryId) { (place) in
+            self.places = place
         }
         self.setBottomSheetViewcConstraint()
         self.setBottomSheetViewsConstraints()
@@ -312,7 +335,11 @@ class PlacesScreenViewController: UIViewController {
         ])
     }
     
-    private func setBottomSheetViewcConstraint(){
+    @objc func openAddPlace() {
+        self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
+    }
+    
+    private func setBottomSheetView(){
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
         

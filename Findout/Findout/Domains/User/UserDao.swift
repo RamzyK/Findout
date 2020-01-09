@@ -23,9 +23,9 @@ struct UserDao{
         self.firstname = ""
         self.lastname = ""
         self.telephone = ""
-        guard let id = jsonResponse["id"] as? String,
-                let firstname = jsonResponse["detail"] as? String,
-                let lastname = jsonResponse["coordinates"] as? String,
+        guard let id = jsonResponse["_id"] as? String,
+                let firstname = jsonResponse["firstname"] as? String,
+                let lastname = jsonResponse["lastname"] as? String,
                 let telephone = jsonResponse["telephone"] as? String else{
                     return
         }
@@ -35,7 +35,7 @@ struct UserDao{
         self.telephone = telephone
         
         guard let birthdate = jsonResponse["birthDate"] as? String,
-                let email = jsonResponse["email"] as? String  else{
+                let email = jsonResponse["email"] as? String  else {
                     return
         }
         self.birthDate = birthdate

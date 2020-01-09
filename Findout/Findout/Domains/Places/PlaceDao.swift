@@ -56,9 +56,13 @@ struct PlaceDao {
         self.totalSeat = nb_seat
         self.availableSeat = nb_seat_free
         self.address = address
-        self.location = CLLocation(latitude: coordinates["lat"]!, longitude: coordinates["long"]!)
-        self.disponibilityStartTime = disponibility_start_time
-        self.disponibilityEndTime = disponibility_end_time
+        self.location = location
+        if(disponibility_end_time == nil) {
+            self.disponibilityStartTime = disponibility_start_time
+        }
+        if(disponibility_end_time == nil) {
+            self.disponibilityEndTime = disponibility_end_time
+        }
         self.id_notation_list = id_notation_list
         self.id_user = id_user
         

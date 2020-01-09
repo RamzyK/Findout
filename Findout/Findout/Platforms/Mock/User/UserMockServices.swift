@@ -31,4 +31,12 @@ class UserMockServices: UserServices{
         
            completion(UserDao(id: "123", firstname: name, lastname: lastname, birthDate: birthdate, email: email, tel: number))
        }
+    
+    func connect(email: String, password: String, completion: @escaping (UserDao) -> Void) {
+        
+    }
+    
+    func addUser(user: UserDao, password: String, completion: @escaping (UserDao) -> Void) {
+        
+    }
 }

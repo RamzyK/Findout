@@ -28,3 +28,15 @@
 "activities.title" = "Quelle activité ?";
 
 "categories.title" = "Catégorie de ";
+
+"place.name" = "Nom du lieu";
+"place.address" = "Adresse";
+"place.seat" = "Nombre de place";
+"place.dispo" = "Disponibilité";
+"place.gallery" = "Depuis la gallerie";
+"place.camera" = "Prendre une photo";
+"place.send" = "Envoyer";
+"place.start"  = "Début";
+"place.end" = "Fin";
+"place.category" = "Categorie";
+"place.cancel" = "Annuler";

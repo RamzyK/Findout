@@ -8,6 +8,15 @@
 	<string>Nous avons besoins d&apos;utiliser votre position pour trouver les meilleurs endroits</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Nous avons besoins d&apos;utiliser votre position pour trouver les meilleurs endroits</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>safe camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>safe Image</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
