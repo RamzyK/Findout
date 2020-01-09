@@ -18,7 +18,7 @@ class ActivityViewController: UIViewController {
         }
     }
     var activityServices: ActivityServices{
-        return ActivityMockServices()
+        return ActivityAPIService()
     }
     
     override func viewDidLoad() {
@@ -44,11 +44,8 @@ class ActivityViewController: UIViewController {
         self.activitiesCollectionView.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil),
         forCellWithReuseIdentifier: "CATEGORY_CELL")
         
-//        self.activityServices.getAll { (list) in
-//            self.activityList = list
-//        }
-        ActivityAPIService.default.getAll { (res) in
-            self.activityList = res
+        self.activityServices.getAll { (list) in
+            self.activityList = list
         }
         
     }
