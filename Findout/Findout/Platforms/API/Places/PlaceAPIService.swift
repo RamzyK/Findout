@@ -85,7 +85,7 @@ class PlaceAPIService: PlaceServices{
                 }
             }},
                          usingThreshold:UInt64.init(),
-                         to: "\(onlineServiceAddress)/addPlace",
+                         to: "\(localServiceAddress)/addPlace",
                          method: .post,
                          headers: ["Authorization": "auth_token"],
                          encodingCompletion: { encodingResult in
