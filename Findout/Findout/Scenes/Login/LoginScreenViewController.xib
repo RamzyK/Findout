@@ -87,7 +87,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="xiG-3q-sbK"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                     <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="email"/>
                 </textField>
             </subviews>

@@ -12,6 +12,7 @@ class UserMockServices: UserServices{
     
     private let users: [UserDao] = [
         UserDao(id: "1", firstname: "Ramzy", lastname: "Kermad", birthDate: "20/02/1998", email: "kelbay@gmail.com", tel:   "-"),
+        UserDao(id: "1", firstname: "Ramzy", lastname: "Kermad", birthDate: "20/02/1998", email: " ", tel:   "-"),
         UserDao(id: "2", firstname: "Nass", lastname: "La Menace", birthDate: "21/02/1998", email: "cbengben@gmail.com", tel:   "-"),
         UserDao(id: "3", firstname: "THE MAN", lastname: "NOT HOT", birthDate: "22/02/1998", email: "bouillaveurdu93@gmail.com", tel:   "-"),
        ]

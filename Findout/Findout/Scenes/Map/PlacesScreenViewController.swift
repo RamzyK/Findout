@@ -31,6 +31,7 @@ class PlacesScreenViewController: UIViewController {
     var bottomSheetView = UIView()
     var blurEffectView = UIVisualEffectView()
     var bottomSheetShowed = false
+    var bottomSheetExtanded = false
     
     // views
     var placeImageViewCtn = UIView()
@@ -47,6 +48,7 @@ class PlacesScreenViewController: UIViewController {
         l.textAlignment = .left
         l.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         l.font = UIFont(name: "Avenir-Medium", size: 28)
+        l.isUserInteractionEnabled = true
         l.translatesAutoresizingMaskIntoConstraints = false
         return l
     }()
@@ -61,9 +63,8 @@ class PlacesScreenViewController: UIViewController {
         return l
     }()
     
-    var placeRating: UILabel = {
+    var placeStreetLabel: UILabel = {
         let l = UILabel()
-        l.text = "0/5"
         l.textAlignment = .left
         l.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         l.font = UIFont(name: "Avenir-Medium", size: 18)
@@ -71,19 +72,80 @@ class PlacesScreenViewController: UIViewController {
         return l
     }()
     
-    var placeDisponitbilitiesTitle: UILabel = {
+    var placeRegionLabel: UILabel = {
         let l = UILabel()
-        l.text = "Créneaux"
         l.textAlignment = .left
         l.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        l.font = UIFont(name: "Avenir-Medium", size: 20)
+        l.font = UIFont(name: "Avenir-Medium", size: 18)
+        l.translatesAutoresizingMaskIntoConstraints = false
+        return l
+    }()
+    
+    var placeCountryLabel: UILabel = {
+        let l = UILabel()
+        l.textAlignment = .left
+        l.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        l.font = UIFont(name: "Avenir-Medium", size: 18)
+        l.translatesAutoresizingMaskIntoConstraints = false
+        return l
+    }()
+    
+    var placeRating: UILabel = {
+        let l = UILabel()
+        l.text = "5"
+        l.textAlignment = .left
+        l.textColor = #colorLiteral(red: 0.9432621598, green: 0.7699561715, blue: 0.05890782923, alpha: 1)
+        l.font = UIFont(name: "Avenir-Medium", size: 18)
+        l.translatesAutoresizingMaskIntoConstraints = false
+        return l
+    }()
+    
+    var ratingStar: UIImageView = {
+        let i = UIImageView()
+        i.image = UIImage(named: "star")
+        i.translatesAutoresizingMaskIntoConstraints = false
+        return i
+    }()
+    
+    var bookingButton: UIButton = {
+       let b = UIButton()
+        b.backgroundColor = #colorLiteral(red: 0.3276026845, green: 0.784994781, blue: 0.4816099405, alpha: 1)
+        b.isUserInteractionEnabled = true
+        b.titleLabel?.font = UIFont(name: "Avenir-Medium", size: 20)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.addTarget(self, action: #selector(bookPlace), for: .touchUpInside)
+        return b
+    }()
+    
+    var shareButton: UIButton = {
+       let b = UIButton()
+        b.isUserInteractionEnabled = true
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.addTarget(self, action: #selector(sharePlaceAdress(sender:)), for: .touchUpInside)
+        return b
+    }()
+    
+    var showUserPositionOnMap: UIButton = {
+       let b = UIButton()
+        b.isUserInteractionEnabled = true
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.addTarget(self, action: #selector(showUserCurrentLocaton), for: .touchUpInside)
+        return b
+    }()
+    
+    var placeDisponitbilitiesTitle: UILabel = {
+        let l = UILabel()
+        l.text = NSLocalizedString("places.timeLabel", comment: "")
+        l.textAlignment = .left
+        l.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        l.font = UIFont(name: "Avenir-Medium", size: 15)
         l.translatesAutoresizingMaskIntoConstraints = false
         return l
     }()
     
     var placeDisponobolitiesStartTime: UILabel = {
         let l = UILabel()
-        l.text = "du Lun au Ven"
+        l.text = "Dimanche - Lundi"
         l.textAlignment = .left
         l.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         l.font = UIFont(name: "Avenir-Medium", size: 18)
@@ -93,8 +155,8 @@ class PlacesScreenViewController: UIViewController {
     
     var placeDisponobolitiesEndTime: UILabel = {
         let l = UILabel()
-        l.text = "à partir de 9h45"
-        l.textAlignment = .left
+        l.text = "12:00 - 23:00"
+        l.textAlignment = .right
         l.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         l.font = UIFont(name: "Avenir-Medium", size: 18)
         l.translatesAutoresizingMaskIntoConstraints = false
@@ -123,28 +185,108 @@ class PlacesScreenViewController: UIViewController {
         return PlacesMockServices()
     }
     var segmentedController: UISegmentedControl!
+    let locationManager = CLLocationManager()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+        askUserForLocation()
         self.map.delegate = self
-        closeBottomSheet.addTarget(self, action: #selector(hideBottomSheet(_:)), for: .touchUpInside)
+        closeBottomSheet.addTarget(self, action: #selector(closeBottomSheet(_:)), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.placesServices.getAll { (placeList) in
             self.places = placeList
         }
-        setBottomSheetView()
+        self.setBottomSheetView()
         self.setBottomSheetViewsConstraints()
         self.setSegmentedControllerConstraints()
+        self.setLocalizeUserButton()
+    }
+    
+    @objc func bookPlace(){
+        print("Booked!")
+        //self.navigationController?.pushViewController(BookingPage(), animated: true)
+    }
+    
+    @objc func sharePlaceAdress(sender: UIView){
+        hideBottomSheet()
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        let textToShare = "Regarde cet endroit sur Findout, il a l'air cool !"
+
+        if let myWebsite = URL(string: "http://www.google.fr") {//Enter link to your app here
+            let objectsToShare = [textToShare, myWebsite, image ?? #imageLiteral(resourceName: "app-logo")] as [Any]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+
+            //Excluded Activities
+            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
+            activityVC.popoverPresentationController?.sourceView = sender
+            self.present(activityVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func showUserCurrentLocaton(){
+        self.map.zoomToUserLocation()
+    }
+    
+    @objc func switchView(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            print("1er filtre")
+            break
+        case 1:
+            print("2eme filtre")
+            break
+        default:
+            break
+        }
+    }
+    
+    @objc func closeBottomSheet(_ sender: UIButton){
+       hideBottomSheet()
+    }
+    
+    @objc func showMoreOnBottomSheet() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .showHideTransitionViews, animations: {
+            if(self.bottomSheetExtanded){
+                self.bottomSheetView.frame.origin.y += (self.view.frame.height/3)
+                self.blurEffectView.frame.origin.y += (self.view.frame.height/3)
+                self.bottomSheetExtanded = false
+            }else{
+                self.bottomSheetView.frame.origin.y -= (self.view.frame.height/3)
+                self.blurEffectView.frame.origin.y -= (self.view.frame.height/3)
+                self.bottomSheetExtanded = true
+            }
+        }, completion: nil)
+    }
+    
+    private func askUserForLocation(){
+        // Ask for Authorisation from the User.
+        map.showsUserLocation = true
+
+        self.locationManager.requestAlwaysAuthorization()
+
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
     }
     
     private func setSegmentedControllerConstraints(){
         let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
         let segmentedControllerWidth = Int(self.view.frame.width - 140)
         
-        let items = ["< 2 km", "< 5 km", "< 10 km", "All"]
+        let items = ["< 5 km", "All"]
         segmentedController = UISegmentedControl(items: items)
         segmentedController.addTarget(self, action: #selector(switchView), for: .valueChanged)
         segmentedController.selectedSegmentIndex = 0
@@ -156,23 +298,24 @@ class PlacesScreenViewController: UIViewController {
         self.view.addSubview(segmentedController)
     }
     
-    @objc func switchView(sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            print("1er filtre")
-            break
-        case 1:
-            print("2eme filtre")
-            break
-        case 2:
-            print("3eme filtre")
-            break
-        case 3:
-            print("4eme filtre")
-            break
-        default:
-            break
-        }
+    private func setLocalizeUserButton(){
+        let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
+        let buttonOriginX = segmentedController.frame.origin.x + segmentedController.frame.width
+        
+        let localizeUserView = UIView()
+        localizeUserView.frame = CGRect(x: Int(buttonOriginX), y: navigationBarY + 20, width: 70, height: 40)
+        
+        showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
+        localizeUserView.addSubview(showUserPositionOnMap)
+        
+        self.view.addSubview(localizeUserView)
+        NSLayoutConstraint.activate([
+            showUserPositionOnMap.centerXAnchor.constraint(equalTo: localizeUserView.centerXAnchor),
+            showUserPositionOnMap.centerYAnchor.constraint(equalTo: localizeUserView.centerYAnchor),
+            
+            showUserPositionOnMap.widthAnchor.constraint(equalToConstant: 30.0),
+            showUserPositionOnMap.heightAnchor.constraint(equalToConstant: 30.0),
+        ])
     }
     
     private func setBottomSheetView(){
@@ -184,24 +327,31 @@ class PlacesScreenViewController: UIViewController {
         blurEffectView.frame = bottomSheetView.frame
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        bottomSheetView.layer.cornerRadius = 33;
-        blurEffectView.layer.cornerRadius = 33;
+        bottomSheetView.layer.cornerRadius = 15;
+        blurEffectView.layer.cornerRadius = 15;
         bottomSheetView.layer.masksToBounds = true;
         blurEffectView.layer.masksToBounds = true;
         
         self.view.addSubview(blurEffectView)
         self.view.addSubview(bottomSheetView)
-        
     }
     
-    @objc func hideBottomSheet(_ sender: UIButton){
+    private func setPlaceAdress(index: Int){
+        self.placeName.text = self.places[index].name
+        self.placeStreetLabel.text = self.places[index].address[0]
+        self.placeRegionLabel.text = self.places[index].address[1]
+        self.placeCountryLabel.text = self.places[index].address[2]
+        self.placeRating.text = Int.random(in: 0...5).description
+    }
+    
+    private func hideBottomSheet(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .showHideTransitionViews, animations: {
-            if(self.bottomSheetShowed){
-                self.bottomSheetView.frame.origin.y += (self.view.frame.height/3)
-                self.blurEffectView.frame.origin.y += (self.view.frame.height/3)
-                self.bottomSheetShowed = false
-            }
-        }, completion: nil)
+                   if(self.bottomSheetShowed){
+                       self.bottomSheetView.frame.origin.y += (self.view.frame.height/3)
+                       self.blurEffectView.frame.origin.y += (self.view.frame.height/3)
+                       self.bottomSheetShowed = false
+                   }
+               }, completion: nil)
     }
     
     private func showBottomSheet(){
@@ -228,35 +378,64 @@ extension PlacesScreenViewController: MKMapViewDelegate {
         if annotation is MKUserLocation {
             return nil
         }
-        if let placeAnnotation = annotation as? PlaceAnnotation {
-            let r = placeAnnotation.place
-            let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
-            pin.pinTintColor = .purple
-            pin.canShowCallout = true
-            let button = UIButton(type: .infoLight)
-            let index = self.places.firstIndex { $0.id == r.id }
-            button.tag = index ?? -1
-            button.addTarget(self, action: #selector(touchCallout(_:)), for: .touchUpInside)
-            pin.rightCalloutAccessoryView = button
-            return pin
+        
+        let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        let button = UIButton(type: .infoLight)
+        
+        guard let placeAnnotation = annotation as? PlaceAnnotation else {
+            return nil
         }
-        return nil
+        
+        let r = placeAnnotation.place
+        let index = self.places.firstIndex { $0.id == r.id }
+        pin.pinTintColor = .red
+        pin.canShowCallout = true
+        pin.rightCalloutAccessoryView = button
+        button.tag = index!
+        button.addTarget(self, action: #selector(touchCallout(sender:)), for: .touchUpInside)
+        pin.rightCalloutAccessoryView = button
+        
+        return pin
     }
-        
-    @objc func touchCallout(_ sender: UIButton) {
-        self.placeName.text = self.places[sender.tag].name
-        self.placeAdress.text = self.places[sender.tag].address
-        self.placeRating.text = Int.random(in: 0...5).description + "/5"
-        
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let placeAnnotation = view.annotation as? PlaceAnnotation {
+            let r = placeAnnotation.place
+            let index = self.places.firstIndex { $0.id == r.id }
+            self.showBottomSheet()
+            self.map.zoomToLocation(location: placeAnnotation.coordinate)
+            setPlaceAdress(index: index!)
+        }
+    }
+    
+    @objc func touchCallout(sender: UIButton){
+        setPlaceAdress(index: sender.tag)
         self.showBottomSheet()
-        /*let place = self.places[sender.tag]
-        let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(place.location) { (placemarks, err) in
-            guard err == nil,
-                  let adress = placemarks?.first else {
-                    return
-            }
-            print(adress) // Affiche l'adresse
-        }*/
     }
+}
+
+extension PlacesScreenViewController: CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        //print("locations = \(locValue.latitude) \(locValue.longitude)")
+    }
+}
+
+extension MKMapView {
+  func zoomToUserLocation() {
+     self.zoomToUserLocation(latitudinalMeters: 120, longitudinalMeters: 130)
+  }
+
+  func zoomToUserLocation(latitudinalMeters:CLLocationDistance,longitudinalMeters:CLLocationDistance)
+  {
+    guard let coordinate = userLocation.location?.coordinate else { return }
+    self.zoomToLocation(location: coordinate, latitudinalMeters: latitudinalMeters, longitudinalMeters: longitudinalMeters)
+  }
+
+  func zoomToLocation(location : CLLocationCoordinate2D,latitudinalMeters:CLLocationDistance = 6000,longitudinalMeters:CLLocationDistance = 6000)
+  {
+    let region = MKCoordinateRegion(center: location, latitudinalMeters: latitudinalMeters, longitudinalMeters: longitudinalMeters)
+    setRegion(region, animated: true)
+  }
+
 }

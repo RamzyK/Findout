@@ -22,6 +22,8 @@
 "signup.signupButtonLabel" = "Continue";
 
 "places.title" = "Map";
+"places.timeLabel" = "Schedule";
+"places.bookButtonLabel" = "Book";
 
 "activities.title" = "Which activity?";
 

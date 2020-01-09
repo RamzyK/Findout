@@ -17,7 +17,7 @@ struct PlaceDao {
      var location: CLLocation
      var totalSeat: Int = 0
      var availableSeat: Int = 0
-     var address: String = ""
+     var address: [String] = [] // 1. Num de rue + Rue - 2.Code postal + nom du département - 3. Pays
      var disponibilityStartTime: String?
      var disponibilityEndTime: String?
      var id_notation_list: String = ""
@@ -30,7 +30,7 @@ struct PlaceDao {
                 let coordinates = jsonResponse["coordinate"] as? [String: Double],
                 let nbSeat = jsonResponse["nb_seat"] as? Int,
                 let nbSeatFree = jsonResponse["nb_seat_free"] as? Int,
-                let placeAdress = jsonResponse["address"] as? String,
+                let placeAdress = jsonResponse["address"] as? [String],
                 let idNotationList = jsonResponse["id_nnotation_list"] as? String,
                 let idUser = jsonResponse["id_user"] as? String else{
                 return
@@ -49,7 +49,7 @@ struct PlaceDao {
         
     }
     
-    init(id_place: String, place_Name: String, coordinates: [String: Double], nb_seat: Int, nb_seat_free: Int, address: String, disponibility_start_time: String?, disponibility_end_time: String?, id_notation_list: String, id_user: String) {
+    init(id_place: String, place_Name: String, coordinates: [String: Double], nb_seat: Int, nb_seat_free: Int, address: [String], disponibility_start_time: String?, disponibility_end_time: String?, id_notation_list: String, id_user: String) {
         self.id = id_place
         self.name = place_Name
         self.coordinate = coordinates

@@ -22,6 +22,8 @@
 "signup.signupButtonLabel" = "Continuer";
 
 "places.title" = "Carte";
+"places.timeLabel" = "Horaires";
+"places.bookButtonLabel" = "Réserver";
 
 "activities.title" = "Quelle activité ?";
 
