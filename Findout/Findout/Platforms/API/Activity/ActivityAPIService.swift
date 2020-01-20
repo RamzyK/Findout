@@ -27,8 +27,8 @@ class ActivityAPIService : ActivityServices{
             print(categoryList)
             var list : [ActivityDao] = []
             categoryList.forEach { (result) in
-                guard let  id = result["_id"] as? String,
-                    let name = result["name"] as? String else {
+                guard let  id = result["_id"],
+                    let name = result["name"] else {
                         return
                 }
                 

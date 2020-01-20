@@ -13,10 +13,10 @@
 "login.loginButtonLabel" = "Se connecter";
 
 "signup.signupLabel" = "S'inscrire";
-"signup.nameLabel" = "Prénom *";
-"signup.lastnameLabel" = "Nom *";
-"signup.emailLabel" = "Courriel *";
-"signup.passwordLabel" = "Mot de passe *";
+"signup.nameLabel" = "Prénom";
+"signup.lastnameLabel" = "Nom";
+"signup.emailLabel" = "Courriel";
+"signup.passwordLabel" = "Mot de passe";
 "signup.birthdateLabel" = "Date de naissance";
 "signup.phoneLabel" = "Téléphone";
 "signup.signupButtonLabel" = "Continuer";
