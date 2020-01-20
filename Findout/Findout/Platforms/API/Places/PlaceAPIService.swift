@@ -45,8 +45,8 @@ class PlaceAPIService: PlaceServices{
                 else {
                         return
                 }
-                guard let lon = coordinate["lon"] as? Double,
-                let lat = coordinate["lat"] as? Double else { return }
+                guard let lon = coordinate["lon"],
+                    let lat = coordinate["lat"] else { return }
                 
                 let dispoStart = result["disponibilityStartTime"] as? String
                 let dispoEnd = result["disponibilityEndTime"] as? String
@@ -75,8 +75,8 @@ class PlaceAPIService: PlaceServices{
                     //let data = try? JSONEncoder().encode(valTab)
                     //let jsonString = String(data: data, encoding: .utf8)!
                     //print(data!)
-                    guard let longitude = valTab["lon"] as? String,
-                        let latitude = valTab["lat"] as? String else {
+                    guard let longitude = valTab["lon"],
+                        let latitude = valTab["lat"] else {
                             return
                     }
                     

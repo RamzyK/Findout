@@ -13,10 +13,10 @@
 "login.loginButtonLabel" = "Log in";
 
 "signup.signupLabel" = "Sign Up";
-"signup.nameLabel" = "Name *";
-"signup.lastnameLabel" = "Lastname *";
-"signup.emailLabel" = "Email *";
-"signup.passwordLabel" = "Password *";
+"signup.nameLabel" = "Name";
+"signup.lastnameLabel" = "Lastname";
+"signup.emailLabel" = "Email";
+"signup.passwordLabel" = "Password";
 "signup.birthdateLabel" = "Birthdate";
 "signup.phoneLabel" = "Phone Number";
 "signup.signupButtonLabel" = "Continue";
