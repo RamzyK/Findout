@@ -29,10 +29,10 @@ class CategoryAPIService : CategoryServices{
             print(categoryList)
             var list : [CategoryDao] = []
             categoryList.forEach { (result) in
-                guard let  id = result["_id"] as? String,
-                    let idAct = result["id_activity"] as? String,
-                    let name = result["name"] as? String,
-                    let image = result["url_image"] as? String else {
+                guard let  id = result["_id"],
+                    let idAct = result["id_activity"],
+                    let name = result["name"],
+                    let image = result["url_image"] else {
                         return
                 }
                 
@@ -54,10 +54,10 @@ class CategoryAPIService : CategoryServices{
             print(categoryList)
             var list : [CategoryDao] = []
             categoryList.forEach { (result) in
-                guard let  id = result["_id"] as? String,
-                    let idAct = result["id_activity"] as? String,
-                    let name = result["name"] as? String,
-                    let image = result["url_image"] as? String else {
+                guard let  id = result["_id"],
+                    let idAct = result["id_activity"],
+                    let name = result["name"],
+                    let image = result["url_image"] else {
                         return
                 }
                 

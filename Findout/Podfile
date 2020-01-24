@@ -6,6 +6,7 @@ target 'Findout' do
   use_frameworks!
 
   # Pods for Findout
-pod 'Alamofire'
+  pod 'Alamofire'
+  pod 'GooglePlaces'
 
 end

@@ -23,45 +23,49 @@ class UserAPIService : UserServices{
         
     }
     
-    func addUser(user : UserDao, password : String, completion: @escaping (UserDao) -> Void) {
+    func addUser(user : UserDao, password : String, completion: @escaping (UserDao?, Int) -> Void) {
         let params = [
             "firstname": user.firstname,
             "lastname": user.lastname,
             "password": password,
-            "birthDate": user.birthDate!,
-            "email": user.email!,
+            "birthDate": user.birthDate,
+            "email": user.email,
             "telephone": user.telephone
             ] as [String : Any]
         
-        Alamofire.request("\(onlineServiceAddress)/addUser", method: .post, parameters: params, encoding: JSONEncoding.default).responseString { (res) in
-            print(res)
-            //completion(res.response?.statusCode == 201)
+        Alamofire.request("\(localServiceAddress)/addUser", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
+            var user: UserDao?
+            guard let statusCode = res.response?.statusCode else {
+                completion(user, 500)
+                return
+            }
+            if statusCode == 200 {
+                guard let json = res.result.value as? [String:Any],
+                let userData = json["user"] as? [String:Any] else {
+                    return
+                }
+                user = UserDao.init(jsonResponse: userData)
+            }
+            completion(user, statusCode)
         }
     }
     
-    func connect(email: String, password: String, completion: @escaping(UserDao) -> Void) {
+    func connect(email: String, password: String, completion: @escaping(UserDao?, Int) -> Void) {
         let params : [String : String] = [
             "email" : email,
             "password" : password
         ]
-        print(params)
-        Alamofire.request("\(onlineServiceAddress)/connect/\(email)/\(password)").responseJSON { (res) in
-            guard let jsonUser = res.result.value as? [String:Any] else {
-                return
-            }
-            guard let userData = jsonUser["user"] as? [[String:String]] else {
-                return
-            }
-            var user : UserDao?
-            if(userData.count > 0) {
-                guard let userJson = userData[0] as? [String:String] else {
-                        return
+        Alamofire.request("\(localServiceAddress)/connect", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
+            var user: UserDao?
+            let statusCode = res.response!.statusCode
+            if statusCode == 200 {
+                guard let json = res.result.value as? [String:Any],
+                    let userData = json["user"] as? [String:Any] else {
+                    return
                 }
-                user = UserDao.init(jsonResponse: userJson)
-            } else {
-                user = UserDao(id: "", firstname: "", lastname: "", birthDate: "", email: "", tel: "")
+                user = UserDao.init(jsonResponse: userData)
             }
-            completion(user!)
+            completion(user, statusCode)
         }
     }
 }

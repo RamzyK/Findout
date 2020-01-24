@@ -28,20 +28,29 @@ class SignupViewController: UIViewController {
     
     @IBOutlet var signupButton: UIButton!
     
+    var datePickerView = UIView()
+    var selectedDate = ""
+    var isBirthdateClicked = false
+    var loginViewController = LoginScreenViewController()
+
+    var userServices: UserServices {
+        return UserAPIService()
+    }
+
+    class func newInstance(loginController: LoginScreenViewController) -> SignupViewController {
+        let svc = SignupViewController()
+        svc.loginViewController = loginController
+        return svc
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        hideKeyboard()
+        hideKeyboardAndDatePicker()
         setupCloseButton()
-        
-        userName.delegate = self
-        userLastName.delegate = self
-        userEmail.delegate = self
-        userPassword!.delegate = self
-        userBirthDate.delegate = self
-        userPhoneNumber.delegate = self
+        setTextFieldDelegates()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addObservers()
@@ -57,31 +66,56 @@ class SignupViewController: UIViewController {
         // Create new user
         if(isFormFilled()){
             let user = UserDao(id: "", firstname: userName.text!, lastname: userLastName.text!, birthDate: userBirthDate.text!, email: userEmail.text!, tel: userPhoneNumber.text!)
-            UserAPIService.default.addUser(user: user, password: userPassword.text!) { (res) in
-                print("signup done!")
+            userServices.addUser(user: user, password: userPassword.text!) { (user, error) in
+                switch(error) {
+                    case 200:
+                        self.loginViewController.navigationController?.pushViewController(ActivityViewController(), animated: true)
+                        self.dismissScreen()
+                        break
+                    case 400:
+                        self.errorAlert(message: "L'adresse mail est déjà utilisé")
+                        break
+                    default:
+                        self.errorAlert(message: "Erreur serveur, veuillez réessayer")
+                        break
+                }
             }
         }else{
             print("Please fill the obligatory fields")
         }
     }
     
-    private func isFormFilled() -> Bool{
+    private func setTextFieldDelegates() {
+        self.userName.delegate = self
+        self.userLastName.delegate = self
+        self.userEmail.delegate = self
+        self.userPassword.delegate = self
+        self.userBirthDate.delegate = self
+        self.userPhoneNumber.delegate = self
+    }
+
+    private func isFormFilled() -> Bool {
         guard let nameText = userName.text,
             let lastnameText = userLastName.text,
             let passwordText = userPassword.text,
-            let emailText = userEmail.text else{
+            let emailText = userEmail.text,
+            let birthdate = self.userBirthDate.text,
+            let phone = self.userPhoneNumber.text else{
                 return false
         }
+
         if(nameText.count > 0 && lastnameText.count > 0
-        && emailText.count > 0 && passwordText.count > 0){
+        && emailText.count > 0 && passwordText.count > 0
+        && birthdate.count > 0 && phone.count > 0
+        && emailText.isEmailValid() && passwordText.isPasswordValid()){
             return true
         }else{
-                checkOnWichTextFieldIsError()
+            checkOnWichTextFieldIsError()
         }
         return false
     }
         
-    private func checkOnWichTextFieldIsError(){
+    private func checkOnWichTextFieldIsError() {
         if(userName.text!.count == 0){
             userName.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
         }
@@ -95,17 +129,13 @@ class SignupViewController: UIViewController {
         if(userEmail.text!.count == 0){
             userEmail.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
         }
-    }
-    
-    func setupView() {
-        self.signupLabel.text = NSLocalizedString("signup.signupLabel", comment: "")
-        self.nameLabel.text = NSLocalizedString("signup.nameLabel", comment: "")
-        self.lastnameLabel.text = NSLocalizedString("signup.lastnameLabel", comment: "")
-        self.emailLabel.text = NSLocalizedString("signup.emailLabel", comment: "")
-        self.passwordLabel.text = NSLocalizedString("signup.passwordLabel", comment: "")
-        self.birthdateLabel.text = NSLocalizedString("signup.birthdateLabel", comment: "")
-        self.phoneLabel.text = NSLocalizedString("signup.phoneLabel", comment: "")
-        self.signupButton.setTitle(NSLocalizedString("signup.signupButtonLabel", comment: ""), for: .normal)
+
+        if(userBirthDate.text!.count == 0){
+            userBirthDate.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+        if(userPhoneNumber.text!.count == 0){
+            userPhoneNumber.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
     }
     
     func addObservers() {
@@ -121,11 +151,6 @@ class SignupViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func hideKeyboard() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
-    }
-    
     func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo,
             let frame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
@@ -139,6 +164,82 @@ class SignupViewController: UIViewController {
         scrollView.contentInset = UIEdgeInsets.zero
     }
     
+    func hideKeyboardAndDatePicker() {
+        let tapView = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardAndDatePicker))
+        view.addGestureRecognizer(tapView)
+    }
+
+    func setupView() {
+        self.setupTextFieldKeyboardTypes()
+        self.setupLabelTitle()
+        self.signupButton.layer.cornerRadius = 8
+    }
+
+    func setupTextFieldKeyboardTypes() {
+        self.userName.keyboardType = .alphabet
+        self.userLastName.keyboardType = .alphabet
+        self.userEmail.keyboardType = .emailAddress
+        self.userPassword.keyboardType = .default
+        self.userPhoneNumber.keyboardType = .decimalPad
+        self.userPassword.isSecureTextEntry = true
+    }
+
+    func setupLabelTitle() {
+        self.signupLabel.text = NSLocalizedString("signup.signupLabel", comment: "")
+        self.nameLabel.text = NSLocalizedString("signup.nameLabel", comment: "")
+        self.lastnameLabel.text = NSLocalizedString("signup.lastnameLabel", comment: "")
+        self.emailLabel.text = NSLocalizedString("signup.emailLabel", comment: "")
+        self.passwordLabel.text = NSLocalizedString("signup.passwordLabel", comment: "")
+        self.birthdateLabel.text = NSLocalizedString("signup.birthdateLabel", comment: "")
+        self.phoneLabel.text = NSLocalizedString("signup.phoneLabel", comment: "")
+        self.signupButton.setTitle(NSLocalizedString("signup.signupButtonLabel", comment: ""), for: .normal)
+    }
+
+    func setupBirthdateDatePicker() {
+        if !self.isBirthdateClicked {
+            // Posiiton date picket within a view
+            self.datePickerView = UIView()
+            self.datePickerView.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY, width: self.view.frame.width, height: 220)
+
+            let dateFormatter: DateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+
+            let datePicker = UIDatePicker()
+            datePicker.frame = CGRect(x: 0, y: 20, width: self.view.frame.width, height: 200)
+            datePicker.datePickerMode = .date
+
+            // Set some of UIDatePicker properties
+           datePicker.timeZone = NSTimeZone.local
+           datePicker.backgroundColor = UIColor.white
+            if self.selectedDate != "" {
+                datePicker.setDate(dateFormatter.date(from: self.selectedDate)!, animated: true)
+            }
+           // Add an event to call onDidChangeDate function when value is changed.
+            datePicker.addTarget(self, action: #selector(self.datePickerValueChanged(_:)), for: .valueChanged)
+
+            // ToolBar
+            let toolBar = UIToolbar()
+            toolBar.frame = CGRect(x: 0, y: 0, width: datePicker.frame.width, height: 20)
+            toolBar.barStyle = .default
+            toolBar.barTintColor = UIColor.white
+            toolBar.isTranslucent = true
+            toolBar.sizeToFit()
+
+            // Adding Button ToolBar
+            let doneButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(self.doneClick))
+            let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            toolBar.setItems([spaceButton, doneButton], animated: false)
+            toolBar.isUserInteractionEnabled = true
+            self.datePickerView.addSubview(datePicker)
+            self.datePickerView.addSubview(toolBar)
+            self.view.addSubview(self.datePickerView)
+           // Add DataPicker to the view with animation
+            UIView.animate(withDuration: 0.5, animations: {
+                self.datePickerView.frame.origin.y -= 300
+            }, completion: nil)
+        }
+    }
+
     func setupCloseButton() {
         let closeButton = UIButton(frame: CGRect(x: 5, y: 40, width: 40, height: 40))
         closeButton.setTitle("\u{2715}", for: .normal)
@@ -148,6 +249,16 @@ class SignupViewController: UIViewController {
         self.scrollView.addSubview(closeButton)
     }
     
+    func addToolBarToPhoneNumberPad() {
+        let toolbarDone = UIToolbar()
+        toolbarDone.sizeToFit()
+        let barBtnDone = UIBarButtonItem(barButtonSystemItem: .done,
+                target: self, action: #selector(self.finishEditing))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbarDone.items = [spaceButton, barBtnDone]
+        self.userPhoneNumber.inputAccessoryView = toolbarDone
+    }
+
     @objc
     func dismissScreen() {
         self.dismiss(animated: true) {
@@ -155,8 +266,44 @@ class SignupViewController: UIViewController {
     }
     
     @objc
-    func dismissKeyboard() {
-        view.endEditing(true)
+    func dismissKeyboardAndDatePicker() {
+        // Add DataPicker to the view
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.endEditing(true)
+            self.datePickerView.frame.origin.y += 300
+        }) { (result) in
+            if result && self.isBirthdateClicked{
+                self.isBirthdateClicked = false
+                if(self.userBirthDate.text!.count > 0){
+                    self.userBirthDate.layer.shadowOffset.height = 0
+                }
+                if(self.userBirthDate.text!.count == 0){
+                    self.userBirthDate.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+                }
+                self.datePickerView.removeFromSuperview()
+            }
+        }
+    }
+
+    @objc
+    func datePickerValueChanged(_ sender: UIDatePicker) {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let selectedDate: String = dateFormatter.string(from: sender.date)
+        self.selectedDate = selectedDate
+    }
+
+    @objc
+    func doneClick() {
+        self.userBirthDate.text = self.selectedDate
+        self.dismissKeyboardAndDatePicker()
+        self.userPhoneNumber.becomeFirstResponder()
+    }
+
+    @objc
+    func finishEditing() {
+        self.dismissKeyboardAndDatePicker()
+        self.signup(self)
     }
 }
 
@@ -189,37 +336,49 @@ extension SignupViewController: UITextFieldDelegate {
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (string == " ") {
+            return false
+        }
+        return true
+    }
+
     // Check error
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case self.userName:
             if(userName.text!.count > 0){
                 userName.layer.shadowOffset.height = 0
+            } else {
+                userName.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
             }
             break
         case self.userLastName:
             if(userLastName.text!.count > 0){
                 userLastName.layer.shadowOffset.height = 0
+            } else {
+                userLastName.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
             }
             break
         case self.userEmail:
-            if(userEmail.text!.count > 0){
+            if(userEmail.text!.count > 0 && !userEmail.text!.isEmailValid()){
                 userEmail.layer.shadowOffset.height = 0
+            } else {
+                userEmail.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
             }
             break
         case self.userPassword:
-            if(userPassword.text!.count > 0){
+            if(userPassword.text!.count > 0 && !userPassword.text!.isPasswordValid()){
                 userPassword.layer.shadowOffset.height = 0
-            }
-            break
-        case self.userBirthDate:
-            if(userBirthDate.text!.count > 0){
-                userBirthDate.layer.shadowOffset.height = 0
+            } else {
+                userPassword.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
             }
             break
         case self.userPhoneNumber:
             if(userPhoneNumber.text!.count > 0){
                 userPhoneNumber.layer.shadowOffset.height = 0
+            } else {
+                userPhoneNumber.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
             }
             break
         default:
@@ -227,4 +386,19 @@ extension SignupViewController: UITextFieldDelegate {
         }
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        switch textField {
+            case self.userBirthDate:
+                self.view.endEditing(true)
+                setupBirthdateDatePicker()
+                self.isBirthdateClicked = true
+                return false
+            case self.userPhoneNumber:
+                self.addToolBarToPhoneNumberPad()
+                return true
+        default:
+            return true
+        }
+    }
+
 }
