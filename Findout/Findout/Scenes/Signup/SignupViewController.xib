@@ -120,7 +120,7 @@
                                         <constraint firstAttribute="height" constant="40" id="XCH-Xp-1fL"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="tel"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="password"/>
                                 </textField>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3X4-In-UjT">
                                     <rect key="frame" x="50" y="493" width="314" height="40"/>
