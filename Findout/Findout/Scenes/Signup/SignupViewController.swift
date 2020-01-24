@@ -271,9 +271,9 @@ class SignupViewController: UIViewController {
         UIView.animate(withDuration: 0.5, animations: {
             self.view.endEditing(true)
             self.datePickerView.frame.origin.y += 300
-            self.isBirthdateClicked = false
         }) { (result) in
-            if result {
+            if result && self.isBirthdateClicked{
+                self.isBirthdateClicked = false
                 if(self.userBirthDate.text!.count > 0){
                     self.userBirthDate.layer.shadowOffset.height = 0
                 }
@@ -361,14 +361,14 @@ extension SignupViewController: UITextFieldDelegate {
             }
             break
         case self.userEmail:
-            if(userEmail.text!.count > 0){
+            if(userEmail.text!.count > 0 && !userEmail.text!.isEmailValid()){
                 userEmail.layer.shadowOffset.height = 0
             } else {
                 userEmail.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
             }
             break
         case self.userPassword:
-            if(userPassword.text!.count > 0){
+            if(userPassword.text!.count > 0 && !userPassword.text!.isPasswordValid()){
                 userPassword.layer.shadowOffset.height = 0
             } else {
                 userPassword.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
