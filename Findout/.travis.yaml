@@ -1,4 +1,16 @@
-language: ruby
-rvm:
- - 2.2
- - jruby
+osx_image: xcode11.3
+language: objective-c
+cache:
+  - bundler
+  - cocoapods
+branches:
+  only:
+    - develop
+    - master
+notifications:
+  email:
+    recipients:
+      - toto@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always
+script: echo 'Building Findout app - iOS'
