@@ -51,7 +51,7 @@ class PlaceAPIService: PlaceServices{
                 let dispoStart = result["disponibilityStartTime"] as? String
                 let dispoEnd = result["disponibilityEndTime"] as? String
                 
-                list.append(PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: address, disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser))
+                list.append(PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: [address], disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser))
             }
             
             completion(list)

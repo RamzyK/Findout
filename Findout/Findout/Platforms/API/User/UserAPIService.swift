@@ -57,7 +57,10 @@ class UserAPIService : UserServices{
         ]
         Alamofire.request("\(localServiceAddress)/connect", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
             var user: UserDao?
-            let statusCode = res.response!.statusCode
+            guard let statusCode = res.response?.statusCode else {
+                completion(user, 400)
+                return
+            }
             if statusCode == 200 {
                 guard let json = res.result.value as? [String:Any],
                     let userData = json["user"] as? [String:Any] else {
