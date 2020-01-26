@@ -186,29 +186,12 @@ class PlacesScreenViewController: UIViewController {
         return b;
     }()
     
-    var places: [PlaceDao] = []{
-        didSet{
-           self.map.addAnnotations(
-                self.places.map({
-                    PlaceAnnotation(place: $0)
-                })
-            )
-        }
-    }
-    
-    var placesServices: PlaceServices{
-        return PlacesMockServices()
-    }
-    
-    var segmentedController: UISegmentedControl!
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         askUserForLocation()
         self.map.delegate = self
-        closeBottomSheet.addTarget(self, action: #selector(hideBottomSheet(_:)), for: .touchUpInside)
+        closeBottomSheet.addTarget(self, action: #selector(hideBottomSheet), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
         print("phase 2 \(categoryId)")
     }
@@ -220,7 +203,6 @@ class PlacesScreenViewController: UIViewController {
         PlaceAPIService.default.getById(id: categoryId) { (place) in
             self.places = place
         }
-        self.setBottomSheetViewcConstraint()
         self.setBottomSheetViewsConstraints()
         self.setSegmentedControllerConstraints()
         self.setLocalizeUserButton()
@@ -357,7 +339,7 @@ class PlacesScreenViewController: UIViewController {
         self.view.addSubview(bottomSheetView)
     }
     
-    private func hideBottomSheet(){
+    @objc private func hideBottomSheet(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .showHideTransitionViews, animations: {
                    if(self.bottomSheetShowed){
                        self.bottomSheetView.frame.origin.y += (self.view.frame.height/3)
