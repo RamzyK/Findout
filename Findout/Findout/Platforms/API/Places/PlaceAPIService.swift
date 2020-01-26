@@ -22,16 +22,12 @@ class PlaceAPIService: PlaceServices{
     }
     
     func getById(id: String, completion: @escaping ([PlaceDao]) -> Void) {
-        print("hello \(id)")
         Alamofire.request("\(onlineServiceAddress)/getByIdCategory/\(id)").responseJSON { (res) in
-            guard let jsonCategory = res.result.value as? [String:Any] else {
-                return
-            }
-            guard let categoryList = jsonCategory["place"] as? [[String: Any]] else {
-                return
-            }
-            print("hello\(categoryList)")
+            guard let jsonCategory = res.result.value as? [String:Any],
+                let categoryList = jsonCategory["place"] as? [[String: Any]] else { return }
+
             var list : [PlaceDao] = []
+            
             categoryList.forEach { (result) in
                 
                 guard let  id = result["_id"] as? String,
@@ -41,17 +37,14 @@ class PlaceAPIService: PlaceServices{
                     let name = result["name"] as? String,
                     let nbSeat = result["nb_seat"] as? Int,
                     let nbSeatFree = result["nb_seat_free"] as? Int,
-                    let address = result["address"] as? String
-                else {
-                        return
-                }
-                guard let lon = coordinate["lon"],
-                    let lat = coordinate["lat"] else { return }
+                    let address = result["arrAddress"] as? [String],
+                    let lon = coordinate["lon"],
+                    let lat = coordinate["lat"],
+                    let dispoStart = result["disponibilityStartTime"] as? String,
+                    let dispoEnd = result["disponibilityEndTime"] as? String else { return }
                 
-                let dispoStart = result["disponibilityStartTime"] as? String
-                let dispoEnd = result["disponibilityEndTime"] as? String
-                
-                list.append(PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: [address], disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser))
+                let placeDao = PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: address, disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser)
+                list.append(placeDao)
             }
             
             completion(list)
