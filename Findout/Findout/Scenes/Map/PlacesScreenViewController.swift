@@ -26,6 +26,7 @@ fileprivate class PlaceAnnotation: NSObject, MKAnnotation {
 }
 
 class PlacesScreenViewController: UIViewController {
+
     @IBOutlet weak var map: MKMapView!
     var categoryId : String = ""
     
@@ -200,7 +201,7 @@ class PlacesScreenViewController: UIViewController {
 //        self.placesServices.getAll { (placeList) in
 //            self.places = placeList
 //        }
-        PlaceAPIService.default.getById(id: categoryId) { (place) in
+        PlaceAPIService.default.getByIdCategory(id: categoryId) { (place) in
             self.places = place
         }
         self.setBottomSheetView()
@@ -319,13 +320,15 @@ class PlacesScreenViewController: UIViewController {
     }
     
     @objc func openAddPlace() {
-        self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
+        //self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
+        let userId = "5e033735274cac40da9ed1d4"
+        let placeId = "5e03779c925b4b475137f640"
+        present(ReservationViewController.instance.alert(idPlace : placeId, idUser : userId), animated: true)
     }
     
     private func setBottomSheetView(){
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
-        
         bottomSheetView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height)
         bottomSheetView.backgroundColor = .clear
         blurEffectView.frame = bottomSheetView.frame

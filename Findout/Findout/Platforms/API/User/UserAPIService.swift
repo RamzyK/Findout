@@ -10,19 +10,19 @@ import Foundation
 import Alamofire
 
 class UserAPIService : UserServices{
-    
+
     let localServiceAddress = "http://localhost:3000/users"
     let onlineServiceAddress = "https://findout-esgi.herokuapp.com/users"
-    
+
     public static let `default` = UserAPIService()
-    
+
     func getAll(completion: @escaping ([UserDao]) -> Void) {
-        
+
     }
     func getById(_ id: String, completion: @escaping (UserDao?) -> Void) {
-        
+
     }
-    
+
     func addUser(user : UserDao, password : String, completion: @escaping (UserDao?, Int) -> Void) {
         let params = [
             "firstname": user.firstname,
@@ -32,7 +32,7 @@ class UserAPIService : UserServices{
             "email": user.email,
             "telephone": user.telephone
             ] as [String : Any]
-        
+
         Alamofire.request("\(onlineServiceAddress)/addUser", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
             var user: UserDao?
             guard let statusCode = res.response?.statusCode else {
@@ -49,7 +49,7 @@ class UserAPIService : UserServices{
             completion(user, statusCode)
         }
     }
-    
+
     func connect(email: String, password: String, completion: @escaping(UserDao?, Int) -> Void) {
         let params : [String : String] = [
             "email" : email,

@@ -11,7 +11,8 @@ import UIKit
 import Alamofire
 
 protocol PlaceServices{
-    func getAll(completion: @escaping ([PlaceDao]) -> Void);
-    func getById(id: String, completion: @escaping ([PlaceDao]) -> Void);
-    func create(params: [String:Any], image: UIImage, completion: @escaping (SessionManager.MultipartFormDataEncodingResult) -> Void);
+    func getAll(completion: @escaping ([PlaceDao]) -> Void)
+    func getById(id: String, completion: @escaping (PlaceDao) -> Void)
+    func getByIdCategory(id: String, completion: @escaping ([PlaceDao]) -> Void)
+    func create(params: [String:Any], image: UIImage, completion: @escaping (SessionManager.MultipartFormDataEncodingResult) -> Void)
 }
