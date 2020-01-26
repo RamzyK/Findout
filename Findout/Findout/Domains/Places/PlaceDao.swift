@@ -31,6 +31,8 @@ struct PlaceDao {
                 let nbSeat = jsonResponse["nb_seat"] as? Int,
                 let nbSeatFree = jsonResponse["nb_seat_free"] as? Int,
                 let placeAdress = jsonResponse["address"] as? [String],
+                let dispoStart = jsonResponse["disponibilityStartTime"] as? String,
+                let dispoEnd = jsonResponse["disponibilityEndTime"] as? String,
                 let idNotationList = jsonResponse["id_nnotation_list"] as? String,
                 let idUser = jsonResponse["id_user"] as? String else{
                 return
@@ -42,6 +44,8 @@ struct PlaceDao {
         self.location = CLLocation(latitude: self.coordinate["lat"]!, longitude: self.coordinate["long"]!)
         //self.location = CLLocation(latitude: 48.849329, longitude: 2.3875453)
         self.totalSeat = nbSeat
+        self.disponibilityStartTime = dispoStart
+        self.disponibilityEndTime = dispoEnd
         self.availableSeat = nbSeatFree
         self.address = placeAdress
         self.id_notation_list = idNotationList
@@ -57,10 +61,10 @@ struct PlaceDao {
         self.availableSeat = nb_seat_free
         self.address = address
         self.location = location
-        if(disponibility_end_time == nil) {
+        if(disponibility_end_time != nil) {
             self.disponibilityStartTime = disponibility_start_time
         }
-        if(disponibility_end_time == nil) {
+        if(disponibility_end_time != nil) {
             self.disponibilityEndTime = disponibility_end_time
         }
         self.id_notation_list = id_notation_list

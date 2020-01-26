@@ -104,7 +104,7 @@ extension PlacesScreenViewController{
         self.bottomSheetView.addSubview(placeCountryLabel)
         
         let sharePlaceButton = UIView()
-        sharePlaceButton.frame = CGRect(x: width - 35 - closeBottomSheet.frame.width, y: 180, width: 50, height: 50)
+        sharePlaceButton.frame = CGRect(x: width - 35 - closeBottomSheet.frame.width, y: 190, width: 50, height: 50)
         sharePlaceButton.layer.cornerRadius = 25
         
         shareButton.setBackgroundImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
@@ -151,15 +151,15 @@ extension PlacesScreenViewController{
         bookingButton.layer.cornerRadius = 6
 
         self.bottomSheetView.addSubview(placeDisponitbilitiesTitle)
-        self.bottomSheetView.addSubview(placeDisponobolitiesStartTime)
+        self.bottomSheetView.addSubview(placeDisponobolitiesWeekTime)
         self.bottomSheetView.addSubview(placeDisponobolitiesEndTime)
         
         NSLayoutConstraint.activate([
             placeDisponitbilitiesTitle.leftAnchor.constraint(equalTo: bottomSheetView.leftAnchor, constant: 20),
             placeDisponitbilitiesTitle.topAnchor.constraint(equalTo: placeImageViewCtn.bottomAnchor, constant: 25),
             
-            placeDisponobolitiesStartTime.leftAnchor.constraint(equalTo: bottomSheetView.leftAnchor, constant: 20),
-            placeDisponobolitiesStartTime.topAnchor.constraint(equalTo: placeDisponitbilitiesTitle.bottomAnchor, constant: 4),
+            placeDisponobolitiesWeekTime.leftAnchor.constraint(equalTo: bottomSheetView.leftAnchor, constant: 20),
+            placeDisponobolitiesWeekTime.topAnchor.constraint(equalTo: placeDisponitbilitiesTitle.bottomAnchor, constant: 4),
             
             placeDisponobolitiesEndTime.rightAnchor.constraint(equalTo: bottomSheetView.rightAnchor, constant: -20),
             placeDisponobolitiesEndTime.topAnchor.constraint(equalTo: placeDisponitbilitiesTitle.bottomAnchor, constant: 4),
@@ -167,8 +167,8 @@ extension PlacesScreenViewController{
             placeDisponitbilitiesTitle.heightAnchor.constraint(equalToConstant: 20),
             placeDisponitbilitiesTitle.widthAnchor.constraint(equalToConstant: width/2),
             
-            placeDisponobolitiesStartTime.heightAnchor.constraint(equalToConstant: 20),
-            placeDisponobolitiesStartTime.widthAnchor.constraint(equalToConstant: width/2),
+            placeDisponobolitiesWeekTime.heightAnchor.constraint(equalToConstant: 20),
+            placeDisponobolitiesWeekTime.widthAnchor.constraint(equalToConstant: width/2),
             
             placeDisponobolitiesEndTime.heightAnchor.constraint(equalToConstant: 20),
             placeDisponobolitiesEndTime.widthAnchor.constraint(equalToConstant: width/2),

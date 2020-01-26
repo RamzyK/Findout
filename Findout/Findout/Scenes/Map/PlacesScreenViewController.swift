@@ -159,7 +159,7 @@ class PlacesScreenViewController: UIViewController {
         return l
     }()
     
-    var placeDisponobolitiesStartTime: UILabel = {
+    var placeDisponobolitiesWeekTime: UILabel = {
         let l = UILabel()
         l.text = "Dimanche - Lundi"
         l.textAlignment = .left
@@ -203,6 +203,7 @@ class PlacesScreenViewController: UIViewController {
         PlaceAPIService.default.getById(id: categoryId) { (place) in
             self.places = place
         }
+        self.setBottomSheetView()
         self.setBottomSheetViewsConstraints()
         self.setSegmentedControllerConstraints()
         self.setLocalizeUserButton()
@@ -366,6 +367,13 @@ class PlacesScreenViewController: UIViewController {
         self.placeRegionLabel.text = self.places[index].address[1]
         self.placeCountryLabel.text = self.places[index].address[2]
         self.placeRating.text = Int.random(in: 0...5).description
+        
+        guard let startDispo = self.places[index].disponibilityStartTime,
+            let endDispo = self.places[index].disponibilityEndTime else{
+                self.placeDisponobolitiesEndTime.text = "--"
+                return
+        }
+        self.placeDisponobolitiesEndTime.text = startDispo + " - " + endDispo
     }
     
     func setupNavigationBar() {

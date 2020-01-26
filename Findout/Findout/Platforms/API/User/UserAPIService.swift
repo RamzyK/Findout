@@ -33,7 +33,7 @@ class UserAPIService : UserServices{
             "telephone": user.telephone
             ] as [String : Any]
         
-        Alamofire.request("\(localServiceAddress)/addUser", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
+        Alamofire.request("\(onlineServiceAddress)/addUser", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
             var user: UserDao?
             guard let statusCode = res.response?.statusCode else {
                 completion(user, 500)
@@ -55,7 +55,7 @@ class UserAPIService : UserServices{
             "email" : email,
             "password" : password
         ]
-        Alamofire.request("\(localServiceAddress)/connect", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
+        Alamofire.request("\(onlineServiceAddress)/connect", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
             var user: UserDao?
             guard let statusCode = res.response?.statusCode else {
                 completion(user, 400)
