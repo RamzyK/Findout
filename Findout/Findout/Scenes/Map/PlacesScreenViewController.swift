@@ -49,6 +49,7 @@ class PlacesScreenViewController: UIViewController {
         return PlacesMockServices()
     }
     
+    var indexForBook : Int = 0
     
     // views
     var placeImageViewCtn = UIView()
@@ -211,9 +212,9 @@ class PlacesScreenViewController: UIViewController {
     }
     
     @objc func bookPlace(){
-        print("Booked!")
-        // TODO
-        //self.navigationController?.pushViewController(BookingPage(), animated: true)
+        let userId = "5e033735274cac40da9ed1d4"
+        let placeId = self.places[indexForBook].id
+        present(ReservationViewController.instance.alert(idPlace : placeId, idUser : userId), animated: true)
     }
     
     @objc func sharePlaceAdress(sender: UIView){
@@ -319,11 +320,9 @@ class PlacesScreenViewController: UIViewController {
         ])
     }
     
+    
     @objc func openAddPlace() {
-        //self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
-        let userId = "5e033735274cac40da9ed1d4"
-        let placeId = "5e03779c925b4b475137f640"
-        present(ReservationViewController.instance.alert(idPlace : placeId, idUser : userId), animated: true)
+        self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
     }
     
     private func setBottomSheetView(){
@@ -418,6 +417,7 @@ extension PlacesScreenViewController: MKMapViewDelegate {
             let index = self.places.firstIndex { $0.id == r.id }
             self.showBottomSheet()
             self.map.zoomToLocation(location: placeAnnotation.coordinate)
+            self.indexForBook = index!
             setPlaceAdress(index: index!)
         }
     }
