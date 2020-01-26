@@ -38,3 +38,9 @@
 "place.end" = "Fin";
 "place.category" = "Categorie";
 "place.cancel" = "Annuler";
+
+"reservation.date" = "Choisir la date";
+"reservation.creneau" = "Choisir le créneau";
+"reservation.place" = "Choisir le nombre de place";
+"reservation.valider" = "Valider";
+"reservation.cancel" = "Annuler";

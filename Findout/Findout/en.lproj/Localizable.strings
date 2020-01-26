@@ -38,3 +38,10 @@
 "place.end" = "End";
 "place.category" = "Category";
 "place.cancel" = "Cancel";
+
+"reservation.date" = "Choose the date";
+"reservation.creneau" = "Choose the hour";
+"reservation.place" = "Choose number of seat";
+"reservation.valider" = "Validate";
+"reservation.cancel" = "Cancel";
+

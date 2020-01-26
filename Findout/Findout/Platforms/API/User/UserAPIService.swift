@@ -45,19 +45,20 @@ class UserAPIService : UserServices{
             "password" : password
         ]
         print(params)
-        Alamofire.request("\(onlineServiceAddress)/connect/\(email)/\(password)").responseJSON { (res) in
+        Alamofire.request("\(onlineServiceAddress)/connect", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
             guard let jsonUser = res.result.value as? [String:Any] else {
                 return
             }
-            guard let userData = jsonUser["user"] as? [[String:String]] else {
+            //print(jsonUser["user"])
+            guard let userData = jsonUser["user"] as? [String:String] else {
                 return
             }
             var user : UserDao?
             if(userData.count > 0) {
-                guard let userJson = userData[0] as? [String:String] else {
-                        return
-                }
-                user = UserDao.init(jsonResponse: userJson)
+//                guard let userJson = userData[0] as? [String:String] else {
+//                        return
+//                }
+                user = UserDao.init(jsonResponse: userData)
             } else {
                 user = UserDao(id: "", firstname: "", lastname: "", birthDate: "", email: "", tel: "")
             }

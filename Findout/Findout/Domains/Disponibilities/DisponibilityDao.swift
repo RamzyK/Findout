@@ -38,4 +38,14 @@ struct DisponibilityDao {
         self.userID = userId
         self.placeID = placeId
     }
+    
+    init(id: String, date: String, startTime: String, endTime: String, place: Int, userID: String, placeID: String) {
+        self.id = id
+        self.date = date
+        self.startTime = startTime
+        self.endTime = endTime
+        self.placesAvailable = place
+        self.userID = userID
+        self.placeID = placeID
+    }
 }
