@@ -52,7 +52,7 @@ class PlaceAPIService: PlaceServices{
     }
 
     func getById(id: String, completion: @escaping (PlaceDao) -> Void) {
-        Alamofire.request("\(localServiceAddress)/getById/\(id)").responseJSON { (res) in
+        Alamofire.request("\(onlineServiceAddress)/getById/\(id)").responseJSON { (res) in
             guard let jsonCategory = res.result.value as? [String:Any] else {
                 return
             }

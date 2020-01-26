@@ -75,7 +75,7 @@ class DisponibilityAPIService: DisponibilityServices {
             "date" : date,
             "nbPlace" : nbPlace
         ]
-        Alamofire.request("\(localServiceAddress)/addDisponibility", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
+        Alamofire.request("\(onlineServiceAddress)/addDisponibility", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (res) in
             completion((res.response?.statusCode)!)
         }
     }
