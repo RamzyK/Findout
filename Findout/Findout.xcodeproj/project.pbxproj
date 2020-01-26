@@ -11,6 +11,9 @@
 		0C042FC423B8C3C2000C0198 /* AddPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C042FC223B8C3C2000C0198 /* AddPlaceViewController.xib */; };
 		0C042FC723C2B6EB000C0198 /* CategoryAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C042FC623C2B6EB000C0198 /* CategoryAPIService.swift */; };
 		0C042FCC23C3C27F000C0198 /* ActivityAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C042FCB23C3C27F000C0198 /* ActivityAPIService.swift */; };
+		0CA3D9F823C7A30C003E1ED2 /* ReservationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CA3D9F723C7A30C003E1ED2 /* ReservationViewController.storyboard */; };
+		0CA3D9FA23C7A376003E1ED2 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3D9F923C7A376003E1ED2 /* ReservationViewController.swift */; };
+		0CA3D9FD23C7CF69003E1ED2 /* DisponibilityAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3D9FC23C7CF69003E1ED2 /* DisponibilityAPIService.swift */; };
 		5E0377F023B3A4C000059D11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E0377F223B3A4C000059D11 /* Localizable.strings */; };
 		5E916CA323C51E1200C33E69 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E916CA223C51E1200C33E69 /* UIViewControllerExtension.swift */; };
 		5E916CA523C5D7D700C33E69 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E916CA423C5D7D700C33E69 /* StringExtension.swift */; };
@@ -63,6 +66,9 @@
 		0C042FC223B8C3C2000C0198 /* AddPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPlaceViewController.xib; sourceTree = "<group>"; };
 		0C042FC623C2B6EB000C0198 /* CategoryAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAPIService.swift; sourceTree = "<group>"; };
 		0C042FCB23C3C27F000C0198 /* ActivityAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAPIService.swift; sourceTree = "<group>"; };
+		0CA3D9F723C7A30C003E1ED2 /* ReservationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReservationViewController.storyboard; sourceTree = "<group>"; };
+		0CA3D9F923C7A376003E1ED2 /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
+		0CA3D9FC23C7CF69003E1ED2 /* DisponibilityAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisponibilityAPIService.swift; sourceTree = "<group>"; };
 		17E4066902694D5016841807 /* Pods-Findout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Findout.debug.xcconfig"; path = "Target Support Files/Pods-Findout/Pods-Findout.debug.xcconfig"; sourceTree = "<group>"; };
 		5E0377F123B3A4C000059D11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5E0377F323B3A4D500059D11 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -153,6 +159,23 @@
 				634FFD0123B68B6800424409 /* TextFieldUtils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		0CA3D9EC23C7800C003E1ED2 /* Reservation */ = {
+			isa = PBXGroup;
+			children = (
+				0CA3D9F723C7A30C003E1ED2 /* ReservationViewController.storyboard */,
+				0CA3D9F923C7A376003E1ED2 /* ReservationViewController.swift */,
+			);
+			path = Reservation;
+			sourceTree = "<group>";
+		};
+		0CA3D9FB23C7CF4B003E1ED2 /* Disponibility */ = {
+			isa = PBXGroup;
+			children = (
+				0CA3D9FC23C7CF69003E1ED2 /* DisponibilityAPIService.swift */,
+			);
+			path = Disponibility;
 			sourceTree = "<group>";
 		};
 		631BCED523B0E349003FC0CE /* User */ = {
@@ -295,6 +318,7 @@
 		633D45A823AB9EE700FE24F1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				0CA3D9FB23C7CF4B003E1ED2 /* Disponibility */,
 				0C042FCA23C3C248000C0198 /* Activity */,
 				0C042FC523C2B17E000C0198 /* Category */,
 				633D45A923AB9EE700FE24F1 /* Places */,
@@ -418,6 +442,7 @@
 		6368378C23B3A2E40042D6F5 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				0CA3D9EC23C7800C003E1ED2 /* Reservation */,
 				63C759DF23B3DBFE0019247E /* Map Bottomsheet */,
 				633D45BB23ABA01000FE24F1 /* PlacesScreenViewController.swift */,
 				633D45BC23ABA01000FE24F1 /* PlacesScreenViewController.xib */,
@@ -531,6 +556,7 @@
 				633D45BA23AB9FF300FE24F1 /* HomeScreenViewController.xib in Resources */,
 				5E0377F023B3A4C000059D11 /* Localizable.strings in Resources */,
 				631BCEEC23B10C0B003FC0CE /* CategoryCollectionViewCell.xib in Resources */,
+				0CA3D9F823C7A30C003E1ED2 /* ReservationViewController.storyboard in Resources */,
 				634A297023AB9E030002D3BA /* Assets.xcassets in Resources */,
 				633D45BE23ABA01000FE24F1 /* PlacesScreenViewController.xib in Resources */,
 				631BCEE723B1023A003FC0CE /* CategoriesListViewController.xib in Resources */,
@@ -636,9 +662,11 @@
 				631BCEE623B1023A003FC0CE /* CategoriesListViewController.swift in Sources */,
 				63C759DE23B3AC630019247E /* PlaceMockServices.swift in Sources */,
 				633D45C123ABA02000FE24F1 /* LoginScreenViewController.swift in Sources */,
+				0CA3D9FD23C7CF69003E1ED2 /* DisponibilityAPIService.swift in Sources */,
 				633D45C723ABBC1900FE24F1 /* ActivityDao.swift in Sources */,
 				631BCED723B0E3D8003FC0CE /* UserMockServices.swift in Sources */,
 				633D45AD23AB9EE700FE24F1 /* PlaceServices.swift in Sources */,
+				0CA3D9FA23C7A376003E1ED2 /* ReservationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

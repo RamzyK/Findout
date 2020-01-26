@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 
 struct PlaceDao {
-    
+
      var id: String = ""
      var name: String = ""
      var coordinate: [String: Double] = [:]
@@ -37,7 +37,7 @@ struct PlaceDao {
                 let idUser = jsonResponse["id_user"] as? String else{
                 return
         }
-        
+
         self.id = idPlace
         self.name = placeName
         self.coordinate = coordinates
@@ -50,9 +50,9 @@ struct PlaceDao {
         self.address = placeAdress
         self.id_notation_list = idNotationList
         self.id_user = idUser
-        
+
     }
-    
+
     init(id_place: String, place_Name: String, coordinates: [String: Double], location: CLLocation, nb_seat: Int, nb_seat_free: Int, address: [String], disponibility_start_time: String?, disponibility_end_time: String?, id_notation_list: String, id_user: String) {
         self.id = id_place
         self.name = place_Name
@@ -69,6 +69,5 @@ struct PlaceDao {
         }
         self.id_notation_list = id_notation_list
         self.id_user = id_user
-        
     }
 }

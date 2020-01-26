@@ -12,6 +12,8 @@ import Alamofire
 import CoreLocation
 
 class PlacesMockServices: PlaceServices {
+
+
     private var allPlaces: [PlaceDao] = [
         PlaceDao(id_place: "1111", place_Name: "L'ESGI",
                  coordinates: ["lat": 48.849329, "long": 2.3875453],
@@ -42,7 +44,7 @@ class PlacesMockServices: PlaceServices {
         completion(allPlaces)
     }
     
-    func getById(id: String, completion: @escaping ([PlaceDao]) -> Void) {
+    func getByIdCategory(id: String, completion: @escaping ([PlaceDao]) -> Void) {
 //        completion(self.allPlaces.first(where: { (r) -> Bool in
 //            return r.id == id
 //        }))
@@ -52,5 +54,9 @@ class PlacesMockServices: PlaceServices {
         
     }
     
+    func getById(id: String, completion: @escaping (PlaceDao) -> Void) {
+        //
+    }
+
     
 }
