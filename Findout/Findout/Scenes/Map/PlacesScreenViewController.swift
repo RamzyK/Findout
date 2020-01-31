@@ -36,17 +36,27 @@ class PlacesScreenViewController: UIViewController {
     var bottomSheetExtanded = false
     var segmentedController: UISegmentedControl!
     var locationManager = CLLocationManager()
+    
+    var allPlaces: [PlaceDao] = []
     var places: [PlaceDao] = []{
         didSet{
-           self.map.addAnnotations(
-                self.places.map({
-                    PlaceAnnotation(place: $0)
-                })
-            )
+            self.map.annotations.forEach {
+              if !($0 is MKUserLocation) {
+                self.map.removeAnnotation($0)
+              }
+            }
+            
+            if(self.places.count > 0){
+                self.map.addAnnotations(
+                    self.places.map({
+                        PlaceAnnotation(place: $0)
+                    })
+                )
+            }
         }
     }
     var placesServices: PlaceServices{
-        return PlacesMockServices()
+        return PlaceAPIService()
     }
     
     var indexForBook : Int = 0
@@ -195,14 +205,10 @@ class PlacesScreenViewController: UIViewController {
         self.map.delegate = self
         closeBottomSheet.addTarget(self, action: #selector(hideBottomSheet), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
-        print("phase 2 \(categoryId)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        self.placesServices.getAll { (placeList) in
-//            self.places = placeList
-//        }
-        PlaceAPIService.default.getByIdCategory(id: categoryId) { (place) in
+        placesServices.getByIdCategory(id: categoryId) { (place) in
             self.places = place
         }
         self.setBottomSheetView()
@@ -246,12 +252,21 @@ class PlacesScreenViewController: UIViewController {
     }
     
     @objc func switchView(sender: UISegmentedControl) {
+        guard let userCurrentLocation = map.userLocation.location else { return }
+
+//        let userCurrentLocation = CLLocation(latitude: 48.854834 , longitude: 2.347165)
         switch sender.selectedSegmentIndex {
         case 0:
-            print("1er filtre")
+            if(allPlaces.count != 0){
+                self.places = allPlaces
+            }
             break
         case 1:
-            print("2eme filtre")
+            self.places = places.filter({ (place) -> Bool in
+                let placeLocation = place.location
+                allPlaces.append(place)
+                return userCurrentLocation.distance(from: placeLocation)/1000 < 5
+            })
             break
         default:
             break
@@ -288,7 +303,7 @@ class PlacesScreenViewController: UIViewController {
         let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
         let segmentedControllerWidth = Int(self.view.frame.width - 140)
         
-        let items = ["< 5 km", "All"]
+        let items = ["All", "< 5 km"]
         segmentedController = UISegmentedControl(items: items)
         segmentedController.addTarget(self, action: #selector(switchView), for: .valueChanged)
         segmentedController.selectedSegmentIndex = 0

@@ -285,7 +285,7 @@ extension AddPlaceViewController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (pickerView.tag == 1) {
             categoryTextField.text = categoryList[row].name
-            categoryId = categoryList[row].idActivity
+            categoryId = categoryList[row].idCategory
         } else if (pickerView.tag == 2) {
             seatTextField.text = numTabString[row]
         } else if (pickerView.tag == 3) {
