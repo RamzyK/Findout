@@ -4,3 +4,12 @@
 
 # For more information about the Appfile, see:
 #     https://docs.fastlane.tools/advanced/#appfile
+
+
+# app_identifier "com.sncf.ios.internal.ecb-dev"       # The bundle identifier of your app
+#
+# apple_dev_portal_id "mobile.delivery@itnovem.com"  # Apple Developer Account
+# itunes_connect_id "mobile.delivery@itnovem.com"     # App Store Connect Account
+#
+# team_id "S45ZS9MRCA" # Developer Portal Team ID
+# itc_team_id "120615815" # App Store Connect Team ID
