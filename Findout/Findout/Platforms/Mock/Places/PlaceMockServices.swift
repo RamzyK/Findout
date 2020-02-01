@@ -21,7 +21,7 @@ class PlacesMockServices: PlaceServices {
                  nb_seat: 10, nb_seat_free: 10,
                  address: ["123 Avenue du boulevard", "75002 Paris", "France"],
                  disponibility_start_time: "DisponibilityDao", disponibility_end_time: "",
-                 id_notation_list: "1919", id_user: "1A1A"),
+                 id_notation_list: "1919", id_user: "1A1A", place_image: ""),
         
         PlaceDao(id_place: "2222", place_Name: "Boulbi",
                  coordinates: ["lat": 48.9460785, "long": 2.3168825],
@@ -29,7 +29,7 @@ class PlacesMockServices: PlaceServices {
                  nb_seat: 10, nb_seat_free: 10,
                  address: ["123 Avenue de la rue", "75003 Paris", "France"],
                  disponibility_start_time: "XXXX/XX/XX", disponibility_end_time: "XXXX/XX/XX",
-                id_notation_list: "2929", id_user: "2Z2Z"),
+                id_notation_list: "2929", id_user: "2Z2Z", place_image: ""),
         
         PlaceDao(id_place: "3333", place_Name: "Gringny la grande borne",
                  coordinates: ["lat": 48.8580021, "long": 2.345054],
@@ -37,7 +37,7 @@ class PlacesMockServices: PlaceServices {
                  nb_seat: 10, nb_seat_free: 10,
                  address: ["123 Avenue de l'avenue", "75004 Paris", "France"],
                  disponibility_start_time: "DisponibilityDao", disponibility_end_time: "",
-                id_notation_list: "3939", id_user: "3E3E"),
+                id_notation_list: "3939", id_user: "3E3E",place_image: ""),
         
     ]
     func getAll(completion: @escaping ([PlaceDao]) -> Void) {

@@ -139,11 +139,15 @@ extension PlacesScreenViewController{
     private func setPlaceImageConstraints(){
         let yOrigin = placeCountryLabel.frame.origin.y + placeCountryLabel.frame.height + 40
         
-        placeImageViewCtn.frame = CGRect(x: 20, y: yOrigin, width: self.view.frame.width - 40, height: 170)
+        placeImageViewCtn.frame = CGRect(x: 20, y: yOrigin, width: self.view.frame.width - 40, height: 200)
+        placeImage.clipsToBounds = true
         placeImageViewCtn.addSubview(placeImage)
-        placeImageViewCtn.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
         
         self.bottomSheetView.addSubview(placeImageViewCtn)
+         NSLayoutConstraint.activate([
+            placeImage.widthAnchor.constraint(equalToConstant: placeImageViewCtn.frame.width),
+            placeImage.heightAnchor.constraint(equalToConstant: 200),
+         ])
     }
     
     private func setDisponibilitiesConstraints(){

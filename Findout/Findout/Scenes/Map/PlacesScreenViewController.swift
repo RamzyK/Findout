@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Photos
 
 fileprivate class PlaceAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D {
@@ -36,17 +37,27 @@ class PlacesScreenViewController: UIViewController {
     var bottomSheetExtanded = false
     var segmentedController: UISegmentedControl!
     var locationManager = CLLocationManager()
+    
+    var allPlaces: [PlaceDao] = []
     var places: [PlaceDao] = []{
         didSet{
-           self.map.addAnnotations(
-                self.places.map({
-                    PlaceAnnotation(place: $0)
-                })
-            )
+            self.map.annotations.forEach {
+              if !($0 is MKUserLocation) {
+                self.map.removeAnnotation($0)
+              }
+            }
+            
+            if(self.places.count > 0){
+                self.map.addAnnotations(
+                    self.places.map({
+                        PlaceAnnotation(place: $0)
+                    })
+                )
+            }
         }
     }
     var placesServices: PlaceServices{
-        return PlacesMockServices()
+        return PlaceAPIService()
     }
     
     var indexForBook : Int = 0
@@ -57,6 +68,8 @@ class PlacesScreenViewController: UIViewController {
     var placeImage: UIImageView = {
         let i = UIImageView()
         i.translatesAutoresizingMaskIntoConstraints = false
+        i.clipsToBounds = true
+        i.contentMode = .scaleToFill
         return i
     }()
        
@@ -195,14 +208,10 @@ class PlacesScreenViewController: UIViewController {
         self.map.delegate = self
         closeBottomSheet.addTarget(self, action: #selector(hideBottomSheet), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
-        print("phase 2 \(categoryId)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        self.placesServices.getAll { (placeList) in
-//            self.places = placeList
-//        }
-        PlaceAPIService.default.getByIdCategory(id: categoryId) { (place) in
+        placesServices.getByIdCategory(id: categoryId) { (place) in
             self.places = place
         }
         self.setBottomSheetView()
@@ -246,12 +255,19 @@ class PlacesScreenViewController: UIViewController {
     }
     
     @objc func switchView(sender: UISegmentedControl) {
+        guard let userCurrentLocation = map.userLocation.location else { return }
         switch sender.selectedSegmentIndex {
         case 0:
-            print("1er filtre")
+            if(allPlaces.count != 0){
+                self.places = allPlaces
+            }
             break
         case 1:
-            print("2eme filtre")
+            self.places = places.filter({ (place) -> Bool in
+                let placeLocation = place.location
+                allPlaces.append(place)
+                return userCurrentLocation.distance(from: placeLocation)/1000 < 5
+            })
             break
         default:
             break
@@ -272,6 +288,26 @@ class PlacesScreenViewController: UIViewController {
         }, completion: nil)
     }
     
+    private func askUserForGaleryPermission(){
+        AVCaptureDevice.requestAccess(for: .video) { success in
+          if success { // if request is granted (success is true)
+//            DispatchQueue.main.async {
+//              //self.performSegue(withIdentifier: identifier, sender: nil)
+//            }
+          } else { // if request is denied (success is false)
+            // Create Alert
+            let alert = UIAlertController(title: "Camera", message: "Camera access is absolutely necessary to use this app", preferredStyle: .alert)
+
+            // Add "OK" Button to alert, pressing it will bring you to the settings app
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }))
+            // Show the alert with animation
+            self.present(alert, animated: true)
+          }
+        }
+    }
+    
     private func askUserForLocation(){
         map.showsUserLocation = true
         self.locationManager.requestAlwaysAuthorization()
@@ -281,6 +317,7 @@ class PlacesScreenViewController: UIViewController {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
+            askUserForGaleryPermission()
         }
     }
     
@@ -288,7 +325,7 @@ class PlacesScreenViewController: UIViewController {
         let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
         let segmentedControllerWidth = Int(self.view.frame.width - 140)
         
-        let items = ["< 5 km", "All"]
+        let items = ["All", "< 5 km"]
         segmentedController = UISegmentedControl(items: items)
         segmentedController.addTarget(self, action: #selector(switchView), for: .valueChanged)
         segmentedController.selectedSegmentIndex = 0
@@ -322,7 +359,24 @@ class PlacesScreenViewController: UIViewController {
     
     
     @objc func openAddPlace() {
-        self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
+        AVCaptureDevice.requestAccess(for: .video) { success in
+          if success { // if request is granted (success is true)
+            DispatchQueue.main.async {
+              self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
+            }
+          } else { // if request is denied (success is false)
+            // Create Alert
+            let alert = UIAlertController(title: "Camera", message: "Camera access is absolutely necessary to use this app", preferredStyle: .alert)
+
+            // Add "OK" Button to alert, pressing it will bring you to the settings app
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }))
+            // Show the alert with animation
+            self.present(alert, animated: true)
+          }
+        }
+
     }
     
     private func setBottomSheetView(){
@@ -369,6 +423,16 @@ class PlacesScreenViewController: UIViewController {
         self.placeRegionLabel.text = self.places[index].address[1]
         self.placeCountryLabel.text = self.places[index].address[2]
         self.placeRating.text = Int.random(in: 0...5).description
+        DispatchQueue.global().async {
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: self.places[index].place_image)) {
+                DispatchQueue.main.sync {
+                    self.placeImage.image = UIImage(data: data)
+                }
+            }else{
+                self.placeImage.image = UIImage(named: "image-not-found")
+            }
+        }
+        //self.placeImage.downloaded(from: "https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg")
         
         guard let startDispo = self.places[index].disponibilityStartTime,
             let endDispo = self.places[index].disponibilityEndTime else{
