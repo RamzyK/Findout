@@ -16,9 +16,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>safe camera</string>
+	<string>Nous avons besoins d&apos;accéder à la librairies de photos pour sauvegarder les images.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>safe Image</string>
+	<string>Nous avons besoins d&apos;accéder à la librairies de photos pour sauvegarder les images.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

@@ -41,9 +41,10 @@ class PlaceAPIService: PlaceServices{
                     let lon = coordinate["lon"],
                     let lat = coordinate["lat"],
                     let dispoStart = result["disponibilityStartTime"] as? String,
-                    let dispoEnd = result["disponibilityEndTime"] as? String else { return }
+                    let dispoEnd = result["disponibilityEndTime"] as? String,
+                    let image = result["url_image"] as? String else { return }
 
-                let placeDao = PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: address, disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser)
+                let placeDao = PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: address, disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser, place_image: image)
                 list.append(placeDao)
             }
 
@@ -71,7 +72,8 @@ class PlaceAPIService: PlaceServices{
                     let nbSeatFree = result["nb_seat_free"] as? Int,
                     let address = result["arrAddress"] as? [String],
                     let dispoStart = result["disponibilityStartTime"] as? String,
-                    let dispoEnd = result["disponibilityEndTime"] as? String
+                    let dispoEnd = result["disponibilityEndTime"] as? String,
+                    let image = result["url_image"] as? String
                 else {
                         return
                 }
@@ -80,7 +82,7 @@ class PlaceAPIService: PlaceServices{
                     return
                 }
                 
-                list.append(PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: address, disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser))
+                list.append(PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: address, disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser, place_image: image))
             }
             
             completion(list[0])
