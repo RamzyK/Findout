@@ -20,7 +20,7 @@ class CategoriesListViewController: UIViewController {
         }
     }
     var categoriyServices: CategoryServices {
-        return CategoryMockServices()
+        return CategoryAPIService.default
     }
     
     override func viewDidLoad() {
@@ -53,10 +53,8 @@ class CategoriesListViewController: UIViewController {
         categoryCollectionView.dataSource = self
         self.categoryCollectionView.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil),
         forCellWithReuseIdentifier: "CATEGORY_CELL")
-//        self.categoriyServices.getAll { (categoryList) in
-//            self.categories = categoryList
-//        }
-        CategoryAPIService.default.getById(activityId) { (cat) in
+
+        categoriyServices.getById(activityId) { (cat) in
             self.categories = cat
         }
     }

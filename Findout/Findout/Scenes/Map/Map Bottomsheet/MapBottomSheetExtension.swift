@@ -32,15 +32,15 @@ extension PlacesScreenViewController{
     }
     
     private func setCloseButtonConstraint(){
-        self.bottomSheetView.addSubview(self.closeBottomSheet)
+        self.bottomSheetView.addSubview(self.closeBottomSheetBtn)
         NSLayoutConstraint.activate([
-            self.closeBottomSheet.rightAnchor.constraint(equalTo: bottomSheetView.rightAnchor, constant: -15),
-            self.closeBottomSheet.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 22),
+            self.closeBottomSheetBtn.rightAnchor.constraint(equalTo: bottomSheetView.rightAnchor, constant: -15),
+            self.closeBottomSheetBtn.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 22),
         ])
     }
     
     private func setPlaceNameAndAdressConstraints(){
-        let width = self.view.frame.width - closeBottomSheet.frame.width - 30
+        let width = self.view.frame.width - closeBottomSheetBtn.frame.width - 30
         let tap = UITapGestureRecognizer(target: self, action: #selector(showMoreOnBottomSheet))
         placeName.addGestureRecognizer(tap)
         
@@ -104,7 +104,7 @@ extension PlacesScreenViewController{
         self.bottomSheetView.addSubview(placeCountryLabel)
         
         let sharePlaceButton = UIView()
-        sharePlaceButton.frame = CGRect(x: width - 35 - closeBottomSheet.frame.width, y: 190, width: 50, height: 50)
+        sharePlaceButton.frame = CGRect(x: width - 35 - closeBottomSheetBtn.frame.width, y: 190, width: 50, height: 50)
         sharePlaceButton.layer.cornerRadius = 25
         
         shareButton.setBackgroundImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
@@ -113,7 +113,7 @@ extension PlacesScreenViewController{
         self.bottomSheetView.addSubview(sharePlaceButton)
         NSLayoutConstraint.activate([
             placeStreetLabel.leftAnchor.constraint(equalTo: bottomSheetView.leftAnchor, constant: 20),
-            placeStreetLabel.topAnchor.constraint(equalTo: bookingButton.bottomAnchor, constant: 30),
+            placeStreetLabel.topAnchor.constraint(equalTo: bookingButton.bottomAnchor, constant: 20),
             
             placeRegionLabel.leftAnchor.constraint(equalTo: bottomSheetView.leftAnchor, constant: 20),
             placeRegionLabel.topAnchor.constraint(equalTo: placeStreetLabel.bottomAnchor, constant: 3),

@@ -18,7 +18,7 @@ extension String {
     }
 
     func isPasswordValid() -> Bool {
-        if self.count < 4 || self.count > 20 || !containsNonAlphaNumeric() {
+        if self.count < 4 || self.count > 20 || containsNonAlphaNumeric() {
             return false
         }
         return true
