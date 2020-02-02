@@ -27,7 +27,7 @@ class PlaceAPIService: PlaceServices{
             guard let jsonCategory = res.result.value as? [String:Any],
                 let categoryList = jsonCategory["place"] as? [[String: Any]] else { return }
             var list : [PlaceDao] = []
-
+                
             categoryList.forEach { (result) in
 
                 guard let  id = result["_id"] as? String,

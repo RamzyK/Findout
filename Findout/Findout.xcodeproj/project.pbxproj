@@ -56,10 +56,23 @@
 		6368378823B259750042D6F5 /* ActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6368378623B259750042D6F5 /* ActivityViewController.xib */; };
 		6368378B23B265620042D6F5 /* ActivityMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368378A23B265620042D6F5 /* ActivityMockServices.swift */; };
 		6368378F23B3A47A0042D6F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6368378E23B3A47A0042D6F5 /* MapKit.framework */; };
+		63AB470623DF68C100F1AEA2 /* FindoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AB470523DF68C100F1AEA2 /* FindoutUITests.swift */; };
+		63AB470E23DF6E8600F1AEA2 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AB470D23DF6E8600F1AEA2 /* SnapshotHelper.swift */; };
+		63AB470F23DF879B00F1AEA2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E0377F223B3A4C000059D11 /* Localizable.strings */; };
 		63C759DE23B3AC630019247E /* PlaceMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C759DD23B3AC630019247E /* PlaceMockServices.swift */; };
 		63C759E523B501430019247E /* MapBottomSheetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C759E423B501430019247E /* MapBottomSheetExtension.swift */; };
 		7C91F88FC38258A66A8CC438 /* Pods_Findout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69F261B2599F3E537EDA67B /* Pods_Findout.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		63AB470823DF68C100F1AEA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 634A295B23AB9E010002D3BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 634A296223AB9E010002D3BA;
+			remoteInfo = Findout;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0C042FC123B8C3C2000C0198 /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +129,10 @@
 		6368378623B259750042D6F5 /* ActivityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityViewController.xib; sourceTree = "<group>"; };
 		6368378A23B265620042D6F5 /* ActivityMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMockServices.swift; sourceTree = "<group>"; };
 		6368378E23B3A47A0042D6F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		63AB470323DF68C100F1AEA2 /* FindoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		63AB470523DF68C100F1AEA2 /* FindoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindoutUITests.swift; sourceTree = "<group>"; };
+		63AB470723DF68C100F1AEA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63AB470D23DF6E8600F1AEA2 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		63C759DD23B3AC630019247E /* PlaceMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMockServices.swift; sourceTree = "<group>"; };
 		63C759E423B501430019247E /* MapBottomSheetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBottomSheetExtension.swift; sourceTree = "<group>"; };
 		C69F261B2599F3E537EDA67B /* Pods_Findout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Findout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +146,13 @@
 			files = (
 				6368378F23B3A47A0042D6F5 /* MapKit.framework in Frameworks */,
 				7C91F88FC38258A66A8CC438 /* Pods_Findout.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63AB470023DF68C100F1AEA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,16 +175,6 @@
 			path = Activity;
 			sourceTree = "<group>";
 		};
-		5E916CA123C51DCA00C33E69 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				5E916CA223C51E1200C33E69 /* UIViewControllerExtension.swift */,
-				5E916CA423C5D7D700C33E69 /* StringExtension.swift */,
-				634FFD0123B68B6800424409 /* TextFieldUtils.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		0CA3D9EC23C7800C003E1ED2 /* Reservation */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +190,16 @@
 				0CA3D9FC23C7CF69003E1ED2 /* DisponibilityAPIService.swift */,
 			);
 			path = Disponibility;
+			sourceTree = "<group>";
+		};
+		5E916CA123C51DCA00C33E69 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5E916CA223C51E1200C33E69 /* UIViewControllerExtension.swift */,
+				5E916CA423C5D7D700C33E69 /* StringExtension.swift */,
+				634FFD0123B68B6800424409 /* TextFieldUtils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		631BCED523B0E349003FC0CE /* User */ = {
@@ -392,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				634A296523AB9E010002D3BA /* Findout */,
+				63AB470423DF68C100F1AEA2 /* FindoutUITests */,
 				634A296423AB9E010002D3BA /* Products */,
 				6368378D23B3A47A0042D6F5 /* Frameworks */,
 				A7D5CE1174FC98A950ABF8F0 /* Pods */,
@@ -402,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				634A296323AB9E010002D3BA /* Findout.app */,
+				63AB470323DF68C100F1AEA2 /* FindoutUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -461,6 +487,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		63AB470423DF68C100F1AEA2 /* FindoutUITests */ = {
+			isa = PBXGroup;
+			children = (
+				63AB470D23DF6E8600F1AEA2 /* SnapshotHelper.swift */,
+				63AB470523DF68C100F1AEA2 /* FindoutUITests.swift */,
+				63AB470723DF68C100F1AEA2 /* Info.plist */,
+			);
+			path = FindoutUITests;
+			sourceTree = "<group>";
+		};
 		63C759DC23B3AC1F0019247E /* Places */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,6 +545,24 @@
 			productReference = 634A296323AB9E010002D3BA /* Findout.app */;
 			productType = "com.apple.product-type.application";
 		};
+		63AB470223DF68C100F1AEA2 /* FindoutUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63AB470C23DF68C100F1AEA2 /* Build configuration list for PBXNativeTarget "FindoutUITests" */;
+			buildPhases = (
+				63AB46FF23DF68C100F1AEA2 /* Sources */,
+				63AB470023DF68C100F1AEA2 /* Frameworks */,
+				63AB470123DF68C100F1AEA2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				63AB470923DF68C100F1AEA2 /* PBXTargetDependency */,
+			);
+			name = FindoutUITests;
+			productName = FindoutUITests;
+			productReference = 63AB470323DF68C100F1AEA2 /* FindoutUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -521,6 +575,10 @@
 				TargetAttributes = {
 					634A296223AB9E010002D3BA = {
 						CreatedOnToolsVersion = 11.3;
+					};
+					63AB470223DF68C100F1AEA2 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 634A296223AB9E010002D3BA;
 					};
 				};
 			};
@@ -539,6 +597,7 @@
 			projectRoot = "";
 			targets = (
 				634A296223AB9E010002D3BA /* Findout */,
+				63AB470223DF68C100F1AEA2 /* FindoutUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -560,6 +619,14 @@
 				634A297023AB9E030002D3BA /* Assets.xcassets in Resources */,
 				633D45BE23ABA01000FE24F1 /* PlacesScreenViewController.xib in Resources */,
 				631BCEE723B1023A003FC0CE /* CategoriesListViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63AB470123DF68C100F1AEA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63AB470F23DF879B00F1AEA2 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,7 +737,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		63AB46FF23DF68C100F1AEA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63AB470623DF68C100F1AEA2 /* FindoutUITests.swift in Sources */,
+				63AB470E23DF6E8600F1AEA2 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		63AB470923DF68C100F1AEA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 634A296223AB9E010002D3BA /* Findout */;
+			targetProxy = 63AB470823DF68C100F1AEA2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5E0377F223B3A4C000059D11 /* Localizable.strings */ = {
@@ -815,16 +899,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HVJT3DP8AG;
+				DEVELOPMENT_TEAM = C5THA5B7HY;
 				INFOPLIST_FILE = Findout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = esgi.rk.findout;
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.esgi.findout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -834,16 +919,57 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HVJT3DP8AG;
+				DEVELOPMENT_TEAM = C5THA5B7HY;
 				INFOPLIST_FILE = Findout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = esgi.rk.findout;
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.esgi.findout;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		63AB470A23DF68C100F1AEA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HVJT3DP8AG;
+				INFOPLIST_FILE = FindoutUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = esgi.FindoutUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Findout;
+			};
+			name = Debug;
+		};
+		63AB470B23DF68C100F1AEA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HVJT3DP8AG;
+				INFOPLIST_FILE = FindoutUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = esgi.FindoutUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Findout;
 			};
 			name = Release;
 		};
@@ -864,6 +990,15 @@
 			buildConfigurations = (
 				634A297823AB9E030002D3BA /* Debug */,
 				634A297923AB9E030002D3BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63AB470C23DF68C100F1AEA2 /* Build configuration list for PBXNativeTarget "FindoutUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63AB470A23DF68C100F1AEA2 /* Debug */,
+				63AB470B23DF68C100F1AEA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

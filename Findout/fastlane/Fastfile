@@ -1,28 +1,56 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
+fastlane_require 'dotenv'
 
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
+before_all do
+    Dotenv.overload '.env.secret'
+end
+
+update_fastlane
 
 default_platform(:ios)
 
 platform :ios do
+
   desc "Description of what the lane does"
-  lane :first_lane do
+    lane :first_lane do
 
-  end
+    end
 
-  lane :screenshots do
-    capture_screenshots
-    upload_to_app_store
+  desc "Creates a tweet on new version"
+    lane :tweet do
+      twitter(
+        access_token: "#{ENV['ACCESS_TOKEN']}",
+        access_token_secret: "#{ENV['ACCESS_TOKEN_SECRET']}",
+        consumer_key: "#{ENV['CONSUMER_KEY']}",
+        consumer_secret: "#{ENV['CONSUMER_SECRET']}",
+        message: "New version of Findout app on iPhone is out!"
+      )
+    end
+
+
+  #desc "Create new screenshots for the App Store in all languages and device types"
+  desc "Additionally, this will add device frames around the screenshots and add the correct titles"
+    lane :screenshots do
+      capture_screenshots
+      frameit(white: true, path: './fastlane/frames')
+      # upload_to_app_store
+    end
+
+
+  desc "Deploy to TestFlight"
+  lane :beta_testflight do
+    increment_version_number
+    # Use cert to generate a certificate
+    cert
+    # Use sigh to download or generate a provisioning profile
+    sigh
+    # # Use gym to archive your app
+    gym(
+      silent: true,
+      output_directory: "./fastlane/builds",
+      scheme: "Findout"
+    )
+    # Use pilot to upload your app to testflight
+    pilot
+
   end
 end
