@@ -30,6 +30,7 @@ class PlacesScreenViewController: UIViewController {
 
     @IBOutlet weak var map: MKMapView!
     var categoryId : String = ""
+    var bottomSheetConstrainsDone = false
     
     var bottomSheetView = UIView()
     var blurEffectView = UIVisualEffectView()
@@ -176,7 +177,7 @@ class PlacesScreenViewController: UIViewController {
     
     var placeDisponobolitiesWeekTime: UILabel = {
         let l = UILabel()
-        l.text = "Dimanche - Lundi"
+        l.text = NSLocalizedString("place.weekDays", comment: "")
         l.textAlignment = .left
         l.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         l.font = UIFont(name: "Avenir-Medium", size: 18)
@@ -194,7 +195,7 @@ class PlacesScreenViewController: UIViewController {
         return l
     }()
     
-    var closeBottomSheet: UIButton = {
+    var closeBottomSheetBtn: UIButton = {
         let b = UIButton()
         b.setImage(UIImage(named: "close_bottom_sheet"), for: .normal)
         b.translatesAutoresizingMaskIntoConstraints = false
@@ -206,13 +207,26 @@ class PlacesScreenViewController: UIViewController {
         setupNavigationBar()
         askUserForLocation()
         self.map.delegate = self
-        closeBottomSheet.addTarget(self, action: #selector(hideBottomSheet), for: .touchUpInside)
+        closeBottomSheetBtn.addTarget(self, action: #selector(closeBottomSheet), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        placesServices.getByIdCategory(id: categoryId) { (place) in
-            self.places = place
+        let loaderAlert = UIAlertController(title: nil,
+                                      message: NSLocalizedString("place.loading", comment: ""),
+                                      preferredStyle: .alert)
+
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 150, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.medium
+        loadingIndicator.startAnimating();
+
+        loaderAlert.view.addSubview(loadingIndicator)
+        present(loaderAlert, animated: true, completion: nil)
+        PlaceAPIService.default.getByIdCategory(id: categoryId) { (place) in
+            loaderAlert.dismiss(animated: true) {
+                self.places = place
+            }
         }
         self.setBottomSheetView()
         self.setBottomSheetViewsConstraints()
@@ -227,7 +241,7 @@ class PlacesScreenViewController: UIViewController {
     }
     
     @objc func sharePlaceAdress(sender: UIView){
-        hideBottomSheet()
+        hideBottomSheet(delta: Int(self.view.frame.height/3))
         UIGraphicsBeginImageContext(view.frame.size)
         view.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -250,8 +264,17 @@ class PlacesScreenViewController: UIViewController {
         self.map.zoomToUserLocation()
     }
     
-    @objc func closeBottomSheet(_ sender: UIButton){
-       hideBottomSheet()
+    @objc func closeBottomSheet(){
+        if(self.bottomSheetExtanded){
+            hideBottomSheet(delta: 2 * Int(self.view.frame.height/3))
+            self.bottomSheetShowed = false
+            self.bottomSheetExtanded = false
+        }else{
+            if(self.bottomSheetShowed){
+                hideBottomSheet(delta:Int(self.view.frame.height/3))
+                self.bottomSheetShowed = false
+            }
+        }
     }
     
     @objc func switchView(sender: UISegmentedControl) {
@@ -291,9 +314,6 @@ class PlacesScreenViewController: UIViewController {
     private func askUserForGaleryPermission(){
         AVCaptureDevice.requestAccess(for: .video) { success in
           if success { // if request is granted (success is true)
-//            DispatchQueue.main.async {
-//              //self.performSegue(withIdentifier: identifier, sender: nil)
-//            }
           } else { // if request is denied (success is false)
             // Create Alert
             let alert = UIAlertController(title: "Camera", message: "Camera access is absolutely necessary to use this app", preferredStyle: .alert)
@@ -362,7 +382,8 @@ class PlacesScreenViewController: UIViewController {
         AVCaptureDevice.requestAccess(for: .video) { success in
           if success { // if request is granted (success is true)
             DispatchQueue.main.async {
-              self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
+                self.closeBottomSheet()
+                self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
             }
           } else { // if request is denied (success is false)
             // Create Alert
@@ -396,11 +417,11 @@ class PlacesScreenViewController: UIViewController {
         self.view.addSubview(bottomSheetView)
     }
     
-    @objc private func hideBottomSheet(){
+    @objc private func hideBottomSheet(delta: Int){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .showHideTransitionViews, animations: {
                    if(self.bottomSheetShowed){
-                       self.bottomSheetView.frame.origin.y += (self.view.frame.height/3)
-                       self.blurEffectView.frame.origin.y += (self.view.frame.height/3)
+                       self.bottomSheetView.frame.origin.y += CGFloat(delta) //(self.view.frame.height/3)
+                       self.blurEffectView.frame.origin.y += CGFloat(delta) //(self.view.frame.height/3)
                        self.bottomSheetShowed = false
                    }
                }, completion: nil)
@@ -414,7 +435,10 @@ class PlacesScreenViewController: UIViewController {
                 self.bottomSheetShowed = true
             }
         }, completion: nil)
-        self.setBottomSheetViewsConstraints()
+        if (!self.bottomSheetConstrainsDone){
+            self.setBottomSheetViewsConstraints()
+            self.bottomSheetConstrainsDone = true
+        }
     }
     
     private func setPlaceAdress(index: Int){
@@ -429,11 +453,11 @@ class PlacesScreenViewController: UIViewController {
                     self.placeImage.image = UIImage(data: data)
                 }
             }else{
-                self.placeImage.image = UIImage(named: "image-not-found")
+                DispatchQueue.main.sync {
+                    self.placeImage.image = UIImage(named: "image-not-found")
+                }
             }
         }
-        //self.placeImage.downloaded(from: "https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg")
-        
         guard let startDispo = self.places[index].disponibilityStartTime,
             let endDispo = self.places[index].disponibilityEndTime else{
                 self.placeDisponobolitiesEndTime.text = "--"

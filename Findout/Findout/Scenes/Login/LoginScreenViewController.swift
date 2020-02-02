@@ -65,13 +65,26 @@ class LoginScreenViewController: UIViewController {
     
     @IBAction func login(_ sender: Any) {
         if(isFormFilled()){
+            let loaderAlert = UIAlertController(title: nil,
+                                          message: NSLocalizedString("login.loadingMessage", comment: ""),
+                                          preferredStyle: .alert)
+
+            let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.style = UIActivityIndicatorView.Style.medium
+            loadingIndicator.startAnimating();
+
+            loaderAlert.view.addSubview(loadingIndicator)
+            present(loaderAlert, animated: true, completion: nil)
+            
             userServices.connect(email: self.emailTf.text!, password: self.passwordTf.text!) { (user, error) in
-                print("testlog \(error)")
                 if error != 200 {
                     self.errorAlert(message: "User does not exist!")
                 }
-                //TODO Store the user informations
-                self.navigationController?.pushViewController(ActivityViewController(), animated: true)
+                loaderAlert.dismiss(animated: true){
+                    //TODO Store the user informations
+                    self.navigationController?.pushViewController(ActivityViewController(), animated: true)
+                }
             }
         }
     }
