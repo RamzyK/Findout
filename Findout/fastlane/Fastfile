@@ -1,3 +1,9 @@
+fastlane_require 'dotenv'
+
+before_all do
+    Dotenv.overload '.env.secret'
+end
+
 update_fastlane
 
 default_platform(:ios)
@@ -9,85 +15,42 @@ platform :ios do
 
     end
 
-  desc "Take screenshots"
-    lane :screenshot do
-      # snapshot
-      capture_screenshots
-      #frame_screenshots(white: true)
-      # upload_to_app_store
-    end
-
   desc "Creates a tweet on new version"
     lane :tweet do
-      # Consumer API key:
-      # sVhUH0ANq1y94bEIwz0eLud4Y
-      #
-      # Consumer API secret key:
-      # pfjPxEEncB1LPyBJPwdmgL3ef0ZaeY8B1DPLfkYFFFxAelDBgz
-
-      # Access token:
-      # 1011249169510617088
-      #
-      # Access token secret:
-      # lI74DH644BtJcIphkaLgiUkQh2DUbsk1UqnKpZOb3rP1v
-      
       twitter(
-        access_token: "1011249169510617088-7ObEghJMrWTYnkRr5V49a7EHobiQVV",
-        access_token_secret: "lI74DH644BtJcIphkaLgiUkQh2DUbsk1UqnKpZOb3rP1v",
-        consumer_key: "sVhUH0ANq1y94bEIwz0eLud4Y",
-        consumer_secret: "pfjPxEEncB1LPyBJPwdmgL3ef0ZaeY8B1DPLfkYFFFxAelDBgz",
-        message: "First tweet from fastlane"
+        access_token: "#{ENV['ACCESS_TOKEN']}",
+        access_token_secret: "#{ENV['ACCESS_TOKEN_SECRET']}",
+        consumer_key: "#{ENV['CONSUMER_KEY']}",
+        consumer_secret: "#{ENV['CONSUMER_SECRET']}",
+        message: "New version of Findout app on iPhone is out!"
       )
     end
 
-#   desc "Take screenshots"
-#   lane :screenshot do
-#     # snapshot
-#     capture_screenshots
-#     frame_screenshots(white: true)
-#     # upload_to_app_store
-#   end
-#
-#   desc "Create new screenshots for the App Store in all languages and device types"
-#   desc "Additionally, this will add device frames around the screenshots and add the correct titles"
-#   lane :screenshots do
-#     snapshot
-#     frameit(white: true, path: './fastlane/screenshots')
-#   end
 
-  desc "Run test on Findout"
-    lane :do_testings do
-
-        # run_tests(workspace: "Example.xcworkspace",
-        #           devices: ["iPhone 6s", "iPad Air"],
-        #           scheme: "MyAppTests")
+  #desc "Create new screenshots for the App Store in all languages and device types"
+  desc "Additionally, this will add device frames around the screenshots and add the correct titles"
+    lane :screenshots do
+      capture_screenshots
+      frameit(white: true, path: './fastlane/frames')
+      # upload_to_app_store
     end
 
-#   desc "Deploy to TestFlight"
-#   lane :beta do
-#     # bump_type: "patch" (path, minor, major)
-#     # increment_version_number(
-#     #   version_number: "1.7.0" # Set a specific version number
-#     # )
-#     update_info_plist( # Change the Display Name of your app
-#       plist_path: "./ecb/Info.plist",
-#       display_name: "ecb-beta"
-#     )
-#     # Put any actions you'd want here, for instance:
-#     # Use cert to generate a certificate
-#     cert
-#     # Use sigh to download or generate a provisioning profile
-#     sigh
-#     # Use gym to archive your app
-#     gym(
-#       silent: true,
-#       output_directory: "./fastlane/builds",
-#       scheme: "ecb-dev"
-#     )
-#     # Use pilot to upload your app to testflight
-#     pilot(
-#       # skip_waiting_for_build_processing: true,
-#       distribute_external: false,
-#     )
-#   end
+
+  desc "Deploy to TestFlight"
+  lane :beta_testflight do
+    increment_version_number
+    # Use cert to generate a certificate
+    cert
+    # Use sigh to download or generate a provisioning profile
+    sigh
+    # # Use gym to archive your app
+    gym(
+      silent: true,
+      output_directory: "./fastlane/builds",
+      scheme: "Findout"
+    )
+    # Use pilot to upload your app to testflight
+    pilot
+
+  end
 end

@@ -21,21 +21,21 @@ or alternatively using `brew cask install fastlane`
 fastlane ios first_lane
 ```
 Description of what the lane does
-### ios screenshot
-```
-fastlane ios screenshot
-```
-Take screenshots
 ### ios tweet
 ```
 fastlane ios tweet
 ```
 Creates a tweet on new version
-### ios do_testings
+### ios screenshots
 ```
-fastlane ios do_testings
+fastlane ios screenshots
 ```
-Run test on Findout
+Additionally, this will add device frames around the screenshots and add the correct titles
+### ios beta_testflight
+```
+fastlane ios beta_testflight
+```
+Deploy to TestFlight
 
 ----
 

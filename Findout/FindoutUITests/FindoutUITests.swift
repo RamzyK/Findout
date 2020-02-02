@@ -37,7 +37,7 @@ class FindoutUITests: XCTestCase {
         // UI tests must launch the application that they test.
         //let localizationBundle = localizedString(key: "signup.signupButtonLabel")
 
-        snapshot("Login Screen")
+      snapshot("Login Screen")
         let app = XCUIApplication()
 
         
@@ -59,16 +59,21 @@ class FindoutUITests: XCTestCase {
         secureTextField.tap()
         secureTextField.typeText("azertyuiop")
         
+        let doneButton = app/*@START_MENU_TOKEN@*/.buttons["Done"]/*[[".keyboards",".buttons[\"terminé\"]",".buttons[\"Done\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/
+        doneButton.tap()
+        
         app.buttons[localizedString(key: "login.loginButtonLabel")].tap()
         
         
         let collectionViewsQuery = app.collectionViews
-        sleep(5)
-        snapshot("Categories screen")
+        
+        snapshot("Activities screen")
         collectionViewsQuery.children(matching: .cell).element(boundBy: 2).children(matching: .other).element.children(matching: .other).element.tap()
         snapshot("Categories screen")
         collectionViewsQuery.cells.children(matching: .other).element.children(matching: .other).element.tap()
         snapshot("Map Screen")
+
+        
 //        app.alerts["Autoriser « Findout » à accéder à votre position ?"].scrollViews.otherElements.buttons["Autoriser lorsque l’app est active"].tap()
 //        app.otherElements["KELBAY"].tap()
 //
