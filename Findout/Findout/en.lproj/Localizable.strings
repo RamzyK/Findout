@@ -11,6 +11,7 @@
 "login.passwordLabel" = "Password";
 "login.emailLabel" = "Email";
 "login.loginButtonLabel" = "Log in";
+"login.loadingMessage" = "Please wait...";
 
 "signup.signupLabel" = "Sign Up";
 "signup.nameLabel" = "Name";
@@ -28,6 +29,7 @@
 "activities.title" = "Which activity?";
 
 "categories.title" = "Categories of ";
+"categories.loading" = "Loading categories...";
 
 "place.name" = "Place name";
 "place.address" = "Address";
@@ -40,6 +42,18 @@
 "place.end" = "End";
 "place.category" = "Category";
 "place.cancel" = "Cancel";
+"place.loading" = "Loading places...";
+"place.weekDays" = "Monday to Sunday";
+
+"place.alertTitleSuccess" = "Success";
+"place.alertTitleFailure" = "Error";
+"place.alertTryAgainLater" = "Veuillez réesayer plus tard";
+"place.alertMissingFields" = "Missing required Field!";
+"place.alertAdressNotFound" = "Address not found!";
+"place.alertNoGalleryPermission" = "Gallery permission must be granted first!";
+"palce.alertNoCameraPermission" = "Camera permission must be granted first!";
+"place.alertSuccessMessage" = "Your place has been successfully added!";
+"place.alertSuccessReservation" = "Your reservation has been taken successfully!";
 
 "reservation.date" = "Choose the date";
 "reservation.creneau" = "Choose the hour";

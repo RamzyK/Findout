@@ -88,7 +88,8 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
             name.count > 0,
             dispoStart.count > 4,
             dispoEnd.count > 4 else {
-                self.warningAlert(message: "Missing Required Field")
+                self.warningAlert(title: NSLocalizedString("place.alertTitleFailure", comment: ""),
+                                  message: NSLocalizedString("place.alertMissingFields", comment: ""))
                 return
         }
         let geocoder = CLGeocoder()
@@ -101,7 +102,8 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
                 let postalCode = place.postalCode,
                 let address = place.name,
                 let city = place.locality else {
-                    self.warningAlert(message: "Address not found")
+                    self.warningAlert(title: NSLocalizedString("place.alertTitleFailure", comment: ""),
+                                      message: NSLocalizedString("place.alertAdressNotFound", comment: ""))
                     return
             }
             let coord : [String:String] = [
@@ -119,7 +121,8 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
                 "disponibilityEndTime" : self.dispoEndTextField.text!
             ]
             self.placeServices.create(params: params, image: self.imageView.image!) { (res) in
-                self.warningAlert(message: "Votre place a bien été ajouté")
+                self.warningAlert(title: NSLocalizedString("place.alertTitleSuccess", comment: ""),
+                                  message: NSLocalizedString("place.alertSuccessMessage", comment: ""))
                 self.navigationController?.pushViewController(PlacesScreenViewController(), animated: true)
             }
             self.navigationController?.popViewController(animated: true)
@@ -134,7 +137,8 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
             image.allowsEditing = false
             self.present(image, animated: true, completion: nil)
         } else {
-            warningAlert(message: "You don't have gallery")
+            warningAlert(title: NSLocalizedString("place.alertTitleFailure", comment: ""),
+                         message: NSLocalizedString("place.alertNoGalleryPermission", comment: ""))
         }
     }
     
@@ -146,7 +150,8 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
             image.allowsEditing = false
             self.present(image, animated: true, completion: nil)
         } else {
-            warningAlert(message: "You don't have camera")
+            warningAlert(title: NSLocalizedString("place.alertTitleFailure", comment: ""),
+                         message: NSLocalizedString("palce.alertNoCameraPermission", comment: ""))
         }
     }
     
@@ -159,20 +164,17 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         hideKeyboard()
         self.dismiss(animated: true, completion: nil)
     }
-    /*
-    func styleDescription() {
-        descriptionTextField!.layer.borderWidth = 4
-        descriptionTextField!.layer.cornerRadius = 6
-        descriptionTextField!.layer.borderColor = UIColor.green.cgColor
-    }
-    */
+    
     func hideKeyboard() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     
-    func warningAlert(message : String) {
-        let alertWarn = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
+    func warningAlert(title: String, message : String) {
+        let alertWarn = UIAlertController(title: title,
+                                          message: message,
+                                          preferredStyle: .alert)
+        
         alertWarn.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertWarn, animated: true, completion: nil)
     }

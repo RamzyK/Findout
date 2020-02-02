@@ -11,6 +11,7 @@
 "login.passwordLabel" = "Mot de passe";
 "login.emailLabel" = "Courriel";
 "login.loginButtonLabel" = "Se connecter";
+"login.loadingMessage" = "Veuillez patienter...";
 
 "signup.signupLabel" = "S'inscrire";
 "signup.nameLabel" = "Prénom";
@@ -28,6 +29,7 @@
 "activities.title" = "Quelle activité ?";
 
 "categories.title" = "Catégorie de ";
+"categories.loading" = "Chargement des categories...";
 
 "place.name" = "Nom du lieu";
 "place.address" = "Adresse";
@@ -40,6 +42,18 @@
 "place.end" = "Fin";
 "place.category" = "Categorie";
 "place.cancel" = "Annuler";
+"place.loading" = "Chargement des lieux...";
+"place.weekDays" = "Lundi au Dimanche";
+
+"place.alertTitleSuccess" = "Succés";
+"place.alertTitleFailure" = "Erreur";
+"place.alertTryAgainLater" = "Veuillez réesayer plus tard";
+"place.alertMissingFields" = "Vous devez remplir tous les champs!";
+"place.alertAdressNotFound" = "Aucune adresse trouvée!";
+"place.alertNoGalleryPermission" = "L'accès à la gallery doit d'abord être autorisé!";
+"palce.alertNoCameraPermission" = "L'accès à la caméra doit d'abord être autorisé!";
+"place.alertSuccessMessage" = "Votre lieu a été correctement ajouté, merci!";
+"place.alertSuccessReservation" = "Votre reservation a été prise en compte";
 
 "reservation.date" = "Choisir la date";
 "reservation.creneau" = "Choisir le créneau";

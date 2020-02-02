@@ -130,7 +130,7 @@ class ReservationViewController: UIViewController {
             let fin = debut + duree
             DisponibilityAPIService.default.addDisponibility(id_place: placeId, id_user: userId, startTime: creneauTextField.text!, endTime: String(String(fin).prefix(2)), date: selectedDate, nbPlace: placeTextField.text!) { (status) in
                 if(status == 200) {
-                    let alert = UIAlertController(title: "Reservé", message: "Votre reservation a été pris en compte", preferredStyle: .alert)
+                    let alert = UIAlertController(title: NSLocalizedString("place.alertTitleSuccess", comment: ""), message: NSLocalizedString("place.alertSuccessReservation", comment: ""), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.dismiss(animated: true)
@@ -138,7 +138,8 @@ class ReservationViewController: UIViewController {
                     })
                     self.present(alert, animated: true)
                 } else {
-                    let alert = UIAlertController(title: "Erreur", message: "Veuillez réesayer plus tard", preferredStyle: .alert)
+                let alert = UIAlertController(title: NSLocalizedString("place.alertTitleFailure", comment: ""),                                     message: NSLocalizedString("place.alertMissingFields", comment: ""),
+                                              preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.dismiss(animated: true)
@@ -148,7 +149,8 @@ class ReservationViewController: UIViewController {
                 }
             }
         } else {
-            let alert = UIAlertController(title: "Erreur", message: "Veuillez remplir les champs", preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("place.alertTitleFailure", comment: ""),
+                                          message: NSLocalizedString("place.alertMissingFields", comment: ""), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
         }
