@@ -29,7 +29,6 @@ class CategoriesListViewController: UIViewController {
         setupView()
         setupNavigationBar()
         setupCategoryCollectionView()
-        print(activityId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,7 +83,6 @@ extension CategoriesListViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let placeVC = PlacesScreenViewController()
         placeVC.categoryId = categories[indexPath.row].idCategory
-        print("phase 0 \(placeVC.categoryId) = \(categories[indexPath.row].idCategory)")
         self.navigationController?.pushViewController(placeVC, animated: true)
     }
     

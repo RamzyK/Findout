@@ -158,8 +158,6 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image =  info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.image = image
-        } else {
-            print("fail image")
         }
         hideKeyboard()
         self.dismiss(animated: true, completion: nil)
@@ -321,9 +319,9 @@ extension AddPlaceViewController: GMSAutocompleteViewControllerDelegate {
     dismiss(animated: true, completion: nil)
   }
 func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-    // Handle the error
-    print("Error: ", error.localizedDescription)
-  }
+    
+}
+    
 func wasCancelled(_ viewController: GMSAutocompleteViewController) {
     // Dismiss when the user canceled the action
     dismiss(animated: true, completion: nil)

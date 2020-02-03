@@ -26,7 +26,6 @@ class CategoryAPIService : CategoryServices{
             guard let categoryList = jsonCategory["category"] as? [[String:String]] else {
                 return
             }
-            print(categoryList)
             var list : [CategoryDao] = []
             categoryList.forEach { (result) in
                 guard let  id = result["_id"],
@@ -51,7 +50,6 @@ class CategoryAPIService : CategoryServices{
             guard let categoryList = jsonCategory["category"] as? [[String:String]] else {
                 return
             }
-            print(categoryList)
             var list : [CategoryDao] = []
             categoryList.forEach { (result) in
                 guard let  id = result["_id"],

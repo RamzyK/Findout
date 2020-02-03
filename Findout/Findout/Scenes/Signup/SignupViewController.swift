@@ -65,23 +65,38 @@ class SignupViewController: UIViewController {
         // Sign user up
         // Create new user
         if(isFormFilled()){
+            let loaderAlert = UIAlertController(title: nil,
+                                          message: NSLocalizedString("login.loadingMessage", comment: ""),
+                                          preferredStyle: .alert)
+
+            let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.style = UIActivityIndicatorView.Style.medium
+            loadingIndicator.startAnimating();
+
+            loaderAlert.view.addSubview(loadingIndicator)
+            self.present(loaderAlert, animated: true, completion: nil)
             let user = UserDao(id: "", firstname: userName.text!, lastname: userLastName.text!, birthDate: userBirthDate.text!, email: userEmail.text!, tel: userPhoneNumber.text!)
             userServices.addUser(user: user, password: userPassword.text!) { (user, error) in
                 switch(error) {
                     case 200:
-                        self.loginViewController.navigationController?.pushViewController(ActivityViewController(), animated: true)
-                        self.dismissScreen()
+                        loaderAlert.dismiss(animated: true){
+                            self.loginViewController.navigationController?.pushViewController(ActivityViewController(), animated: true)
+                            self.dismissScreen()
+                        }
                         break
                     case 400:
+                        loaderAlert.dismiss(animated: true, completion: nil)
                         self.errorAlert(message: "L'adresse mail est déjà utilisé")
                         break
                     default:
+                        loaderAlert.dismiss(animated: true, completion: nil)
                         self.errorAlert(message: "Erreur serveur, veuillez réessayer")
                         break
                 }
             }
         }else{
-            print("Please fill the obligatory fields")
+            self.errorAlert(message:"Please fill the obligatory fields")
         }
     }
     
@@ -361,14 +376,14 @@ extension SignupViewController: UITextFieldDelegate {
             }
             break
         case self.userEmail:
-            if(userEmail.text!.count > 0 && !userEmail.text!.isEmailValid()){
+            if(userEmail.text!.count > 0 && userEmail.text!.isEmailValid()){
                 userEmail.layer.shadowOffset.height = 0
             } else {
                 userEmail.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
             }
             break
         case self.userPassword:
-            if(userPassword.text!.count > 0 && !userPassword.text!.isPasswordValid()){
+            if(userPassword.text!.count > 0 && userPassword.text!.isPasswordValid()){
                 userPassword.layer.shadowOffset.height = 0
             } else {
                 userPassword.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)

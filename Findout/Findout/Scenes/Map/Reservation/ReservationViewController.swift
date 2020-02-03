@@ -169,7 +169,6 @@ class ReservationViewController: UIViewController {
         dateTextField.text = selectedDate
         dateFormatter.dateFormat = "ddMMyyyy"
         let formattedDate = dateFormatter.string(from: datePicker.date)
-        print("testLog : \(self.placeId)")
         DisponibilityAPIService.default.getByIdPlaceAndDate(placeId: placeId, date: formattedDate) { (res) in
             self.arrDispo = res
         }

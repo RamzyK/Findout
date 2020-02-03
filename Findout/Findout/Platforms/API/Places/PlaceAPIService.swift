@@ -98,14 +98,8 @@ class PlaceAPIService: PlaceServices{
             }
             for (key, value) in params {
                 if let val = value as? String {
-                    //print(val.data(using: .utf8)!)
                     multipartFormData.append((val.data(using: .utf8))!, withName: key)
                 } else if let valTab = value as? [String:String] {
-                    //print("heouepon")
-                    //print(valTab)
-                    //let data = try? JSONEncoder().encode(valTab)
-                    //let jsonString = String(data: data, encoding: .utf8)!
-                    //print(data!)
                     guard let longitude = valTab["lon"],
                         let latitude = valTab["lat"] else {
                             return

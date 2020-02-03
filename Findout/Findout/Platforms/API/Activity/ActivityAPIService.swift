@@ -23,8 +23,7 @@ class ActivityAPIService : ActivityServices{
             }
             guard let categoryList = jsonCategory["activity"] as? [[String:String]] else {
                 return
-            }
-            print(categoryList)
+            } 
             var list : [ActivityDao] = []
             categoryList.forEach { (result) in
                 guard let  id = result["_id"],
