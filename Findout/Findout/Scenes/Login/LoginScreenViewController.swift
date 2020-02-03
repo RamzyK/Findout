@@ -77,13 +77,15 @@ class LoginScreenViewController: UIViewController {
             loaderAlert.view.addSubview(loadingIndicator)
             present(loaderAlert, animated: true, completion: nil)
             
-            userServices.connect(email: self.emailTf.text!, password: self.passwordTf.text!) { (user, error) in
-                if error != 200 {
-                    self.errorAlert(message: "User does not exist!")
-                }
-                loaderAlert.dismiss(animated: true){
-                    //TODO Store the user informations
-                    self.navigationController?.pushViewController(ActivityViewController(), animated: true)
+            userServices.connect(email: self.emailTf.text!, password: self.passwordTf.text!) { (user, status) in
+                if status == 200{
+                    loaderAlert.dismiss(animated: true){
+                        self.navigationController?.pushViewController(ActivityViewController(), animated: true)
+                    }
+                }else{
+                    loaderAlert.dismiss(animated: true){
+                        self.errorAlert(message: "User does not exist!")
+                    }
                 }
             }
         }

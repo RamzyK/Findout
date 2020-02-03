@@ -55,7 +55,8 @@ platform :ios do
     	RestClient.post "https://api:#{ENV['EMAIL_API_KEY']}"\
 	     "@api.mailgun.net/v3/#{ENV['EMAIL_DOMAIN_NAME']}/messages",
     	:from => "Findout TEAM <findout-auto-email@#{ENV['EMAIL_DOMAIN_NAME']}>",
-    	:to => "esgi.dev.moc@gmail.com",
+    	:to => ["esgi.dev.moc@gmail.com",
+              "sivithu@icloud.com"],
     	:subject => "Notification for CI",
     	:text => "A little notification to tell you to FUCKING PUSH YOUR BRANCH ON KOTLIN GIT MADFAKA.
       Thank you ☺️
