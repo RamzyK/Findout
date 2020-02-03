@@ -65,6 +65,7 @@ extension CategoriesListViewController: UICollectionViewDelegate{
 }
 
 extension CategoriesListViewController: UICollectionViewDataSource{
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //self.categories.count
         return self.categories.count

@@ -20,11 +20,11 @@ class ActivityViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
+        setupView()
         setupActivityTableView()
     }
     
@@ -40,7 +40,8 @@ class ActivityViewController: UITableViewController {
     }
     
     func setupActivityTableView() {
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: CATEGORY_CELL)
+        self.tableView.register(CategoryCell.self, forCellReuseIdentifier: CATEGORY_CELL)
+        tableView.separatorStyle = .none
         
         self.activityServices.getAll { (list) in
             self.activityList = list
@@ -50,8 +51,9 @@ class ActivityViewController: UITableViewController {
     
     @objc func handleOpenCloseSections(button: UIButton) {
         
-        let section = button.tag
         var indexPaths = [IndexPath]()
+        let label = button.subviews[1] as? UILabel
+        let section = button.tag
         
         for row in activityList[section].categories.indices {
             let indexPath = IndexPath(row: row, section: section)
@@ -60,8 +62,17 @@ class ActivityViewController: UITableViewController {
         
         let isExpanded = activityList[section].isExpanded
         activityList[section].isExpanded = !isExpanded
-        let newTitle = activityList[section].name.capitalized + (!isExpanded ? " -" : " +")
-        button.setTitle(newTitle, for: .normal)
+        
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        animation.type = CATransitionType.fade
+        animation.duration = 0.3
+        
+        label?.layer.add(animation, forKey: CATransitionType.fade.rawValue)
+        label?.text = !isExpanded ? "-" : "+"
+
+        button.layer.add(animation, forKey: CATransitionType.fade.rawValue)
+        button.backgroundColor = !isExpanded ? #colorLiteral(red: 0.5723067522, green: 0.5723067522, blue: 0.5723067522, alpha: 1) : #colorLiteral(red: 0.3764309287, green: 0.3764309287, blue: 0.3764309287, alpha: 1)
         
         if isExpanded {
             tableView.deleteRows(at: indexPaths, with: .fade)
@@ -83,29 +94,52 @@ class ActivityViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let button = UIButton(type: .system)
-        let sectionTitle = activityList[section].name
-        button.setTitle(sectionTitle.capitalized + " -", for: .normal)
+        let label = UILabel()
+        let sectionTitle = activityList[section].name.capitalized
+        
+        button.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50)
+        button.backgroundColor = #colorLiteral(red: 0.3764309287, green: 0.3764309287, blue: 0.3764309287, alpha: 1)
+        button.setTitle(sectionTitle, for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .orange
+        button.titleLabel?.font = UIFont.init(name: UIFont.familyNames[0], size: 30)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.addTarget(self, action: #selector(handleOpenCloseSections), for: .touchUpInside)
         button.tag = section
+        
+        label.frame = CGRect(x: tableView.frame.width - 20, y: 0, width: 20, height: 50)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.text = "+"
+        
+        button.addSubview(label)
         
         return button
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CATEGORY_CELL, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CATEGORY_CELL, for: indexPath) as! CategoryCell
+        let name = activityList[indexPath.section].categories[indexPath.row].name.capitalized
         
-        let name = activityList[indexPath.section].categories[indexPath.row].name
-        cell.textLabel?.text = name
+        tableView.rowHeight = 70
+        cell.categoryImage.frame = CGRect(x: 20, y: 10, width: 50, height: 50)
+        cell.categoryLabel.frame = CGRect(x: cell.categoryImage.frame.width + 100, y: 0, width: tableView.frame.width - (cell.categoryImage.frame.width + 100), height: 70)
         
+        let imageUrl = URL(string: self.activityList[indexPath.section].categories[indexPath.row].imageUrl)
+        if let imageData = try? Data(contentsOf: imageUrl!) {
+            cell.categoryImage.image = UIImage(data: imageData)
+        } else {
+            cell.categoryImage.image = UIImage(named: "image-not-found")
+        }
+        
+        cell.categoryLabel.text = name
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(self.activityList[indexPath.section].categories[indexPath.row].name)
+        let placeVC = PlacesScreenViewController()
+        placeVC.categoryId = self.activityList[indexPath.section].categories[indexPath.row].idCategory
+        self.navigationController?.pushViewController(placeVC, animated: true)
     }
 }

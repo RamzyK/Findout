@@ -17,6 +17,7 @@
 		5E0377F023B3A4C000059D11 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E0377F223B3A4C000059D11 /* Localizable.strings */; };
 		5E916CA323C51E1200C33E69 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E916CA223C51E1200C33E69 /* UIViewControllerExtension.swift */; };
 		5E916CA523C5D7D700C33E69 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E916CA423C5D7D700C33E69 /* StringExtension.swift */; };
+		5EA0337E23E897A2007EFDCF /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA0337D23E897A2007EFDCF /* CategoryCell.swift */; };
 		631BCED723B0E3D8003FC0CE /* UserMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BCED623B0E3D8003FC0CE /* UserMockServices.swift */; };
 		631BCEDA23B0E70A003FC0CE /* CategoriesMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BCED923B0E70A003FC0CE /* CategoriesMockServices.swift */; };
 		631BCEE023B0FC28003FC0CE /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BCEDE23B0FC28003FC0CE /* SignupViewController.swift */; };
@@ -73,6 +74,7 @@
 		5E0377F323B3A4D500059D11 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5E916CA223C51E1200C33E69 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		5E916CA423C5D7D700C33E69 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		5EA0337D23E897A2007EFDCF /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		631BCED623B0E3D8003FC0CE /* UserMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMockServices.swift; sourceTree = "<group>"; };
 		631BCED923B0E70A003FC0CE /* CategoriesMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesMockServices.swift; sourceTree = "<group>"; };
 		631BCEDE23B0FC28003FC0CE /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				6368378523B259750042D6F5 /* ActivityViewController.swift */,
+				5EA0337D23E897A2007EFDCF /* CategoryCell.swift */,
 			);
 			path = Activities;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				633D45E023ABCC4A00FE24F1 /* DisponibilityDao.swift in Sources */,
 				0C042FC723C2B6EB000C0198 /* CategoryAPIService.swift in Sources */,
 				631BCEDA23B0E70A003FC0CE /* CategoriesMockServices.swift in Sources */,
+				5EA0337E23E897A2007EFDCF /* CategoryCell.swift in Sources */,
 				633D45AF23AB9EE700FE24F1 /* UserServices.swift in Sources */,
 				633D45CC23ABC6F800FE24F1 /* CategoryServices.swift in Sources */,
 				631BCEE023B0FC28003FC0CE /* SignupViewController.swift in Sources */,
