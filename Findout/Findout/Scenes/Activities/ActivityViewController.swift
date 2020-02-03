@@ -14,7 +14,7 @@ class ActivityViewController: UITableViewController {
 
     var activityList: [ActivityDao] = []
 
-    var activityServices: ActivityServices{
+    var activityServices: ActivityServices {
         return ActivityAPIService()
     }
 
@@ -32,7 +32,7 @@ class ActivityViewController: UITableViewController {
         self.title = NSLocalizedString("activities.title", comment: "")
         setupNavigationBar()
     }
-    
+
     func setupNavigationBar() {
         self.navigationItem.setHidesBackButton(true, animated:true);
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2193810642, green: 0.7583789825, blue: 0.4023743272, alpha: 1)
