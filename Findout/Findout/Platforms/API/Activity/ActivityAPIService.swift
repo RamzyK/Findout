@@ -10,35 +10,24 @@ import Foundation
 import Alamofire
 
 class ActivityAPIService : ActivityServices{
-    
+
     let localServiceAddress = "http://localhost:3000/activity"
     let onlineServiceAddress = "https://findout-esgi.herokuapp.com/activity"
-    
+
     public static let `default` = ActivityAPIService()
-    
+
     func getAll(completion: @escaping ([ActivityDao]) -> Void) {
         Alamofire.request("\(onlineServiceAddress)/getAll").responseJSON { (res) in
-            guard let jsonCategory = res.result.value as? [String:Any] else {
-                return
+            guard let jsonCategory = res.result.value as? [String:Any],
+                let categoryList = jsonCategory["activity"] as? [[String:Any]] else { return }
+                let list = categoryList.compactMap { (elem) -> ActivityDao? in
+                return ActivityDao(jsonResponse: elem)
             }
-            guard let categoryList = jsonCategory["activity"] as? [[String:String]] else {
-                return
-            } 
-            var list : [ActivityDao] = []
-            categoryList.forEach { (result) in
-                guard let  id = result["_id"],
-                    let name = result["name"] else {
-                        return
-                }
-                
-                list.append(ActivityDao.init(activityName: name.capitalized, activityId: id))
-            }
-            
             completion(list)
         }
     }
-    
+
     func create(activity: ActivityDao) {
-        
+
     }
 }

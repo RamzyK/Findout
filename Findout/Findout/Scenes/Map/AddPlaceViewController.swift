@@ -56,7 +56,6 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         setupSeatPicker()
         setupDispoPicker()
         setupImageClick()
-        //styleDescription()
         hideKeyboard()
         
         numTabString += numTab.map{ String($0)}

@@ -14,20 +14,27 @@ struct ActivityDao {
     
     var name: String
     var id: String
+    var categories: [CategoryDao]
+    var isExpanded: Bool
     
     init?(jsonResponse: [String: Any]){
-        self.name = ""
-        self.id = ""
         guard let name = jsonResponse["name"] as? String,
-                let activityId = jsonResponse["activity_id"] as? String else{
-                return
-        }
+            let activityId = jsonResponse["_id"] as? String,
+            let jsonCategory = jsonResponse["categories"] as? [[String:Any]] else { return nil }
+            let categories = jsonCategory.compactMap({ (elem) -> CategoryDao? in
+                return CategoryDao(jsonReponse: elem)
+        })
+
         self.name = name
         self.id = activityId
+        self.categories = categories
+        self.isExpanded = false
     }
     
-    init(activityName: String, activityId: String){
+    init(activityName: String, activityId: String, categories: [CategoryDao]){
         self.name = activityName
         self.id = activityId
+        self.categories = categories
+        self.isExpanded = false
     }
 }
