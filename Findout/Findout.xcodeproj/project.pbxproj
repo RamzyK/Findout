@@ -53,7 +53,6 @@
 		634A297023AB9E030002D3BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 634A296F23AB9E030002D3BA /* Assets.xcassets */; };
 		634FFD0223B68B6800424409 /* TextFieldUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634FFD0123B68B6800424409 /* TextFieldUtils.swift */; };
 		6368378723B259750042D6F5 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368378523B259750042D6F5 /* ActivityViewController.swift */; };
-		6368378823B259750042D6F5 /* ActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6368378623B259750042D6F5 /* ActivityViewController.xib */; };
 		6368378B23B265620042D6F5 /* ActivityMockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6368378A23B265620042D6F5 /* ActivityMockServices.swift */; };
 		6368378F23B3A47A0042D6F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6368378E23B3A47A0042D6F5 /* MapKit.framework */; };
 		63AB470623DF68C100F1AEA2 /* FindoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AB470523DF68C100F1AEA2 /* FindoutUITests.swift */; };
@@ -126,7 +125,6 @@
 		634A297423AB9E030002D3BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		634FFD0123B68B6800424409 /* TextFieldUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldUtils.swift; sourceTree = "<group>"; };
 		6368378523B259750042D6F5 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
-		6368378623B259750042D6F5 /* ActivityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityViewController.xib; sourceTree = "<group>"; };
 		6368378A23B265620042D6F5 /* ActivityMockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMockServices.swift; sourceTree = "<group>"; };
 		6368378E23B3A47A0042D6F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		63AB470323DF68C100F1AEA2 /* FindoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -452,7 +450,6 @@
 			isa = PBXGroup;
 			children = (
 				6368378523B259750042D6F5 /* ActivityViewController.swift */,
-				6368378623B259750042D6F5 /* ActivityViewController.xib */,
 			);
 			path = Activities;
 			sourceTree = "<group>";
@@ -607,7 +604,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6368378823B259750042D6F5 /* ActivityViewController.xib in Resources */,
 				631BCEE123B0FC28003FC0CE /* SignupViewController.xib in Resources */,
 				633D45C223ABA02000FE24F1 /* LoginScreenViewController.xib in Resources */,
 				633D45B623AB9FE300FE24F1 /* SettingScreenViewController.xib in Resources */,
