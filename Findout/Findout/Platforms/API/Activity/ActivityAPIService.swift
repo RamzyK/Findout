@@ -17,7 +17,7 @@ class ActivityAPIService : ActivityServices{
     public static let `default` = ActivityAPIService()
     
     func getAll(completion: @escaping ([ActivityDao]) -> Void) {
-        Alamofire.request("\(localServiceAddress)/getAll").responseJSON { (res) in
+        Alamofire.request("\(onlineServiceAddress)/getAll").responseJSON { (res) in
             guard let jsonCategory = res.result.value as? [String:Any],
                 let categoryList = jsonCategory["activity"] as? [[String:Any]] else { return }
                 let list = categoryList.compactMap { (elem) -> ActivityDao? in

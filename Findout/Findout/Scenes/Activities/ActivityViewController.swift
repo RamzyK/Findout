@@ -14,7 +14,7 @@ class ActivityViewController: UITableViewController {
         
     var activityList: [ActivityDao] = []
     
-    var activityServices: ActivityServices{
+    var activityServices: ActivityServices {
         return ActivityAPIService()
     }
     
