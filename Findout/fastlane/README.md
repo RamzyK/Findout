@@ -16,11 +16,16 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
-### ios first_lane
+### ios code_cov
 ```
-fastlane ios first_lane
+fastlane ios code_cov
 ```
-Description of what the lane does
+Do a code coverage 
+### ios discord_notification
+```
+fastlane ios discord_notification
+```
+Send notification on discord channel
 ### ios tweet
 ```
 fastlane ios tweet
@@ -31,6 +36,11 @@ Creates a tweet on new version
 fastlane ios screenshots
 ```
 Additionally, this will add device frames around the screenshots and add the correct titles
+### ios email_notification
+```
+fastlane ios email_notification
+```
+Send email notifications for testers
 ### ios beta_testflight
 ```
 fastlane ios beta_testflight
