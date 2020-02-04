@@ -1,8 +1,0 @@
-os: osx
-osx_image: xcode11.3
-language: objective-c
-branches:
-  only:
-    - develop
-script:
-   echo 'Building Findout app - iOS'

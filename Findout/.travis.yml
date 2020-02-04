@@ -1,0 +1,31 @@
+os: osx
+osx_image: xcode11.3
+language: objective-c
+cache:
+ cocoapods: true
+install:
+ - gem install bundler
+ - bundle install
+branches:
+ only:
+   - develop
+   - master
+notifications:
+  email:
+    recipients:
+      - esgi.dev.moc@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always
+script:
+  echo 'Building Findout app - iOS'
+    - if [ "$TRAVIS_BRANCH" = "develop" ];
+     then bundle exec fastlane ios code_cov;
+     then bundle exec fastlane ios discord_notification;
+     then bundle exec fastlane ios email_notification; fi
+     
+    - if [ "$TRAVIS_BRANCH" = "master" ];
+     then bundle exec fastlane ios code_cov;
+     then bundle exec fastlane ios discord_notification;
+     then bundle exec fastlane ios email_notification;
+     then bundle exec fastlane ios screenshots;
+     then bundle exec fastlane ios beta_testflight; fi
