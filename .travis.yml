@@ -9,6 +9,7 @@ branches:
    - develop
    - master
  install:
+  - sudo gem install cocoapods
   - sudo gem install bundler
   - bundle install
 notifications:
