@@ -1,4 +1,3 @@
-os: osx
 osx_image: xcode11.3
 language: objective-c
 sudo: required
@@ -8,10 +7,9 @@ branches:
  only:
    - develop
    - master
- install:
-  - sudo gem install cocoapods
-  - sudo gem install bundler
-  - bundle install
+install:
+- pod install
+- bundle install
 notifications:
   email:
     recipients:
