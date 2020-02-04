@@ -33,4 +33,4 @@ script:
         bundle exec fastlane ios discord_notification;
         bundle exec fastlane ios email_notification;
         bundle exec fastlane ios beta_testflight;
-        echo 'Tout s'est bien passé :)' fi
+        echo 'Tout s'est bien passé :)'; fi
