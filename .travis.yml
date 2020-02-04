@@ -1,8 +1,6 @@
 os: osx
 osx_image: xcode11.3
 language: objective-c
-cache:
- cocoapods: true
 sudo: required
 before_install:
   - cd ./Findout
