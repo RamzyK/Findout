@@ -143,6 +143,7 @@ GEM
     os (1.0.1)
     plist (3.5.0)
     public_suffix (2.0.5)
+    rake (13.0.1)
     rbnacl (3.4.0)
       ffi
     representable (3.0.4)
@@ -216,6 +217,7 @@ DEPENDENCIES
   fastlane
   fastlane-plugin-discord
   fastlane-plugin-send_e_mail
+  rake
   twitter
 
 BUNDLED WITH
