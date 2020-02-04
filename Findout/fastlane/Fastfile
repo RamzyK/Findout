@@ -57,10 +57,11 @@ platform :ios do
     	:from => "Findout TEAM <findout-auto-email@#{ENV['EMAIL_DOMAIN_NAME']}>",
     	:to => ["esgi.dev.moc@gmail.com",
               "sivithu@icloud.com"],
-    	:subject => "Notification for CI",
-    	:text => "A little notification to tell you to FUCKING PUSH YOUR BRANCH ON KOTLIN GIT MADFAKA.
-      Thank you ☺️
-      Cordialement,
+    	:subject => "Findout is updated",
+    	:text => "Hi dear user, thanks for using our service Findout,
+      A little notification to let you know that a new version of our app is now out, check it out!
+
+      Sincerly youts,
 
       Findout Team. "
     end
