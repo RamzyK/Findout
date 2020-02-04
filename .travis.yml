@@ -2,11 +2,9 @@ os: osx
 osx_image: xcode11.3
 language: objective-c
 cache:
-  bundler: true
  cocoapods: true
 install:
  - gem install bundler
- - bundle install
 branches:
  only:
    - develop
