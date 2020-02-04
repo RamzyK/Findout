@@ -4,6 +4,8 @@ language: objective-c
 cache:
  cocoapods: true
 sudo: required
+before_install:
+  - cd ./Findout
 branches:
  only:
    - develop
