@@ -10,8 +10,8 @@ branches:
 install:
 - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 - pod install
-- brew install libsodium
 - bundle install
+- brew install libsodium
 notifications:
   email:
     recipients:
