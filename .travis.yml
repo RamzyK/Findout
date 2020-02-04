@@ -2,6 +2,7 @@ os: osx
 osx_image: xcode11.3
 language: objective-c
 cache:
+  bundler: true
  cocoapods: true
 install:
  - gem install bundler
@@ -22,7 +23,7 @@ script:
      then bundle exec fastlane ios code_cov;
      then bundle exec fastlane ios discord_notification;
      then bundle exec fastlane ios email_notification; fi
-     
+
     - if [ "$TRAVIS_BRANCH" = "master" ];
      then bundle exec fastlane ios code_cov;
      then bundle exec fastlane ios discord_notification;
