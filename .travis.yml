@@ -19,8 +19,10 @@ notifications:
     on_success: always # default: change
     on_failure: always # default: always
 script:
-  - if [ "$TRAVIS_BRANCH" = "develop" ]; then bundle exec fastlane ios discord_notification; fi
-  - echo 'Building Findout app - iOS'
+  - if [ "$TRAVIS_BRANCH" = "develop" ];
+   then bundle exec fastlane ios discord_notification;
+        bundle exec fastlane ios tweet; fi
+  - echo 'Build finished, close your pull request and merge to develop'
     #
     # - if [ "$TRAVIS_BRANCH" = "master" ];
     #  then bundle exec fastlane ios code_cov;
