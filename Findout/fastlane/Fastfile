@@ -24,7 +24,7 @@ platform :ios do
         target: "Findout"
       )
       discord(
-        url: $DISCORD_WEB_HOOK,
+        url: "#{ENV['DISCORD_WEB_HOOK']}",
         app_name: 'Findout',
         build_number: 1,
         version: version
