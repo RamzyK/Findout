@@ -32,7 +32,7 @@ class FindoutUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    /*func test1SelectPlace(){
+    func test1SelectPlace(){
         
         let app = XCUIApplication()
         let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
@@ -113,11 +113,12 @@ class FindoutUITests: XCTestCase {
         
         snapshot("Map")
         sleep(2)
-        app.otherElements["stade de france"].tap()
+        app.otherElements["La Campagne"].tap()
         snapshot("Detail")
-        app.buttons["stade de france"].tap()
+        app.buttons["La Campagne"].tap()
         app.buttons["close bottom sheet"].tap()
-    }*/
+    }
+    
     
     func test2HomeScreen(){
         snapshot("Login Screen")
