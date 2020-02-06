@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import Photos
 
+    // MARK: - ANNOTATION
 fileprivate class PlaceAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D {
         return self.place.location.coordinate
@@ -27,18 +28,19 @@ fileprivate class PlaceAnnotation: NSObject, MKAnnotation {
 }
 
 class PlacesScreenViewController: UIViewController {
-
-    @IBOutlet weak var map: MKMapView!
-    var categoryId : String = ""
-    var bottomSheetConstrainsDone = false
     
+    @IBOutlet weak var map: MKMapView!
+    
+    // MARK: - VARIABLES
     var bottomSheetView = UIView()
     var blurEffectView = UIVisualEffectView()
-    var bottomSheetShowed = false
-    var bottomSheetExtanded = false
     var segmentedController: UISegmentedControl!
     var locationManager = CLLocationManager()
-    
+    var bottomSheetShowed = false
+    var bottomSheetExtanded = false
+    var categoryId : String = ""
+    var bottomSheetConstrainsDone = false
+    var indexForBook : Int = 0
     var allPlaces: [PlaceDao] = []
     var places: [PlaceDao] = []{
         didSet{
@@ -57,13 +59,15 @@ class PlacesScreenViewController: UIViewController {
             }
         }
     }
+    
     var placesServices: PlaceServices{
         return PlaceAPIService()
     }
     
-    var indexForBook : Int = 0
+   
     
-    // views
+    //MARK: - VIEWS DECLARATION
+    
     var placeImageViewCtn = UIView()
     
     var placeImage: UIImageView = {
@@ -202,6 +206,8 @@ class PlacesScreenViewController: UIViewController {
         return b;
     }()
     
+    
+    //MARK: - OVERRIDES FUNC
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -227,54 +233,33 @@ class PlacesScreenViewController: UIViewController {
             loaderAlert.dismiss(animated: true) {
                 self.places = place
             }
-        }
-        self.setBottomSheetView()
-        self.setBottomSheetViewsConstraints()
-        self.setSegmentedControllerConstraints()
-        self.setLocalizeUserButton()
-    }
-    
-    @objc func bookPlace(){
-        let userId = "5e033735274cac40da9ed1d4"
-        let placeId = self.places[indexForBook].id
-        present(ReservationViewController.instance.alert(idPlace : placeId, idUser : userId), animated: true)
-    }
-    
-    @objc func sharePlaceAdress(sender: UIView){
-        hideBottomSheet(delta: Int(self.view.frame.height/3))
-        UIGraphicsBeginImageContext(view.frame.size)
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        let textToShare = "Regarde cet endroit sur Findout, il a l'air cool !"
-
-        if let myWebsite = URL(string: "http://www.google.fr") {//Enter link to your app here
-            let objectsToShare = [textToShare, myWebsite, image ?? #imageLiteral(resourceName: "app-logo")] as [Any]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-
-            //Excluded Activities
-            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
-            activityVC.popoverPresentationController?.sourceView = sender
-            self.present(activityVC, animated: true, completion: nil)
+            self.setBottomSheetView()
+            self.setBottomSheetViewsConstraints()
+            self.setSegmentedControllerConstraints()
+            self.setLocalizeUserButton()
         }
     }
     
-    @objc func showUserCurrentLocaton(){
-        self.map.zoomToUserLocation()
-    }
     
-    @objc func closeBottomSheet(){
-        if(self.bottomSheetExtanded){
-            hideBottomSheet(delta: 2 * Int(self.view.frame.height/3))
-            self.bottomSheetShowed = false
-            self.bottomSheetExtanded = false
-        }else{
-            if(self.bottomSheetShowed){
-                hideBottomSheet(delta:Int(self.view.frame.height/3))
-                self.bottomSheetShowed = false
-            }
-        }
+    // MARK: - MAP
+    private func setLocalizeUserButton(){
+        let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
+        let buttonOriginX = segmentedController.frame.origin.x + segmentedController.frame.width
+        
+        let localizeUserView = UIView()
+        localizeUserView.frame = CGRect(x: Int(buttonOriginX), y: navigationBarY + 20, width: 70, height: 40)
+        
+        showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
+        
+        localizeUserView.addSubview(showUserPositionOnMap)
+        self.view.addSubview(localizeUserView)
+        NSLayoutConstraint.activate([
+            showUserPositionOnMap.centerXAnchor.constraint(equalTo: localizeUserView.centerXAnchor),
+            showUserPositionOnMap.centerYAnchor.constraint(equalTo: localizeUserView.centerYAnchor),
+            
+            showUserPositionOnMap.widthAnchor.constraint(equalToConstant: 30.0),
+            showUserPositionOnMap.heightAnchor.constraint(equalToConstant: 30.0),
+        ])
     }
     
     @objc func switchView(sender: UISegmentedControl) {
@@ -297,35 +282,46 @@ class PlacesScreenViewController: UIViewController {
         }
     }
     
-    @objc func showMoreOnBottomSheet() {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .showHideTransitionViews, animations: {
-            if(self.bottomSheetExtanded){
-                self.bottomSheetView.frame.origin.y += (self.view.frame.height/3)
-                self.blurEffectView.frame.origin.y += (self.view.frame.height/3)
-                self.bottomSheetExtanded = false
-            }else{
-                self.bottomSheetView.frame.origin.y -= (self.view.frame.height/3)
-                self.blurEffectView.frame.origin.y -= (self.view.frame.height/3)
-                self.bottomSheetExtanded = true
-            }
-        }, completion: nil)
+    @objc func showUserCurrentLocaton(){
+        self.map.zoomToUserLocation()
     }
     
-    private func askUserForGaleryPermission(){
-        AVCaptureDevice.requestAccess(for: .video) { success in
-          if success { // if request is granted (success is true)
-          } else { // if request is denied (success is false)
-            // Create Alert
-            let alert = UIAlertController(title: "Camera", message: "Camera access is absolutely necessary to use this app", preferredStyle: .alert)
-
-            // Add "OK" Button to alert, pressing it will bring you to the settings app
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-            }))
-            // Show the alert with animation
-            self.present(alert, animated: true)
-          }
+    
+    // MARK: - MANAGING PERMISSIONS
+    private func askUserForGaleryPermission(completion: @escaping () -> Void){
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .authorized:
+            completion()
+            break
+        case .notDetermined:
+            let photos = PHPhotoLibrary.authorizationStatus()
+            if photos == .notDetermined {
+                PHPhotoLibrary.requestAuthorization({status in
+                    if(status == .authorized){
+                        completion()
+                    }
+                })
+            }
+            break
+        case .restricted:
+            break
+        case .denied:
+           self.managePermissionDenied()
+           break
+        @unknown default:
+            break
         }
+    }
+    
+    private func managePermissionDenied(){
+        let alert = UIAlertController(title: "Camera", message: "Nous avons besoin d'accéder à la galerie pour effectuer cette action", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Activer", style: .default, handler: { action in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        }))
+        alert.addAction(UIAlertAction(title: "Annuler", style: .default, handler: nil))
+        // Show the alert with animation
+        self.present(alert, animated: true)
     }
     
     private func askUserForLocation(){
@@ -337,7 +333,6 @@ class PlacesScreenViewController: UIViewController {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
-            askUserForGaleryPermission()
         }
     }
     
@@ -357,65 +352,8 @@ class PlacesScreenViewController: UIViewController {
         self.view.addSubview(segmentedController)
     }
     
-    private func setLocalizeUserButton(){
-        let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
-        let buttonOriginX = segmentedController.frame.origin.x + segmentedController.frame.width
-        
-        let localizeUserView = UIView()
-        localizeUserView.frame = CGRect(x: Int(buttonOriginX), y: navigationBarY + 20, width: 70, height: 40)
-        
-        showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
-        
-        localizeUserView.addSubview(showUserPositionOnMap)
-        self.view.addSubview(localizeUserView)
-        NSLayoutConstraint.activate([
-            showUserPositionOnMap.centerXAnchor.constraint(equalTo: localizeUserView.centerXAnchor),
-            showUserPositionOnMap.centerYAnchor.constraint(equalTo: localizeUserView.centerYAnchor),
-            
-            showUserPositionOnMap.widthAnchor.constraint(equalToConstant: 30.0),
-            showUserPositionOnMap.heightAnchor.constraint(equalToConstant: 30.0),
-        ])
-    }
     
-    
-    @objc func openAddPlace() {
-        AVCaptureDevice.requestAccess(for: .video) { success in
-          if success { // if request is granted (success is true)
-            DispatchQueue.main.async {
-                self.closeBottomSheet()
-                self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
-            }
-          } else { // if request is denied (success is false)
-            // Create Alert
-            let alert = UIAlertController(title: "Camera", message: "Camera access is absolutely necessary to use this app", preferredStyle: .alert)
-
-            // Add "OK" Button to alert, pressing it will bring you to the settings app
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-            }))
-            // Show the alert with animation
-            self.present(alert, animated: true)
-          }
-        }
-
-    }
-    
-    private func setBottomSheetView(){
-        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
-        blurEffectView = UIVisualEffectView(effect: blurEffect)
-        bottomSheetView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height)
-        bottomSheetView.backgroundColor = .clear
-        blurEffectView.frame = bottomSheetView.frame
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        bottomSheetView.layer.cornerRadius = 15;
-        blurEffectView.layer.cornerRadius = 15;
-        bottomSheetView.layer.masksToBounds = true;
-        blurEffectView.layer.masksToBounds = true;
-        
-        self.view.addSubview(blurEffectView)
-        self.view.addSubview(bottomSheetView)
-    }
+    // MARK: - MANAGING BOTTOM SHEET
     
     @objc private func hideBottomSheet(delta: Int){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .showHideTransitionViews, animations: {
@@ -440,6 +378,75 @@ class PlacesScreenViewController: UIViewController {
             self.bottomSheetConstrainsDone = true
         }
     }
+    
+    @objc func showMoreOnBottomSheet() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .showHideTransitionViews, animations: {
+            if(self.bottomSheetExtanded){
+                self.bottomSheetView.frame.origin.y += (self.view.frame.height/3)
+                self.blurEffectView.frame.origin.y += (self.view.frame.height/3)
+                self.bottomSheetExtanded = false
+            }else{
+                self.bottomSheetView.frame.origin.y -= (self.view.frame.height/3)
+                self.blurEffectView.frame.origin.y -= (self.view.frame.height/3)
+                self.bottomSheetExtanded = true
+            }
+        }, completion: nil)
+    }
+    
+    @objc func closeBottomSheet(){
+        if(self.bottomSheetExtanded){
+            hideBottomSheet(delta: 2 * Int(self.view.frame.height/3))
+            self.bottomSheetShowed = false
+            self.bottomSheetExtanded = false
+        }else{
+            if(self.bottomSheetShowed){
+                hideBottomSheet(delta:Int(self.view.frame.height/3))
+                self.bottomSheetShowed = false
+            }
+        }
+    }
+    
+    @objc func openAddPlace() {
+        askUserForGaleryPermission {
+            DispatchQueue.main.async {
+               self.closeBottomSheet()
+               self.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
+           }
+        }
+    }
+    
+    @objc func bookPlace(){
+        let userId = "5e033735274cac40da9ed1d4"
+        let placeId = self.places[indexForBook].id
+        present(ReservationViewController.instance.alert(idPlace : placeId, idUser : userId), animated: true)
+    }
+    
+    @objc func sharePlaceAdress(sender: UIView){
+        askUserForGaleryPermission{
+            DispatchQueue.main.async {
+                self.hideBottomSheet(delta: Int(self.view.frame.height/3))
+                UIGraphicsBeginImageContext(self.view.frame.size)
+                self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
+                let image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                
+                let textToShare = "Regarde cet endroit sur Findout, il a l'air cool !"
+
+                if let myWebsite = URL(string: "http://www.google.fr") {//Enter link to your app here
+                    let objectsToShare = [textToShare, myWebsite, image ?? #imageLiteral(resourceName: "app-logo")] as [Any]
+                    let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+
+                    //Excluded Activities
+                    activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
+                    activityVC.popoverPresentationController?.sourceView = sender
+                    self.present(activityVC, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    
+    // MARK: - SETUP SECTION
     
     private func setPlaceAdress(index: Int){
         self.placeName.text = self.places[index].name
@@ -470,9 +477,27 @@ class PlacesScreenViewController: UIViewController {
         self.title = NSLocalizedString("places.title", comment: "")
         self.navigationController?.navigationBar.topItem?.title = ""
     }
+    
+    private func setBottomSheetView(){
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        bottomSheetView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height)
+        bottomSheetView.backgroundColor = .clear
+        blurEffectView.frame = bottomSheetView.frame
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        bottomSheetView.layer.cornerRadius = 15;
+        blurEffectView.layer.cornerRadius = 15;
+        bottomSheetView.layer.masksToBounds = true;
+        blurEffectView.layer.masksToBounds = true;
+        
+        self.view.addSubview(blurEffectView)
+        self.view.addSubview(bottomSheetView)
+    }
+    
 }
 
-
+    // MARK: - EXTENSIONS
 
 extension PlacesScreenViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -520,6 +545,22 @@ extension PlacesScreenViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
     }
+       
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+           print("error::: \(error)")
+           locationManager.stopUpdatingLocation()
+           let alert = UIAlertController(title: "Settings", message: "Allow location from settings", preferredStyle: UIAlertController.Style.alert)
+           self.present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "TEST", style: .default, handler: { action in
+               switch action.style{
+               case .default: UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
+               case .cancel: print("cancel")
+               case .destructive: print("destructive")
+               @unknown default:
+                break
+            }
+           }))
+       }
 }
 
 extension MKMapView {
