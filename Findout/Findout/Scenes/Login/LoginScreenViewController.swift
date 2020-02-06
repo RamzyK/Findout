@@ -10,6 +10,7 @@ import UIKit
 
 class LoginScreenViewController: UIViewController {
     
+    // MARK: - VARIABLES
     @IBOutlet weak var emailTf: UITextField!
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet var welcomeLabel: UILabel!
@@ -19,6 +20,11 @@ class LoginScreenViewController: UIViewController {
     @IBOutlet var emailLabel: UILabel!
     @IBOutlet var loginButton: UIButton!
     
+    var userServices: UserServices{
+        return UserAPIService()
+    }
+    
+    // MARK: - OVERRIDE
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -29,10 +35,8 @@ class LoginScreenViewController: UIViewController {
         emailTf.delegate = self
         passwordTf.delegate = self
     }
-    var userServices: UserServices{
-        return UserAPIService()
-    }
     
+    // MARK: - SETUP
     func setupView() {
         self.title = "FINDOUT"
         self.welcomeLabel.text = NSLocalizedString("login.welcomeLabel", comment: "")
@@ -49,16 +53,7 @@ class LoginScreenViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
-    func hideKeyboard() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
-    }
-
-    @objc
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
+    // MARK: - ACTIONS
     @IBAction func goToSignup(_ sender: Any) {
         self.present(SignupViewController.newInstance(loginController: self), animated: true, completion: nil)
     }
@@ -89,6 +84,19 @@ class LoginScreenViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    
+    // MARK: - UTILS
+    
+    func hideKeyboard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     private func isFormFilled() -> Bool {

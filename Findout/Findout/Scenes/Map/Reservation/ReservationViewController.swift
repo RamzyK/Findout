@@ -11,6 +11,7 @@ import Alamofire
 
 class ReservationViewController: UIViewController {
 
+    // MARK: - VARIABLES
     @IBOutlet weak var reservationView: UIView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var dateTextField: UITextField!
@@ -61,6 +62,8 @@ class ReservationViewController: UIViewController {
     var userId : String = ""
     var placeId : String = ""
 
+    
+    // MARK: - OVERRIDE FUNC
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -70,6 +73,7 @@ class ReservationViewController: UIViewController {
         setupPlacePicker()
     }
 
+    // MARK: - SETUPS
     func setupView() {
         dateLabel.text = NSLocalizedString("reservation.date", comment: "")
         creneauLabel.text = NSLocalizedString("reservation.creneau", comment: "")
@@ -89,7 +93,6 @@ class ReservationViewController: UIViewController {
     }
 
     func setupDatePicker() {
-
         datePicker.minimumDate = Date()
         dateTextField.inputView = datePicker
         dateTextField.inputAccessoryView = setupPickerToolbar(select: #selector(doneDatePicker))
@@ -117,7 +120,21 @@ class ReservationViewController: UIViewController {
         placePicker.delegate = self
         placeTextField.inputAccessoryView = setupPickerToolbar(select: #selector(donePlacePicker))
     }
+    
+    func setupPickerToolbar(select : Selector) -> UIToolbar{
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
 
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: select)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+
+        return toolbar
+    }
+
+    // MARK: - ACTIONS
+    
     @IBAction func valideButton(_ sender: UIButton) {
         if(checkField()){
             let dateFormatter = DateFormatter()
@@ -181,14 +198,12 @@ class ReservationViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    @objc
-        func cancelPicker(){
+    @objc func cancelPicker(){
         //cancel button dismiss datepicker dialog
         self.view.endEditing(true)
     }
 
-    @objc
-        func doneCreneauPicker(){
+    @objc func doneCreneauPicker(){
         //cancel button dismiss datepicker dialog
         if(Double(creneauTextField.text!) != nil) {
             debutCreneau = Double(creneauTextField.text!)
@@ -197,8 +212,7 @@ class ReservationViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    @objc
-        func doneDureePicker(){
+    @objc func doneDureePicker(){
         //cancel button dismiss datepicker dialog
         if(Double(dureeCreneauTextField.text!) != nil && Double(creneauTextField.text!) != nil) {
             var nbPlaceAvailable = 0
@@ -225,24 +239,13 @@ class ReservationViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    @objc
-        func donePlacePicker() {
+    @objc func donePlacePicker() {
         //cancel button dismiss datepicker dialog
         self.view.endEditing(true)
     }
 
-    func setupPickerToolbar(select : Selector) -> UIToolbar{
-        let toolbar = UIToolbar();
-        toolbar.sizeToFit()
-
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: select)
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
-
-        return toolbar
-    }
-
+    // MARK: - UTILS
+    
     func checkField() -> Bool {
         if(dateTextField.text != "" && creneauTextField.text != "" && dureeCreneauTextField.text != "" && placeTextField.text != "") {
             return true
@@ -260,6 +263,7 @@ class ReservationViewController: UIViewController {
     }
 }
 
+    // MARK: - EXTENSIONS
 extension ReservationViewController: UIPickerViewDelegate {
 
 }

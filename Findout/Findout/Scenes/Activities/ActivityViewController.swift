@@ -10,14 +10,15 @@ import UIKit
 
 class ActivityViewController: UITableViewController {
 
+    // MARK: - VARIABLES
     let CATEGORY_CELL = "CATEGORY_CELL"
 
     var activityList: [ActivityDao] = []
-
     var activityServices: ActivityServices {
         return ActivityAPIService()
     }
 
+    // MARK: - OVERRIDE
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -28,6 +29,7 @@ class ActivityViewController: UITableViewController {
         setupActivityTableView()
     }
 
+    // MARK: - SETUP
     func setupView() {
         self.title = NSLocalizedString("activities.title", comment: "")
         setupNavigationBar()
@@ -81,6 +83,8 @@ class ActivityViewController: UITableViewController {
         }
     }
 
+    
+    // MARK: - EXTENSIONS
     override func numberOfSections(in tableView: UITableView) -> Int {
         return activityList.count
     }

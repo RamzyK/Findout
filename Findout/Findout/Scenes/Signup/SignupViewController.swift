@@ -10,6 +10,7 @@ import UIKit
 
 class SignupViewController: UIViewController {
     
+    // MARK: - VARIABLES
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var signupLabel: UILabel!
     @IBOutlet var nameLabel: UILabel!
@@ -43,6 +44,7 @@ class SignupViewController: UIViewController {
         return svc
     }
 
+    // MARK: - OVERRIDES FUNC
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -61,6 +63,55 @@ class SignupViewController: UIViewController {
         removeObserver()
     }
 
+    
+    // MARK: - ACTIONS
+    @objc
+    func dismissScreen() {
+        self.dismiss(animated: true) {
+        }
+    }
+    
+    @objc
+    func dismissKeyboardAndDatePicker() {
+        // Add DataPicker to the view
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.endEditing(true)
+            self.datePickerView.frame.origin.y += 300
+        }) { (result) in
+            if result && self.isBirthdateClicked{
+                self.isBirthdateClicked = false
+                if(self.userBirthDate.text!.count > 0){
+                    self.userBirthDate.layer.shadowOffset.height = 0
+                }
+                if(self.userBirthDate.text!.count == 0){
+                    self.userBirthDate.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+                }
+                self.datePickerView.removeFromSuperview()
+            }
+        }
+    }
+
+    @objc
+    func datePickerValueChanged(_ sender: UIDatePicker) {
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let selectedDate: String = dateFormatter.string(from: sender.date)
+        self.selectedDate = selectedDate
+    }
+
+    @objc
+    func doneClick() {
+        self.userBirthDate.text = self.selectedDate
+        self.dismissKeyboardAndDatePicker()
+        self.userPhoneNumber.becomeFirstResponder()
+    }
+
+    @objc
+    func finishEditing() {
+        self.dismissKeyboardAndDatePicker()
+        self.signup(self)
+    }
+    
     @IBAction func signup(_ sender: Any) {
         // Sign user up
         // Create new user
@@ -100,90 +151,8 @@ class SignupViewController: UIViewController {
         }
     }
     
-    private func setTextFieldDelegates() {
-        self.userName.delegate = self
-        self.userLastName.delegate = self
-        self.userEmail.delegate = self
-        self.userPassword.delegate = self
-        self.userBirthDate.delegate = self
-        self.userPhoneNumber.delegate = self
-    }
 
-    private func isFormFilled() -> Bool {
-        guard let nameText = userName.text,
-            let lastnameText = userLastName.text,
-            let passwordText = userPassword.text,
-            let emailText = userEmail.text,
-            let birthdate = self.userBirthDate.text,
-            let phone = self.userPhoneNumber.text else{
-                return false
-        }
-
-        if(nameText.count > 0 && lastnameText.count > 0
-        && emailText.count > 0 && passwordText.count > 0
-        && birthdate.count > 0 && phone.count > 0
-        && emailText.isEmailValid() && passwordText.isPasswordValid()){
-            return true
-        }else{
-            checkOnWichTextFieldIsError()
-        }
-        return false
-    }
-        
-    private func checkOnWichTextFieldIsError() {
-        if(userName.text!.count == 0){
-            userName.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
-        }
-        if(userLastName.text!.count == 0){
-            userLastName.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
-        }
-        
-        if(userPassword.text!.count == 0){
-            userPassword.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
-        }
-        if(userEmail.text!.count == 0){
-            userEmail.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
-        }
-
-        if(userBirthDate.text!.count == 0){
-            userBirthDate.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
-        }
-        if(userPhoneNumber.text!.count == 0){
-            userPhoneNumber.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
-        }
-    }
-    
-    func addObservers() {
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { notification in
-            self.keyboardWillHide(notification: notification)
-        }
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { notification in
-            self.keyboardWillShow(notification: notification)
-        }
-    }
-    
-    func removeObserver() {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func keyboardWillShow(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let frame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-                return
-        }
-        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
-        scrollView.contentInset = contentInset
-    }
-    
-    func keyboardWillHide(notification: Notification) {
-        scrollView.contentInset = UIEdgeInsets.zero
-    }
-    
-    func hideKeyboardAndDatePicker() {
-        let tapView = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardAndDatePicker))
-        view.addGestureRecognizer(tapView)
-    }
-
+    //MARK: - SETUP
     func setupView() {
         self.setupTextFieldKeyboardTypes()
         self.setupLabelTitle()
@@ -274,52 +243,92 @@ class SignupViewController: UIViewController {
         self.userPhoneNumber.inputAccessoryView = toolbarDone
     }
 
-    @objc
-    func dismissScreen() {
-        self.dismiss(animated: true) {
+    
+    // MARK: - UTILS
+    private func setTextFieldDelegates() {
+        self.userName.delegate = self
+        self.userLastName.delegate = self
+        self.userEmail.delegate = self
+        self.userPassword.delegate = self
+        self.userBirthDate.delegate = self
+        self.userPhoneNumber.delegate = self
+    }
+
+    private func isFormFilled() -> Bool {
+        guard let nameText = userName.text,
+            let lastnameText = userLastName.text,
+            let passwordText = userPassword.text,
+            let emailText = userEmail.text,
+            let birthdate = self.userBirthDate.text,
+            let phone = self.userPhoneNumber.text else{
+                return false
+        }
+
+        if(nameText.count > 0 && lastnameText.count > 0
+        && emailText.count > 0 && passwordText.count > 0
+        && birthdate.count > 0 && phone.count > 0
+        && emailText.isEmailValid() && passwordText.isPasswordValid()){
+            return true
+        }else{
+            checkOnWichTextFieldIsError()
+        }
+        return false
+    }
+        
+    private func checkOnWichTextFieldIsError() {
+        if(userName.text!.count == 0){
+            userName.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+        if(userLastName.text!.count == 0){
+            userLastName.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+        
+        if(userPassword.text!.count == 0){
+            userPassword.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+        if(userEmail.text!.count == 0){
+            userEmail.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+
+        if(userBirthDate.text!.count == 0){
+            userBirthDate.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
+        }
+        if(userPhoneNumber.text!.count == 0){
+            userPhoneNumber.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
         }
     }
     
-    @objc
-    func dismissKeyboardAndDatePicker() {
-        // Add DataPicker to the view
-        UIView.animate(withDuration: 0.5, animations: {
-            self.view.endEditing(true)
-            self.datePickerView.frame.origin.y += 300
-        }) { (result) in
-            if result && self.isBirthdateClicked{
-                self.isBirthdateClicked = false
-                if(self.userBirthDate.text!.count > 0){
-                    self.userBirthDate.layer.shadowOffset.height = 0
-                }
-                if(self.userBirthDate.text!.count == 0){
-                    self.userBirthDate.isError(baseColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), numberOfShakes: 3.0, revert: true)
-                }
-                self.datePickerView.removeFromSuperview()
-            }
+    func addObservers() {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { notification in
+            self.keyboardWillHide(notification: notification)
+        }
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { notification in
+            self.keyboardWillShow(notification: notification)
         }
     }
-
-    @objc
-    func datePickerValueChanged(_ sender: UIDatePicker) {
-        let dateFormatter: DateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let selectedDate: String = dateFormatter.string(from: sender.date)
-        self.selectedDate = selectedDate
+    
+    func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
     }
-
-    @objc
-    func doneClick() {
-        self.userBirthDate.text = self.selectedDate
-        self.dismissKeyboardAndDatePicker()
-        self.userPhoneNumber.becomeFirstResponder()
+    
+    func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let frame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+        }
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+        scrollView.contentInset = contentInset
     }
-
-    @objc
-    func finishEditing() {
-        self.dismissKeyboardAndDatePicker()
-        self.signup(self)
+    
+    func keyboardWillHide(notification: Notification) {
+        scrollView.contentInset = UIEdgeInsets.zero
     }
+    
+    func hideKeyboardAndDatePicker() {
+        let tapView = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardAndDatePicker))
+        view.addGestureRecognizer(tapView)
+    }
+    
 }
 
 

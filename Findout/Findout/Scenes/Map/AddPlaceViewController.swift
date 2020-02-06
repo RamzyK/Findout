@@ -12,6 +12,9 @@ import CoreLocation
 import GooglePlaces
 
 class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    // MARK: - VARIABLES
+    
     @IBOutlet weak var placeNameLabel: UILabel!
     @IBOutlet weak var placeNameTextField: UITextField!
     //@IBOutlet weak var descriptionTextField: UITextView!
@@ -48,6 +51,8 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
     var placeServices: PlaceServices{
         return PlaceAPIService()
     }
+    
+    // MARK: - OVERRIDES FUNC
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,6 +133,35 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         }
     }
     
+    @objc func clickImage() {
+        let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        let cancelActionButton = UIAlertAction(title: NSLocalizedString("place.cancel", comment: ""), style: .cancel) { _ in
+            
+        }
+        actionSheetControllerIOS8.addAction(cancelActionButton)
+
+        let cameraActionButton = UIAlertAction(title: NSLocalizedString("place.camera", comment: ""), style: .default)
+            { _ in
+                self.openCamera()
+        }
+        actionSheetControllerIOS8.addAction(cameraActionButton)
+
+        let galleryActionButton = UIAlertAction(title: NSLocalizedString("place.gallery", comment: ""), style: .default)
+            { _ in
+                self.openGallery()
+        }
+        actionSheetControllerIOS8.addAction(galleryActionButton)
+        self.present(actionSheetControllerIOS8, animated: true, completion: nil)
+    }
+    
+    @objc
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    // MARK: - MEDIA
+    
     func openGallery() {
         let image = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
@@ -162,6 +196,8 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         self.dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - UTILS
+    
     func hideKeyboard() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -175,6 +211,8 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         alertWarn.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertWarn, animated: true, completion: nil)
     }
+    
+    // MARK: - SETUPS
     
     func setupView() {
         self.placeNameLabel.text = NSLocalizedString("place.name", comment: "")
@@ -216,35 +254,11 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(singleTap)
     }
-    
-    @objc
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    @objc func clickImage() {
-        let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        let cancelActionButton = UIAlertAction(title: NSLocalizedString("place.cancel", comment: ""), style: .cancel) { _ in
-            
-        }
-        actionSheetControllerIOS8.addAction(cancelActionButton)
-
-        let cameraActionButton = UIAlertAction(title: NSLocalizedString("place.camera", comment: ""), style: .default)
-            { _ in
-                self.openCamera()
-        }
-        actionSheetControllerIOS8.addAction(cameraActionButton)
-
-        let galleryActionButton = UIAlertAction(title: NSLocalizedString("place.gallery", comment: ""), style: .default)
-            { _ in
-                self.openGallery()
-        }
-        actionSheetControllerIOS8.addAction(galleryActionButton)
-        self.present(actionSheetControllerIOS8, animated: true, completion: nil)
-    }
 }
 
+
+    // MARK: - EXTENSIONS
 extension AddPlaceViewController: UIPickerViewDelegate {
     
 }
@@ -310,19 +324,14 @@ extension AddPlaceViewController: UIActionSheetDelegate {
 }
 
 extension AddPlaceViewController: GMSAutocompleteViewControllerDelegate {
-  func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-    // Get the place name from 'GMSAutocompleteViewController'
-    // Then display the name in textField
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
     addressTextField.text = place.formattedAddress
-// Dismiss the GMSAutocompleteViewController when something is selected
     dismiss(animated: true, completion: nil)
   }
-func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-    
-}
-    
-func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-    // Dismiss when the user canceled the action
-    dismiss(animated: true, completion: nil)
-  }
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        
+    }
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
 }
