@@ -15,9 +15,9 @@ platform :ios do
     lane :code_cov do
       #scan(code_coverage: true)
       xcov(
-        workspace: "Findout.xcworkspace",
+        workspace: "./Findout.xcworkspace",
         scheme: "Findout",
-        output_directory: "xcov_output"
+        output_directory: "./xcov_output"
       )
     end
 
