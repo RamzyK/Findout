@@ -23,6 +23,7 @@ script:
   - if [ "$TRAVIS_BRANCH" = "develop" ];
    then bundle exec fastlane ios code_cov;
         bundle exec fastlane ios tweet;
+        bundle exec fastlane ios send_telegram;
         bundle exec fastlane ios discord_notification;
         bundle exec fastlane ios email_notification;
         echo 'Build finished, close your pull request and merge to develop'; fi

@@ -112,4 +112,9 @@ iOSInjectionProject/
 ### Xcode Patch ###
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+# XCOV
+xcov_output/action_0.xccovarchive
+xcov_output/resources
+xcov_output/action_0.xccovreport
+
 # End of https://www.gitignore.io/api/xcode,swift,cocoapods
