@@ -423,7 +423,10 @@ class PlacesScreenViewController: UIViewController {
             DisponibilityAPIService.default.getByIdUser(idUser: userID!) { (dispo) in
                 let lvc = ListReservationViewController()
                 lvc.listDispo = dispo
-                self.navigationController?.pushViewController(lvc, animated: true)
+                DispatchQueue.main.async {
+                    self.closeBottomSheet()
+                    self.navigationController?.pushViewController(lvc, animated: true)
+                }
             }
         } else {
             let alert = UIAlertController(title: "Avertissement", message: "Désolé", preferredStyle: .alert)

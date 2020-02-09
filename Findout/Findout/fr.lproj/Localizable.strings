@@ -60,3 +60,5 @@
 "reservation.place" = "Choisir le nombre de place";
 "reservation.valider" = "Valider";
 "reservation.cancel" = "Annuler";
+
+"listReservation.msgVide" = "Pas de réservation";

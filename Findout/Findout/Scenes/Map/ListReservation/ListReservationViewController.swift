@@ -11,10 +11,19 @@ import UIKit
 class ListReservationViewController: UIViewController {
     
     var listDispo : [DisponibilityDao]!
-
+    @IBOutlet weak var middleLabel: UILabel!
+    
     @IBOutlet weak var listReservationTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(listDispo.count == 0) {
+            listReservationTableView.isHidden = true
+            middleLabel.isHidden = false
+        } else {
+            listReservationTableView.isHidden = false
+            middleLabel.isHidden = true
+        }
+        middleLabel.text = NSLocalizedString("listReservation.msgVide", comment: "")
         listReservationTableView.delegate = self
         listReservationTableView.dataSource = self
         listReservationTableView.register(UINib(nibName: "ListReservationCell", bundle: nil), forCellReuseIdentifier: ListReservationViewController.cellIdentifier)
