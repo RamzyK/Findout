@@ -11,6 +11,10 @@
 		0C042FC423B8C3C2000C0198 /* AddPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C042FC223B8C3C2000C0198 /* AddPlaceViewController.xib */; };
 		0C042FC723C2B6EB000C0198 /* CategoryAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C042FC623C2B6EB000C0198 /* CategoryAPIService.swift */; };
 		0C042FCC23C3C27F000C0198 /* ActivityAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C042FCB23C3C27F000C0198 /* ActivityAPIService.swift */; };
+		0C4D6D4D23F04F3200848D53 /* ListReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D6D4B23F04F3200848D53 /* ListReservationViewController.swift */; };
+		0C4D6D4E23F04F3200848D53 /* ListReservationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C4D6D4C23F04F3200848D53 /* ListReservationViewController.xib */; };
+		0C4D6D5523F067AF00848D53 /* ListReservationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D6D5323F067AF00848D53 /* ListReservationCell.swift */; };
+		0C4D6D5623F067AF00848D53 /* ListReservationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C4D6D5423F067AF00848D53 /* ListReservationCell.xib */; };
 		0CA3D9F823C7A30C003E1ED2 /* ReservationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CA3D9F723C7A30C003E1ED2 /* ReservationViewController.storyboard */; };
 		0CA3D9FA23C7A376003E1ED2 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3D9F923C7A376003E1ED2 /* ReservationViewController.swift */; };
 		0CA3D9FD23C7CF69003E1ED2 /* DisponibilityAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA3D9FC23C7CF69003E1ED2 /* DisponibilityAPIService.swift */; };
@@ -73,6 +77,10 @@
 		0C042FC223B8C3C2000C0198 /* AddPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPlaceViewController.xib; sourceTree = "<group>"; };
 		0C042FC623C2B6EB000C0198 /* CategoryAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAPIService.swift; sourceTree = "<group>"; };
 		0C042FCB23C3C27F000C0198 /* ActivityAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAPIService.swift; sourceTree = "<group>"; };
+		0C4D6D4B23F04F3200848D53 /* ListReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListReservationViewController.swift; sourceTree = "<group>"; };
+		0C4D6D4C23F04F3200848D53 /* ListReservationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListReservationViewController.xib; sourceTree = "<group>"; };
+		0C4D6D5323F067AF00848D53 /* ListReservationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListReservationCell.swift; sourceTree = "<group>"; };
+		0C4D6D5423F067AF00848D53 /* ListReservationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListReservationCell.xib; sourceTree = "<group>"; };
 		0CA3D9F723C7A30C003E1ED2 /* ReservationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReservationViewController.storyboard; sourceTree = "<group>"; };
 		0CA3D9F923C7A376003E1ED2 /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
 		0CA3D9FC23C7CF69003E1ED2 /* DisponibilityAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisponibilityAPIService.swift; sourceTree = "<group>"; };
@@ -161,6 +169,17 @@
 				0C042FCB23C3C27F000C0198 /* ActivityAPIService.swift */,
 			);
 			path = Activity;
+			sourceTree = "<group>";
+		};
+		0C4D6D4A23F04F1000848D53 /* ListReservation */ = {
+			isa = PBXGroup;
+			children = (
+				0C4D6D4B23F04F3200848D53 /* ListReservationViewController.swift */,
+				0C4D6D4C23F04F3200848D53 /* ListReservationViewController.xib */,
+				0C4D6D5323F067AF00848D53 /* ListReservationCell.swift */,
+				0C4D6D5423F067AF00848D53 /* ListReservationCell.xib */,
+			);
+			path = ListReservation;
 			sourceTree = "<group>";
 		};
 		0CA3D9EC23C7800C003E1ED2 /* Reservation */ = {
@@ -426,6 +445,7 @@
 		6368378C23B3A2E40042D6F5 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				0C4D6D4A23F04F1000848D53 /* ListReservation */,
 				0CA3D9EC23C7800C003E1ED2 /* Reservation */,
 				63C759DF23B3DBFE0019247E /* Map Bottomsheet */,
 				633D45BB23ABA01000FE24F1 /* PlacesScreenViewController.swift */,
@@ -567,7 +587,9 @@
 			files = (
 				631BCEE123B0FC28003FC0CE /* SignupViewController.xib in Resources */,
 				633D45C223ABA02000FE24F1 /* LoginScreenViewController.xib in Resources */,
+				0C4D6D4E23F04F3200848D53 /* ListReservationViewController.xib in Resources */,
 				633D45B623AB9FE300FE24F1 /* SettingScreenViewController.xib in Resources */,
+				0C4D6D5623F067AF00848D53 /* ListReservationCell.xib in Resources */,
 				0C042FC423B8C3C2000C0198 /* AddPlaceViewController.xib in Resources */,
 				5E0377F023B3A4C000059D11 /* Localizable.strings in Resources */,
 				0CA3D9F823C7A30C003E1ED2 /* ReservationViewController.storyboard in Resources */,
@@ -674,6 +696,7 @@
 				633D45E023ABCC4A00FE24F1 /* DisponibilityDao.swift in Sources */,
 				0C042FC723C2B6EB000C0198 /* CategoryAPIService.swift in Sources */,
 				631BCEDA23B0E70A003FC0CE /* CategoriesMockServices.swift in Sources */,
+				0C4D6D5523F067AF00848D53 /* ListReservationCell.swift in Sources */,
 				5EA0337E23E897A2007EFDCF /* CategoryCell.swift in Sources */,
 				633D45AF23AB9EE700FE24F1 /* UserServices.swift in Sources */,
 				633D45CC23ABC6F800FE24F1 /* CategoryServices.swift in Sources */,
@@ -684,6 +707,7 @@
 				0CA3D9FD23C7CF69003E1ED2 /* DisponibilityAPIService.swift in Sources */,
 				633D45C723ABBC1900FE24F1 /* ActivityDao.swift in Sources */,
 				631BCED723B0E3D8003FC0CE /* UserMockServices.swift in Sources */,
+				0C4D6D4D23F04F3200848D53 /* ListReservationViewController.swift in Sources */,
 				633D45AD23AB9EE700FE24F1 /* PlaceServices.swift in Sources */,
 				0CA3D9FA23C7A376003E1ED2 /* ReservationViewController.swift in Sources */,
 			);

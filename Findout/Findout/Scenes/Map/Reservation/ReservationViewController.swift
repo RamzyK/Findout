@@ -59,7 +59,7 @@ class ReservationViewController: UIViewController {
         }
     }
 
-    var userId : String = ""
+    var userId : String? = UserDefaults.standard.string(forKey: "userID")
     var placeId : String = ""
 
     
@@ -145,25 +145,33 @@ class ReservationViewController: UIViewController {
                     return
             }
             let fin = debut + duree
-            DisponibilityAPIService.default.addDisponibility(id_place: placeId, id_user: userId, startTime: creneauTextField.text!, endTime: String(String(fin).prefix(2)), date: selectedDate, nbPlace: placeTextField.text!) { (status) in
-                if(status == 200) {
-                    let alert = UIAlertController(title: NSLocalizedString("place.alertTitleSuccess", comment: ""), message: NSLocalizedString("place.alertSuccessReservation", comment: ""), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.dismiss(animated: true)
-                        }
-                    })
-                    self.present(alert, animated: true)
-                } else {
-                let alert = UIAlertController(title: NSLocalizedString("place.alertTitleFailure", comment: ""),                                     message: NSLocalizedString("place.alertMissingFields", comment: ""),
-                                              preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.dismiss(animated: true)
-                        }
-                    })
-                    self.present(alert, animated: true)
+            if(userId != nil) {
+                DisponibilityAPIService.default.addDisponibility(id_place: placeId, id_user: userId!, startTime: creneauTextField.text!, endTime: String(String(fin).prefix(2)), date: selectedDate, nbPlace: placeTextField.text!) { (status) in
+                    if(status == 200) {
+                        let alert = UIAlertController(title: NSLocalizedString("place.alertTitleSuccess", comment: ""), message: NSLocalizedString("place.alertSuccessReservation", comment: ""), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                self.dismiss(animated: true)
+                            }
+                        })
+                        self.present(alert, animated: true)
+                    } else {
+                    let alert = UIAlertController(title: NSLocalizedString("place.alertTitleFailure", comment: ""),                                     message: NSLocalizedString("place.alertMissingFields", comment: ""),
+                                                  preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                self.dismiss(animated: true)
+                            }
+                        })
+                        self.present(alert, animated: true)
+                    }
                 }
+            } else {
+                let alert = UIAlertController(title: "Avertissement", message: "Désolé", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    self.navigationController?.pushViewController(LoginScreenViewController(), animated: true)
+                }))
+                self.present(alert, animated: true)
             }
         } else {
             let alert = UIAlertController(title: NSLocalizedString("place.alertTitleFailure", comment: ""),
@@ -254,11 +262,10 @@ class ReservationViewController: UIViewController {
         }
     }
 
-    func alert(idPlace : String, idUser : String) -> ReservationViewController {
+    func alert(idPlace : String) -> ReservationViewController {
         let story = UIStoryboard(name: "ReservationViewController", bundle: .main)
         let alert = story.instantiateViewController(identifier: "ReservationVC") as! ReservationViewController
         alert.placeId = idPlace
-        alert.userId = idUser
         return alert
     }
 }
