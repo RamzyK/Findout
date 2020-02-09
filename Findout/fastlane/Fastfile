@@ -38,8 +38,8 @@ platform :ios do
   desc "Sends Telegram notification"
     lane :send_telegram do
       telegram(
-        token: "849376663:AAHak9SjR1meGvYtGpzheueTn4KbyQRoYss",
-        chat_id: "-356937418",
+        token: "#{ENV['TELEGRAM_TOKEN']}",
+        chat_id: "#{ENV['TELEGRAM_CHAT_ID']}",
         text: "Check the new version out of Findout, sah which pleasure",
       )
     end
