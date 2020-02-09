@@ -26,6 +26,11 @@ Do a code coverage
 fastlane ios discord_notification
 ```
 Send notification on discord channel
+### ios send_imessage
+```
+fastlane ios send_imessage
+```
+Sends iMessage
 ### ios tweet
 ```
 fastlane ios tweet

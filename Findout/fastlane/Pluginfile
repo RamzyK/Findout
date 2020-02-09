@@ -4,3 +4,5 @@
 
 gem 'fastlane-plugin-discord'
 gem 'fastlane-plugin-send_e_mail'
+gem 'fastlane-plugin-imessage'
+gem 'fastlane-plugin-telegram'

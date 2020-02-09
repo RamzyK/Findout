@@ -13,8 +13,12 @@ platform :ios do
 
   desc "Do a code coverage "
     lane :code_cov do
-      scan(code_coverage: true)
-      xcov
+      #scan(code_coverage: true)
+      xcov(
+        workspace: "Findout.xcworkspace",
+        scheme: "Findout",
+        output_directory: "xcov_output"
+      )
     end
 
   desc "Send notification on discord channel"
@@ -28,6 +32,15 @@ platform :ios do
         app_name: 'Findout',
         build_number: 1,
         version: version
+      )
+    end
+
+  desc "Sends Telegram notification"
+    lane :send_telegram do
+      telegram(
+        token: "849376663:AAHak9SjR1meGvYtGpzheueTn4KbyQRoYss",
+        chat_id: "-356937418",
+        text: "Check the new version out of Findout, sah which pleasure",
       )
     end
 
