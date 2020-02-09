@@ -94,7 +94,10 @@ platform :ios do
       platform: "ios"
     )
     # Use sigh to download or generate a provisioning profile
-    sigh
+    sigh(
+      app_identifier: "#{ENV['APP_IDENTIFIER']}",
+      username: "#{ENV['APPLE_ID']}",
+    )
     # # Use gym to archive your app
     gym(
       silent: true,
