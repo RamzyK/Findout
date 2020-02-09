@@ -60,3 +60,5 @@
 "reservation.place" = "Choose number of seat";
 "reservation.valider" = "Validate";
 "reservation.cancel" = "Cancel";
+
+"listReservation.msgVide" = "No reservation";

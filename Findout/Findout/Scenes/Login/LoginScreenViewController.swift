@@ -75,6 +75,7 @@ class LoginScreenViewController: UIViewController {
             userServices.connect(email: self.emailTf.text!, password: self.passwordTf.text!) { (user, status) in
                 if status == 200{
                     loaderAlert.dismiss(animated: true){
+                        UserDefaults.standard.set(user?.userID, forKey: "userID")
                         self.navigationController?.pushViewController(ActivityViewController(), animated: true)
                     }
                 }else{

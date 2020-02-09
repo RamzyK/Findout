@@ -11,6 +11,7 @@ import Alamofire
 
 class DisponibilityAPIService: DisponibilityServices {
 
+
     let localServiceAddress = "http://localhost:3000/disponibility"
     let onlineServiceAddress = "https://findout-esgi.herokuapp.com/disponibility"
 
@@ -18,6 +19,31 @@ class DisponibilityAPIService: DisponibilityServices {
 
     func getAll(completion: @escaping ([DisponibilityDao]) -> Void) {
         Alamofire.request("\(onlineServiceAddress)/getAll").responseJSON { (res) in
+            guard let jsonCategory = res.result.value as? [String:Any] else {
+                return
+            }
+            guard let disponibilityList = jsonCategory["disponibility"] as? [[String:Any]] else {
+                return
+            }
+            var list : [DisponibilityDao] = []
+            disponibilityList.forEach { (result) in
+                guard let  id = result["_id"] as? String,
+                    let date = result["date"] as? String,
+                    let startTime = result["startTime"] as? String,
+                    let endTime = result["endTime"] as? String,
+                    let nbPlace = result["nbPlace"] as? Int,
+                    let id_user = result["id_user"] as? String,
+                    let id_place = result["id_place"] as? String else {
+                        return
+                }
+                list.append(DisponibilityDao.init(id: id, date: date, startTime: startTime, endTime: endTime, place: nbPlace, userID: id_user, placeID: id_place))
+            }
+            completion(list)
+        }
+    }
+
+    func getByIdUser(idUser: String, completion: @escaping ([DisponibilityDao]) -> Void) {
+        Alamofire.request("\(onlineServiceAddress)/getByIdUser/\(idUser)").responseJSON { (res) in
             guard let jsonCategory = res.result.value as? [String:Any] else {
                 return
             }
