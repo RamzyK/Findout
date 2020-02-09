@@ -13,7 +13,7 @@ platform :ios do
 
   desc "Do a code coverage "
     lane :code_cov do
-      #scan(code_coverage: true)
+      scan(code_coverage: true)
       xcov(
         workspace: "./Findout.xcworkspace",
         scheme: "Findout",
