@@ -64,6 +64,8 @@ class PlacesScreenViewController: UIViewController {
         return PlaceAPIService()
     }
     
+    let userID : String? = UserDefaults.standard.string(forKey: "userID")
+    
    
     
     //MARK: - VIEWS DECLARATION
@@ -214,7 +216,8 @@ class PlacesScreenViewController: UIViewController {
         askUserForLocation()
         self.map.delegate = self
         closeBottomSheetBtn.addTarget(self, action: #selector(closeBottomSheet), for: .touchUpInside)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace)), UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(openListReservation))]
+        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -415,10 +418,25 @@ class PlacesScreenViewController: UIViewController {
         }
     }
     
+    @objc func openListReservation() {
+        if(userID != nil) {
+            DisponibilityAPIService.default.getByIdUser(idUser: userID!) { (dispo) in
+                let lvc = ListReservationViewController()
+                lvc.listDispo = dispo
+                self.navigationController?.pushViewController(lvc, animated: true)
+            }
+        } else {
+            let alert = UIAlertController(title: "Avertissement", message: "Désolé", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                self.navigationController?.pushViewController(LoginScreenViewController(), animated: true)
+            }))
+            self.present(alert, animated: true)
+        }
+    }
+    
     @objc func bookPlace(){
-        let userId = "5e033735274cac40da9ed1d4"
         let placeId = self.places[indexForBook].id
-        present(ReservationViewController.instance.alert(idPlace : placeId, idUser : userId), animated: true)
+        present(ReservationViewController.instance.alert(idPlace : placeId), animated: true)
     }
     
     @objc func sharePlaceAdress(sender: UIView){
