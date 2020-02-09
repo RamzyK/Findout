@@ -90,3 +90,7 @@ fastlane/test_output
 iOSInjectionProject/
 
 Findout/fastlane/.env.secret
+
+Findout/AppStore_com.esgi.findout.mobileprovision
+
+Findout/KVFCX2W2CY.cer

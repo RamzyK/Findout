@@ -102,7 +102,7 @@ platform :ios do
     gym(
       silent: true,
       output_directory: "./fastlane/builds",
-      sche: "Findout"
+      scheme: "Findout"
     )
     # Use pilot to upload your app to testflight
     pilot
