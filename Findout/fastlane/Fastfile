@@ -88,14 +88,18 @@ platform :ios do
   lane :beta_testflight do
     increment_version_number
     # Use cert to generate a certificate
-    cert
+    cert(
+      development: true,
+      username: "#{ENV['EMAIL_DOMAIN_NAME']}",
+      platform: "ios"
+    )
     # Use sigh to download or generate a provisioning profile
     sigh
     # # Use gym to archive your app
     gym(
       silent: true,
       output_directory: "./fastlane/builds",
-      scheme: "Findout"
+      sche: "Findout"
     )
     # Use pilot to upload your app to testflight
     pilot
