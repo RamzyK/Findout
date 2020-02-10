@@ -114,7 +114,7 @@ class ActivityViewController: UITableViewController {
 
         label.frame = CGRect(x: tableView.frame.width - 20, y: 0, width: 20, height: 50)
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.text = "+"
+        label.text = "-"
 
         button.addSubview(label)
 
