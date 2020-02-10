@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Photos
+import FanMenu
 
     // MARK: - ANNOTATION
 fileprivate class PlaceAnnotation: NSObject, MKAnnotation {
@@ -41,6 +42,7 @@ class PlacesScreenViewController: UIViewController {
     var categoryId : String = ""
     var bottomSheetConstrainsDone = false
     var indexForBook : Int = 0
+    var fanMenu = FanMenu()
     var allPlaces: [PlaceDao] = []
     var places: [PlaceDao] = []{
         didSet{
@@ -211,20 +213,19 @@ class PlacesScreenViewController: UIViewController {
     
     //MARK: - OVERRIDES FUNC
     override func viewWillAppear(_ animated: Bool) {
-        //hideNavigationBar(animated)
+        self.hideNavigationBar(animated)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setMainButton()
         askUserForLocation()
         self.map.delegate = self
         closeBottomSheetBtn.addTarget(self, action: #selector(closeBottomSheet), for: .touchUpInside)
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace)), UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(openListReservation))]
-        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let loaderAlert = UIAlertController(title: nil,
+        /*let loaderAlert = UIAlertController(title: nil,
                                       message: NSLocalizedString("place.loading", comment: ""),
                                       preferredStyle: .alert)
 
@@ -243,7 +244,11 @@ class PlacesScreenViewController: UIViewController {
             self.setBottomSheetViewsConstraints()
             self.setSegmentedControllerConstraints()
             self.setLocalizeUserButton()
-        }
+        }*/
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.showNavigationBar(animated)
     }
     
     
@@ -501,6 +506,10 @@ class PlacesScreenViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
+    func showNavigationBar(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     private func setBottomSheetView(){
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -516,6 +525,69 @@ class PlacesScreenViewController: UIViewController {
         
         self.view.addSubview(blurEffectView)
         self.view.addSubview(bottomSheetView)
+    }
+    
+    private func setMainButton() {
+        self.fanMenu.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        self.fanMenu.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height - 50)
+        self.fanMenu.backgroundColor = .clear
+        self.fanMenu.button = FanMenuButton(
+            id: "main",
+            image: UIImage(named: "ellipsis"),
+            color: .green
+        )
+        self.fanMenu.items = [
+            FanMenuButton(
+                id: "logout",
+                image: UIImage(named: "logout"),
+                color: .white
+            ),
+            FanMenuButton(
+                id: "reservations",
+                image: UIImage(named: "reservation"),
+                color: .white
+            ),
+            FanMenuButton(
+                id: "addPlace",
+                image: UIImage(named: "addPlace"),
+                color: .white
+            ),
+            FanMenuButton(
+                id: "categories",
+                image: UIImage(named: "activities"),
+                color: .white
+            )
+        ]
+        
+        fanMenu.menuRadius = 75.0
+        fanMenu.duration = 0.2
+        fanMenu.interval = (0, -171*Double.pi/128)
+        fanMenu.radius = 25.0
+        fanMenu.delay = 0.0
+        
+        fanMenu.onItemWillClick = { button in
+            switch (button.id) {
+                case "main" :
+                    break
+                case "categories" :
+                    self.navigationController?.popViewController(animated: true)
+                    break
+                case "addPlace" :
+                    self.openAddPlace()
+                    break
+                case "reservations" :
+                    self.navigationController?.pushViewController(ListReservationViewController(), animated: true)
+                    break
+                case "logout" :
+                    self.navigationController?.pushViewController(LoginScreenViewController(), animated: true)
+                    break
+                default :
+                    break
+            }
+        }
+        
+        fanMenu.backgroundColor = .clear
+        self.view.addSubview(self.fanMenu)
     }
     
 }

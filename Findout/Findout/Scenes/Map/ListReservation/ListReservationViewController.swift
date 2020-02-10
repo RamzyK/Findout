@@ -10,7 +10,7 @@ import UIKit
 
 class ListReservationViewController: UIViewController {
 
-    var listDispo : [DisponibilityDao]!
+    var listDispo : [DisponibilityDao] = []
     @IBOutlet weak var middleLabel: UILabel!
 
     @IBOutlet weak var listReservationTableView: UITableView!
