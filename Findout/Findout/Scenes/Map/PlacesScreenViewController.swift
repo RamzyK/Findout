@@ -149,7 +149,7 @@ class PlacesScreenViewController: UIViewController {
     
     var bookingButton: UIButton = {
        let b = UIButton()
-        b.backgroundColor = #colorLiteral(red: 0.3276026845, green: 0.784994781, blue: 0.4816099405, alpha: 1)
+        b.backgroundColor = #colorLiteral(red: 0.3294117647, green: 0.784994781, blue: 0.4816099405, alpha: 1)
         b.isUserInteractionEnabled = true
         b.titleLabel?.font = UIFont(name: "Avenir-Medium", size: 20)
         b.translatesAutoresizingMaskIntoConstraints = false
@@ -241,9 +241,9 @@ class PlacesScreenViewController: UIViewController {
                 self.places = place
             }
             self.setBottomSheetView()
-            self.setBottomSheetViewsConstraints()
-            self.setSegmentedControllerConstraints()
-            self.setLocalizeUserButton()
+            self.setBottomSheetViewsConstraints()*/
+         self.setSegmentedController()
+         self.setLocalizeUserButton()/*
         }*/
     }
 
@@ -254,13 +254,14 @@ class PlacesScreenViewController: UIViewController {
     
     // MARK: - MAP
     private func setLocalizeUserButton(){
-        let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
-        let buttonOriginX = segmentedController.frame.origin.x + segmentedController.frame.width
+        let buttonOriginX = Int(self.view.frame.width - 25)
+        let buttonOriginY = Int(fanMenu.center.y - 20)
         
         let localizeUserView = UIView()
-        localizeUserView.frame = CGRect(x: Int(buttonOriginX), y: navigationBarY + 20, width: 70, height: 40)
+        localizeUserView.frame = CGRect(x: 0, y: 0, width: 70, height: 200)
+        localizeUserView.center = CGPoint(x: buttonOriginX, y: buttonOriginY)
         
-        showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
+        showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.circle"), for: .normal)
         
         localizeUserView.addSubview(showUserPositionOnMap)
         self.view.addSubview(localizeUserView)
@@ -294,6 +295,18 @@ class PlacesScreenViewController: UIViewController {
     }
     
     @objc func showUserCurrentLocaton(){
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        animation.type = CATransitionType.fade
+        animation.duration = 1
+
+        self.showUserPositionOnMap.layer.add(animation, forKey: CATransitionType.fade.rawValue)
+
+        self.showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.circle.fill"), for: .normal)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.showUserPositionOnMap.layer.add(animation, forKey: CATransitionType.fade.rawValue)
+            self.showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.circle"), for: .normal)
+        }
         self.map.zoomToUserLocation()
     }
     
@@ -347,18 +360,20 @@ class PlacesScreenViewController: UIViewController {
         }
     }
     
-    private func setSegmentedControllerConstraints(){
-        let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
-        let segmentedControllerWidth = Int(self.view.frame.width - 140)
+    private func setSegmentedController(){
+        let statusBarY = Int((self.view.window?.windowScene?.statusBarManager?.statusBarFrame.height)! + 20)
+        let segmentedControllerWidth = Int(self.view.frame.width - 250)
         
         let items = ["All", "< 5 km"]
         segmentedController = UISegmentedControl(items: items)
         segmentedController.addTarget(self, action: #selector(switchView), for: .valueChanged)
         segmentedController.selectedSegmentIndex = 0
-        segmentedController.frame = CGRect(x: 70, y: navigationBarY + 20,
+        segmentedController.frame = CGRect(x: 0, y: 0,
                                 width: segmentedControllerWidth, height: 40)
-        segmentedController.layer.cornerRadius = 5.0
-        segmentedController.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        segmentedController.center = CGPoint(x: self.view.frame.width/2, y: CGFloat(statusBarY))
+        segmentedController.layer.masksToBounds = true
+        segmentedController.layer.cornerRadius = 50.0
+        segmentedController.backgroundColor = #colorLiteral(red: 0.3329149187, green: 0.7918291092, blue: 0.4867307544, alpha: 1)
         segmentedController.tintColor = UIColor.secondarySystemBackground
         self.view.addSubview(segmentedController)
     }
@@ -550,7 +565,7 @@ class PlacesScreenViewController: UIViewController {
         self.fanMenu.button = FanMenuButton(
             id: "main",
             image: UIImage(named: "ellipsis"),
-            color: .green
+            color: .rgb(r: 84, g: 200, b: 123)
         )
         self.fanMenu.items = [
             FanMenuButton(
