@@ -39,7 +39,7 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
     
     let dateStartPicker = UIPickerView()
     let dateEndPicker = UIPickerView()
-    let numDate = [["", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"], ["", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"]]
+    let numDate = ["", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
     
     var categoryList : [CategoryDao] = [CategoryDao.init(name: "", imageUrl: "", idCat: "", idActivity: "")]{
         didSet{
@@ -47,6 +47,8 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         }
     }
     var categoryId : String = ""
+    var hourStart : String = ""
+    var hourEnd : String = ""
     
     var placeServices: PlaceServices{
         return PlaceAPIService()
@@ -124,12 +126,21 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
                 "disponibilityStartTime" : self.dispoStartTextField.text!,
                 "disponibilityEndTime" : self.dispoEndTextField.text!
             ]
-            self.placeServices.create(params: params, image: self.imageView.image!) { (res) in
-                self.warningAlert(title: NSLocalizedString("place.alertTitleSuccess", comment: ""),
-                                  message: NSLocalizedString("place.alertSuccessMessage", comment: ""))
-                self.navigationController?.pushViewController(PlacesScreenViewController(), animated: true)
+            guard let st = Double(self.hourStart),
+                let ed = Double(self.hourEnd) else {
+                    return
             }
-            self.navigationController?.popViewController(animated: true)
+            if(st < ed){
+                self.placeServices.create(params: params, image: self.imageView.image!) { (res) in
+                    self.warningAlert(title: NSLocalizedString("place.alertTitleSuccess", comment: ""),
+                                      message: NSLocalizedString("place.alertSuccessMessage", comment: ""))
+                    self.navigationController?.pushViewController(PlacesScreenViewController(), animated: true)
+                }
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                self.warningAlert(title: NSLocalizedString("place.alertTitleUnlogical", comment: ""), message: NSLocalizedString("place.alertUnlogicalMessage", comment: ""))
+            }
+            
         }
     }
     
@@ -223,17 +234,24 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         self.dispoStartTextField.placeholder = NSLocalizedString("place.start", comment: "")
         self.dispoEndTextField.placeholder = NSLocalizedString("place.end", comment: "")
         self.categoryLabel.text = NSLocalizedString("place.category", comment: "")
+        imageView.layer.borderWidth = 1
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderColor = UIColor.black.cgColor
+        imageView.layer.cornerRadius = imageView.bounds.width / 2
+        imageView.clipsToBounds = true
     }
     
     func setupCategoryPicker() {
         categoryPicker.tag = 1
         categoryTextField.inputView = categoryPicker
+        categoryTextField.inputAccessoryView = setupPickerToolbar()
         categoryPicker.delegate = self
     }
     
     func setupSeatPicker() {
         seatPicker.tag = 2
         seatTextField.inputView = seatPicker
+        seatTextField.inputAccessoryView = setupPickerToolbar()
         seatPicker.delegate = self
     }
     
@@ -241,11 +259,13 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         dateStartPicker.tag = 3
         dispoStartTextField.inputView = dateStartPicker
         dateStartPicker.delegate = self
+        dispoStartTextField.inputAccessoryView = setupPickerToolbar()
         dispoStartTextField.delegate = self
         
         dateEndPicker.tag = 4
         dispoEndTextField.inputView = dateEndPicker
         dateEndPicker.delegate = self
+        dispoEndTextField.inputAccessoryView = setupPickerToolbar()
         dispoEndTextField.delegate = self
     }
     
@@ -253,6 +273,23 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(clickImage))
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(singleTap)
+    }
+    
+    func setupPickerToolbar() -> UIToolbar{
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(cancelPicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+
+        return toolbar
+    }
+    
+    @objc func cancelPicker(){
+        //cancel button dismiss datepicker dialog
+        self.view.endEditing(true)
     }
 
 }
@@ -265,11 +302,6 @@ extension AddPlaceViewController: UIPickerViewDelegate {
 
 extension AddPlaceViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        if(pickerView.tag == 1 || pickerView.tag == 2) {
-            return 1
-        } else if (pickerView.tag == 3 || pickerView.tag == 4) {
-            return 2
-        }
         return 1
     }
     
@@ -279,7 +311,7 @@ extension AddPlaceViewController: UIPickerViewDataSource {
         } else if (pickerView.tag == 2) {
             return numTabString.count
         } else if (pickerView.tag == 3 || pickerView.tag == 4) {
-            return numDate[component].count
+            return numDate.count
         }
         return 0
     }
@@ -290,7 +322,7 @@ extension AddPlaceViewController: UIPickerViewDataSource {
         } else if (pickerView.tag == 2) {
             return numTabString[row]
         } else if (pickerView.tag == 3 || pickerView.tag == 4) {
-            return numDate[component][row]
+            return numDate[row]
         }
         return ""
     }
@@ -302,13 +334,11 @@ extension AddPlaceViewController: UIPickerViewDataSource {
         } else if (pickerView.tag == 2) {
             seatTextField.text = numTabString[row]
         } else if (pickerView.tag == 3) {
-            let hours =  numDate[0][pickerView.selectedRow(inComponent: 0)]
-            let min = numDate[1][pickerView.selectedRow(inComponent: 1)]
-            dispoStartTextField.text = hours + ":" + min
+            hourStart = numDate[row]
+            dispoStartTextField.text = hourStart + ":00"
         } else if (pickerView.tag == 4) {
-            let hours =  numDate[0][pickerView.selectedRow(inComponent: 0)]
-            let min = numDate[1][pickerView.selectedRow(inComponent: 1)]
-            dispoEndTextField.text = hours + ":" + min
+            hourEnd = numDate[row]
+            dispoEndTextField.text = hourEnd + ":00"
         }
     }
 }
