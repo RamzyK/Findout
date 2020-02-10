@@ -560,7 +560,7 @@ class PlacesScreenViewController: UIViewController {
     
     private func setMainButton() {
         self.fanMenu.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
-        self.fanMenu.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height - 50)
+        self.fanMenu.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height - 75)
         self.fanMenu.backgroundColor = .clear
         self.fanMenu.button = FanMenuButton(
             id: "main",
