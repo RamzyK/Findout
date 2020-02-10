@@ -225,7 +225,7 @@ class PlacesScreenViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        /*let loaderAlert = UIAlertController(title: nil,
+        let loaderAlert = UIAlertController(title: nil,
                                       message: NSLocalizedString("place.loading", comment: ""),
                                       preferredStyle: .alert)
 
@@ -241,10 +241,10 @@ class PlacesScreenViewController: UIViewController {
                 self.places = place
             }
             self.setBottomSheetView()
-            self.setBottomSheetViewsConstraints()*/
-         self.setSegmentedController()
-         self.setLocalizeUserButton()/*
-        }*/
+            self.setBottomSheetViewsConstraints()
+            self.setSegmentedController()
+            self.setLocalizeUserButton()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
