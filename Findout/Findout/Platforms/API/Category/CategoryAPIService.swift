@@ -16,57 +16,13 @@ class CategoryAPIService : CategoryServices{
     public static let `default` = CategoryAPIService()
     
     func getAll(completion: @escaping ([CategoryDao]) -> Void) {
-        let params = [
-            "idActivity" : "lo"
-        ]
         Alamofire.request("\(onlineServiceAddress)/getAll").responseJSON { (res) in
-            guard let jsonCategory = res.result.value as? [String:Any] else {
-                return
-            }
-            guard let categoryList = jsonCategory["category"] as? [[String:String]] else {
-                return
-            }
-            var list : [CategoryDao] = []
-            categoryList.forEach { (result) in
-                guard let  id = result["_id"],
-                    let idAct = result["id_activity"],
-                    let name = result["name"],
-                    let image = result["url_image"] else {
-                        return
-                }
-                
-                list.append(CategoryDao.init(name: name.capitalized, imageUrl: image, idCat: id, idActivity: idAct))
-            }
-            
+            guard let jsonCategory = res.result.value as? [String: Any],
+                let categoryList = jsonCategory["category"] as? [[String: Any]] else { return }
+                let list = categoryList.compactMap({ (elem) -> CategoryDao? in
+                    return CategoryDao.init(jsonReponse: elem)
+                })
             completion(list)
         }
-    }
-    
-    func getById(_ id: String, completion: @escaping ([CategoryDao]) -> Void) {
-        Alamofire.request("\(onlineServiceAddress)/getByIdActivity/\(id)").responseJSON { (res) in
-            guard let jsonCategory = res.result.value as? [String:Any] else {
-                return
-            }
-            guard let categoryList = jsonCategory["category"] as? [[String:String]] else {
-                return
-            }
-            var list : [CategoryDao] = []
-            categoryList.forEach { (result) in
-                guard let  id = result["_id"],
-                    let idAct = result["id_activity"],
-                    let name = result["name"],
-                    let image = result["url_image"] else {
-                        return
-                }
-                
-                list.append(CategoryDao.init(name: name.capitalized, imageUrl: image, idCat: id, idActivity: idAct))
-            }
-            
-            completion(list)
-        }
-    }
-    
-    func create(cat: CategoryDao) {
-        
     }
 }

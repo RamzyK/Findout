@@ -8,5 +8,6 @@ target 'Findout' do
   # Pods for Findout
   pod 'Alamofire'
   pod 'GooglePlaces'
+  pod 'FanMenu'
 
 end
