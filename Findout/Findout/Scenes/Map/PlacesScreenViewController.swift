@@ -210,9 +210,12 @@ class PlacesScreenViewController: UIViewController {
     
     
     //MARK: - OVERRIDES FUNC
+    override func viewWillAppear(_ animated: Bool) {
+        hideNavigationBar(animated)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
         askUserForLocation()
         self.map.delegate = self
         closeBottomSheetBtn.addTarget(self, action: #selector(closeBottomSheet), for: .touchUpInside)
@@ -494,9 +497,8 @@ class PlacesScreenViewController: UIViewController {
         self.placeDisponobolitiesEndTime.text = startDispo + " - " + endDispo
     }
     
-    func setupNavigationBar() {
-        self.title = NSLocalizedString("places.title", comment: "")
-        self.navigationController?.navigationBar.topItem?.title = ""
+    func hideNavigationBar(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     private func setBottomSheetView(){
@@ -566,15 +568,15 @@ extension PlacesScreenViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
     }
-       
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+
+    private func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
            print("error::: \(error)")
            locationManager.stopUpdatingLocation()
            let alert = UIAlertController(title: "Settings", message: "Allow location from settings", preferredStyle: UIAlertController.Style.alert)
            self.present(alert, animated: true, completion: nil)
         alert.addAction(UIAlertAction(title: "TEST", style: .default, handler: { action in
                switch action.style{
-               case .default: UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
+               case .default: UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                case .cancel: print("cancel")
                case .destructive: print("destructive")
                @unknown default:
