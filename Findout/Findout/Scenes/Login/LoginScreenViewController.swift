@@ -36,6 +36,13 @@ class LoginScreenViewController: UIViewController {
         passwordTf.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        for i in 0..<self.navigationController!.viewControllers.count-1 {
+            self.navigationController?.viewControllers.remove(at: i)
+        }
+    }
+
     // MARK: - SETUP
     func setupView() {
         self.title = "FINDOUT"
