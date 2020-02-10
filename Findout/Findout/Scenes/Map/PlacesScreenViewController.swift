@@ -211,7 +211,7 @@ class PlacesScreenViewController: UIViewController {
     
     //MARK: - OVERRIDES FUNC
     override func viewWillAppear(_ animated: Bool) {
-        hideNavigationBar(animated)
+        //hideNavigationBar(animated)
     }
     
     override func viewDidLoad() {

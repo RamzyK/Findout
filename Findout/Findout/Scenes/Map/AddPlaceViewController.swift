@@ -125,11 +125,10 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
                 "disponibilityEndTime" : self.dispoEndTextField.text!
             ]
             self.placeServices.create(params: params, image: self.imageView.image!) { (res) in
-                self.warningAlert(title: NSLocalizedString("place.alertTitleSuccess", comment: ""),
-                                  message: NSLocalizedString("place.alertSuccessMessage", comment: ""))
-                self.navigationController?.pushViewController(PlacesScreenViewController(), animated: true)
+//                self.warningAlert(title: NSLocalizedString("place.alertTitleSuccess", comment: ""),
+//                                  message: NSLocalizedString("place.alertSuccessMessage", comment: ""))
+                self.navigationController?.popViewController(animated: true)
             }
-            self.navigationController?.popViewController(animated: true)
         }
     }
     

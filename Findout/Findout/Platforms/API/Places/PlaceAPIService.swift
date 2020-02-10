@@ -32,7 +32,7 @@ class PlaceAPIService: PlaceServices{
 
                 guard let  id = result["_id"] as? String,
                     let idUser = result["id_user"] as? String,
-                    let idCat = result["id_category"] as? String,
+                    let _ = result["id_category"] as? String,
                     let coordinate = result["coordinate"] as? [String : Double],
                     let name = result["name"] as? String,
                     let nbSeat = result["nb_seat"] as? Int,
@@ -44,7 +44,7 @@ class PlaceAPIService: PlaceServices{
                     let dispoEnd = result["disponibilityEndTime"] as? String,
                     let image = result["url_image"] as? String else { return }
 
-                let placeDao = PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: address, disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser, place_image: image)
+                    let placeDao = PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: address, disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser, place_image: image)
                 list.append(placeDao)
             }
 
@@ -65,8 +65,10 @@ class PlaceAPIService: PlaceServices{
                 
                 guard let  id = result["_id"] as? String,
                     let idUser = result["id_user"] as? String,
-                    let idCat = result["id_category"] as? String,
+                    let _ = result["id_category"] as? String,
                     let coordinate = result["coordinate"] as? [String : Double],
+                    let lon = coordinate["lon"],
+                    let lat = coordinate["lat"],
                     let name = result["name"] as? String,
                     let nbSeat = result["nb_seat"] as? Int,
                     let nbSeatFree = result["nb_seat_free"] as? Int,
@@ -76,10 +78,6 @@ class PlaceAPIService: PlaceServices{
                     let image = result["url_image"] as? String
                 else {
                         return
-                }
-                guard let lon = coordinate["lon"] as? Double,
-                let lat = coordinate["lat"] as? Double else {
-                    return
                 }
                 
                 list.append(PlaceDao.init(id_place: id, place_Name: name, coordinates: coordinate, location : CLLocation(latitude: lat, longitude: lon), nb_seat: nbSeat, nb_seat_free: nbSeatFree, address: address, disponibility_start_time: dispoStart, disponibility_end_time: dispoEnd, id_notation_list: "", id_user: idUser, place_image: image))
@@ -101,21 +99,21 @@ class PlaceAPIService: PlaceServices{
                     multipartFormData.append((val.data(using: .utf8))!, withName: key)
                 } else if let valTab = value as? [String:String] {
                     guard let longitude = valTab["lon"],
-                        let latitude = valTab["lat"] else {
-                            return
-                    }
-
+                        let latitude = valTab["lat"] else { return }
                     multipartFormData.append(longitude.data(using: .utf8)!, withName: "coordinate[\"lon\"]")
                     multipartFormData.append(latitude.data(using: .utf8)!, withName: "coordinate[\"lat\"]")
                 }
-            }},
-                         usingThreshold:UInt64.init(),
-                         to: "\(onlineServiceAddress)/addPlace",
-                         method: .post,
-                         headers: ["Authorization": "auth_token"],
-                         encodingCompletion: { encodingResult in
-                            completion(encodingResult)
-        })
+            }
+        },
+            usingThreshold:UInt64.init(),
+            to: "\(onlineServiceAddress)/addPlace",
+            method: .post,
+            headers: ["Authorization": "auth_token"],
+            encodingCompletion: { encodingResult in
+                print(encodingResult)
+                completion(encodingResult)
+            }
+        )
     }
 
 
