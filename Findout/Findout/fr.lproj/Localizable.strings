@@ -62,6 +62,7 @@
 "reservation.cancel" = "Annuler";
 
 "listReservation.msgVide" = "Pas de réservation";
+"listReservation.title" = "Liste des reservations";
 
 "place.alertTitleUnlogical" = "Erreur";
 "place.alertUnlogicalMessage" = "La disponibilité de début et de fin sont erronées";

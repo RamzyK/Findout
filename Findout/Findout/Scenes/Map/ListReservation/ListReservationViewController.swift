@@ -10,12 +10,13 @@ import UIKit
 
 class ListReservationViewController: UIViewController {
 
-    var listDispo : [DisponibilityDao]!
+    var listDispo : [DisponibilityDao] = []
     @IBOutlet weak var middleLabel: UILabel!
 
     @IBOutlet weak var listReservationTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = NSLocalizedString("listReservation.title", comment: "")
         if(listDispo.count == 0) {
             listReservationTableView.isHidden = true
             middleLabel.isHidden = false
@@ -46,7 +47,7 @@ extension ListReservationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "ddMMyyyy"
-        var date = dateFormatter.date(from: listDispo[indexPath.row].date)
+        let date = dateFormatter.date(from: listDispo[indexPath.row].date)
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let cell = tableView.dequeueReusableCell(withIdentifier: ListReservationViewController.cellIdentifier, for: indexPath) as! ListReservationCell
         PlaceAPIService.default.getById(id: listDispo[indexPath.row].placeID) { (place) in
