@@ -468,6 +468,10 @@ class PlacesScreenViewController: UIViewController {
     @objc func sharePlaceAdress(sender: UIView){
         askUserForGaleryPermission{
             DispatchQueue.main.async {
+                if(self.bottomSheetExtanded){
+                    self.hideBottomSheet(delta: 2 * Int(self.view.frame.height/3))
+                    self.bottomSheetExtanded = false
+                }
                 self.hideBottomSheet(delta: Int(self.view.frame.height/3))
                 UIGraphicsBeginImageContext(self.view.frame.size)
                 self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
