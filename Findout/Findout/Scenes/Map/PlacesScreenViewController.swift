@@ -611,7 +611,7 @@ class PlacesScreenViewController: UIViewController {
                     self.openAddPlace()
                     break
                 case "reservations" :
-                    self.navigationController?.pushViewController(ListReservationViewController(), animated: true)
+                    self.openListReservation()
                     break
                 case "logout" :
                     self.navigationController?.pushViewController(LoginScreenViewController(), animated: true)
