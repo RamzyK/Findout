@@ -422,7 +422,23 @@ class PlacesScreenViewController: UIViewController {
         if(userID != nil) {
             DisponibilityAPIService.default.getByIdUser(idUser: userID!) { (dispo) in
                 let lvc = ListReservationViewController()
-                lvc.listDispo = dispo
+                let currentDispo = dispo.filter({ (dis) -> Bool in
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "ddMMyyyy"
+                    let date = dateFormatter.date(from: dis.date)!
+                    let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+                    if(nextDate >= Date()) {
+                        return true
+                    }
+                    return false
+                })
+                lvc.listDispo = currentDispo.sorted(by: { (a, b) -> Bool in
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "ddMMyyyy"
+                    let dateA = dateFormatter.date(from: a.date)!
+                    let dateB = dateFormatter.date(from: b.date)!
+                    return dateB > dateA
+                })
                 DispatchQueue.main.async {
                     self.closeBottomSheet()
                     self.navigationController?.pushViewController(lvc, animated: true)
