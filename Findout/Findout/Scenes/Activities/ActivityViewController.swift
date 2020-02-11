@@ -103,19 +103,18 @@ class ActivityViewController: UITableViewController {
         let sectionTitle = activityList[section].name.capitalized
 
         button.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50)
-        button.backgroundColor = #colorLiteral(red: 0.3764309287, green: 0.3764309287, blue: 0.3764309287, alpha: 1)
+        button.backgroundColor = #colorLiteral(red: 0.5723067522, green: 0.5723067522, blue: 0.5723067522, alpha: 1)
         button.setTitle(sectionTitle, for: .normal)
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.init(name: UIFont.familyNames[0], size: 30)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
         button.addTarget(self, action: #selector(handleOpenCloseSections), for: .touchUpInside)
         button.tag = section
 
         label.frame = CGRect(x: tableView.frame.width - 20, y: 0, width: 20, height: 50)
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.text = "+"
+        label.text = "-"
 
         button.addSubview(label)
 

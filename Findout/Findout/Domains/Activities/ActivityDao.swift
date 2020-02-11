@@ -28,13 +28,13 @@ struct ActivityDao {
         self.name = name
         self.id = activityId
         self.categories = categories
-        self.isExpanded = false
+        self.isExpanded = true
     }
     
     init(activityName: String, activityId: String, categories: [CategoryDao]){
         self.name = activityName
         self.id = activityId
         self.categories = categories
-        self.isExpanded = false
+        self.isExpanded = true
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Photos
+import FanMenu
 
     // MARK: - ANNOTATION
 fileprivate class PlaceAnnotation: NSObject, MKAnnotation {
@@ -41,6 +42,7 @@ class PlacesScreenViewController: UIViewController {
     var categoryId : String = ""
     var bottomSheetConstrainsDone = false
     var indexForBook : Int = 0
+    var fanMenu = FanMenu()
     var allPlaces: [PlaceDao] = []
     var places: [PlaceDao] = []{
         didSet{
@@ -147,7 +149,7 @@ class PlacesScreenViewController: UIViewController {
     
     var bookingButton: UIButton = {
        let b = UIButton()
-        b.backgroundColor = #colorLiteral(red: 0.3276026845, green: 0.784994781, blue: 0.4816099405, alpha: 1)
+        b.backgroundColor = #colorLiteral(red: 0.3294117647, green: 0.784994781, blue: 0.4816099405, alpha: 1)
         b.isUserInteractionEnabled = true
         b.titleLabel?.font = UIFont(name: "Avenir-Medium", size: 20)
         b.translatesAutoresizingMaskIntoConstraints = false
@@ -208,18 +210,20 @@ class PlacesScreenViewController: UIViewController {
         return b;
     }()
     
-    
+
     //MARK: - OVERRIDES FUNC
+    override func viewWillAppear(_ animated: Bool) {
+        self.hideNavigationBar(animated)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+        setMainButton()
         askUserForLocation()
         self.map.delegate = self
         closeBottomSheetBtn.addTarget(self, action: #selector(closeBottomSheet), for: .touchUpInside)
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace)), UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(openListReservation))]
-        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlace))
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         let loaderAlert = UIAlertController(title: nil,
                                       message: NSLocalizedString("place.loading", comment: ""),
@@ -238,21 +242,26 @@ class PlacesScreenViewController: UIViewController {
             }
             self.setBottomSheetView()
             self.setBottomSheetViewsConstraints()
-            self.setSegmentedControllerConstraints()
+            self.setSegmentedController()
             self.setLocalizeUserButton()
         }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.showNavigationBar(animated)
     }
     
     
     // MARK: - MAP
     private func setLocalizeUserButton(){
-        let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
-        let buttonOriginX = segmentedController.frame.origin.x + segmentedController.frame.width
+        let buttonOriginX = Int(self.view.frame.width - 25)
+        let buttonOriginY = Int(fanMenu.center.y - 20)
         
         let localizeUserView = UIView()
-        localizeUserView.frame = CGRect(x: Int(buttonOriginX), y: navigationBarY + 20, width: 70, height: 40)
+        localizeUserView.frame = CGRect(x: 0, y: 0, width: 70, height: 200)
+        localizeUserView.center = CGPoint(x: buttonOriginX, y: buttonOriginY)
         
-        showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
+        showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.circle"), for: .normal)
         
         localizeUserView.addSubview(showUserPositionOnMap)
         self.view.addSubview(localizeUserView)
@@ -286,6 +295,18 @@ class PlacesScreenViewController: UIViewController {
     }
     
     @objc func showUserCurrentLocaton(){
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        animation.type = CATransitionType.fade
+        animation.duration = 1
+
+        self.showUserPositionOnMap.layer.add(animation, forKey: CATransitionType.fade.rawValue)
+
+        self.showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.circle.fill"), for: .normal)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.showUserPositionOnMap.layer.add(animation, forKey: CATransitionType.fade.rawValue)
+            self.showUserPositionOnMap.setBackgroundImage(UIImage(systemName: "location.circle"), for: .normal)
+        }
         self.map.zoomToUserLocation()
     }
     
@@ -339,18 +360,20 @@ class PlacesScreenViewController: UIViewController {
         }
     }
     
-    private func setSegmentedControllerConstraints(){
-        let navigationBarY = Int((self.navigationController?.navigationBar.frame.origin.y)!) + Int((self.navigationController?.navigationBar.frame.height)!)
-        let segmentedControllerWidth = Int(self.view.frame.width - 140)
+    private func setSegmentedController(){
+        let statusBarY = Int((self.view.window?.windowScene?.statusBarManager?.statusBarFrame.height)! + 20)
+        let segmentedControllerWidth = Int(self.view.frame.width - 250)
         
         let items = ["All", "< 5 km"]
         segmentedController = UISegmentedControl(items: items)
         segmentedController.addTarget(self, action: #selector(switchView), for: .valueChanged)
         segmentedController.selectedSegmentIndex = 0
-        segmentedController.frame = CGRect(x: 70, y: navigationBarY + 20,
+        segmentedController.frame = CGRect(x: 0, y: 0,
                                 width: segmentedControllerWidth, height: 40)
-        segmentedController.layer.cornerRadius = 5.0
-        segmentedController.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        segmentedController.center = CGPoint(x: self.view.frame.width/2, y: CGFloat(statusBarY))
+        segmentedController.layer.masksToBounds = true
+        segmentedController.layer.cornerRadius = 50.0
+        segmentedController.backgroundColor = #colorLiteral(red: 0.3329149187, green: 0.7918291092, blue: 0.4867307544, alpha: 1)
         segmentedController.tintColor = UIColor.secondarySystemBackground
         self.view.addSubview(segmentedController)
     }
@@ -461,6 +484,10 @@ class PlacesScreenViewController: UIViewController {
     @objc func sharePlaceAdress(sender: UIView){
         askUserForGaleryPermission{
             DispatchQueue.main.async {
+                if(self.bottomSheetExtanded){
+                    self.hideBottomSheet(delta: 2 * Int(self.view.frame.height/3))
+                    self.bottomSheetExtanded = false
+                }
                 self.hideBottomSheet(delta: Int(self.view.frame.height/3))
                 UIGraphicsBeginImageContext(self.view.frame.size)
                 self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -510,11 +537,14 @@ class PlacesScreenViewController: UIViewController {
         self.placeDisponobolitiesEndTime.text = startDispo + " - " + endDispo
     }
     
-    func setupNavigationBar() {
-        self.title = NSLocalizedString("places.title", comment: "")
-        self.navigationController?.navigationBar.topItem?.title = ""
+    func hideNavigationBar(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
+    func showNavigationBar(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
     private func setBottomSheetView(){
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -532,6 +562,69 @@ class PlacesScreenViewController: UIViewController {
         self.view.addSubview(bottomSheetView)
     }
     
+    private func setMainButton() {
+        self.fanMenu.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        self.fanMenu.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height - 75)
+        self.fanMenu.backgroundColor = .clear
+        self.fanMenu.button = FanMenuButton(
+            id: "main",
+            image: UIImage(named: "ellipsis"),
+            color: .rgb(r: 84, g: 200, b: 123)
+        )
+        self.fanMenu.items = [
+            FanMenuButton(
+                id: "logout",
+                image: UIImage(named: "logout"),
+                color: .white
+            ),
+            FanMenuButton(
+                id: "reservations",
+                image: UIImage(named: "reservation"),
+                color: .white
+            ),
+            FanMenuButton(
+                id: "addPlace",
+                image: UIImage(named: "addPlace"),
+                color: .white
+            ),
+            FanMenuButton(
+                id: "categories",
+                image: UIImage(named: "activities"),
+                color: .white
+            )
+        ]
+
+        fanMenu.menuRadius = 75.0
+        fanMenu.duration = 0.2
+        fanMenu.interval = (0, -171*Double.pi/128)
+        fanMenu.radius = 25.0
+        fanMenu.delay = 0.0
+
+        fanMenu.onItemWillClick = { button in
+            switch (button.id) {
+                case "main" :
+                    break
+                case "categories" :
+                    self.navigationController?.popViewController(animated: true)
+                    break
+                case "addPlace" :
+                    self.openAddPlace()
+                    break
+                case "reservations" :
+                    self.navigationController?.pushViewController(ListReservationViewController(), animated: true)
+                    break
+                case "logout" :
+                    self.navigationController?.pushViewController(LoginScreenViewController(), animated: true)
+                    break
+                default :
+                    break
+            }
+        }
+
+        fanMenu.backgroundColor = .clear
+        self.view.addSubview(self.fanMenu)
+    }
+
 }
 
     // MARK: - EXTENSIONS
@@ -582,15 +675,15 @@ extension PlacesScreenViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
     }
-       
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+
+    private func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
            print("error::: \(error)")
            locationManager.stopUpdatingLocation()
            let alert = UIAlertController(title: "Settings", message: "Allow location from settings", preferredStyle: UIAlertController.Style.alert)
            self.present(alert, animated: true, completion: nil)
         alert.addAction(UIAlertAction(title: "TEST", style: .default, handler: { action in
                switch action.style{
-               case .default: UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
+               case .default: UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                case .cancel: print("cancel")
                case .destructive: print("destructive")
                @unknown default:

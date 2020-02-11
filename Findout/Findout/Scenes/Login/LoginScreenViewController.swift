@@ -35,7 +35,12 @@ class LoginScreenViewController: UIViewController {
         emailTf.delegate = self
         passwordTf.delegate = self
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+    }
+
     // MARK: - SETUP
     func setupView() {
         self.title = "FINDOUT"
@@ -51,6 +56,7 @@ class LoginScreenViewController: UIViewController {
     func setupNavigationBar() {
         self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.2193810642, green: 0.7583789825, blue: 0.4023743272, alpha: 1)
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        self.navigationItem.setHidesBackButton(true, animated:true);
     }
     
     // MARK: - ACTIONS

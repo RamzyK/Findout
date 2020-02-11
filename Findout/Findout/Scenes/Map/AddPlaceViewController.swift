@@ -12,35 +12,35 @@ import CoreLocation
 import GooglePlaces
 
 class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
+
     // MARK: - VARIABLES
-    
+
     @IBOutlet weak var placeNameLabel: UILabel!
     @IBOutlet weak var placeNameTextField: UITextField!
     //@IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var addressTextField: UITextField!
-    
+
     @IBOutlet weak var seatLabel: UILabel!
     @IBOutlet weak var seatTextField: UITextField!
     @IBOutlet weak var dispoLabel: UILabel!
     @IBOutlet weak var dispoStartTextField: UITextField!
     @IBOutlet weak var dispoEndTextField: UITextField!
     @IBOutlet weak var sendBtn: UIButton!
-    
+
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var categoryTextField: UITextField!
-    
+
     let categoryPicker = UIPickerView()
     let seatPicker = UIPickerView()
     let numTab = Array(1...100)
     var numTabString : [String] = [""]
-    
+
     let dateStartPicker = UIPickerView()
     let dateEndPicker = UIPickerView()
     let numDate = ["", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
-    
+
     var categoryList : [CategoryDao] = [CategoryDao.init(name: "", imageUrl: "", idCat: "", idActivity: "")]{
         didSet{
             categoryPicker.reloadAllComponents()
@@ -49,13 +49,13 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
     var categoryId : String = ""
     var hourStart : String = ""
     var hourEnd : String = ""
-    
+
     var placeServices: PlaceServices{
         return PlaceAPIService()
     }
-    
+
     // MARK: - OVERRIDES FUNC
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -64,26 +64,26 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         setupDispoPicker()
         setupImageClick()
         hideKeyboard()
-        
+
         numTabString += numTab.map{ String($0)}
-        
+
         CategoryAPIService.default.getAll { (res) in
             self.categoryList += res
         }
-        
+
         categoryTextField.delegate = self
         seatTextField.delegate = self
     }
-    
+
     @IBAction func addressTextFieldTapped(_ sender: Any) {
         addressTextField.resignFirstResponder()
         let acController = GMSAutocompleteViewController()
         acController.delegate = self
         present(acController, animated: true, completion: nil)
     }
-    
+
     @IBAction func uploadPlace(_ sender: UIButton) {
-        
+
         guard let address = addressTextField.text,
             let name = placeNameTextField.text,
             let seat = seatTextField.text,
@@ -132,23 +132,20 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
             }
             if(st < ed){
                 self.placeServices.create(params: params, image: self.imageView.image!) { (res) in
-                    self.warningAlert(title: NSLocalizedString("place.alertTitleSuccess", comment: ""),
-                                      message: NSLocalizedString("place.alertSuccessMessage", comment: ""))
-                    self.navigationController?.pushViewController(PlacesScreenViewController(), animated: true)
+                    self.warningAlert(title: NSLocalizedString("place.alertTitleSuccess", comment: ""), message: NSLocalizedString("place.alertSuccessMessage", comment: ""))
+                    self.navigationController?.popViewController(animated: true)
                 }
-                self.navigationController?.popViewController(animated: true)
             } else {
                 self.warningAlert(title: NSLocalizedString("place.alertTitleUnlogical", comment: ""), message: NSLocalizedString("place.alertUnlogicalMessage", comment: ""))
             }
-            
         }
     }
-    
+
     @objc func clickImage() {
         let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
         let cancelActionButton = UIAlertAction(title: NSLocalizedString("place.cancel", comment: ""), style: .cancel) { _ in
-            
+
         }
         actionSheetControllerIOS8.addAction(cancelActionButton)
 
@@ -165,14 +162,14 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         actionSheetControllerIOS8.addAction(galleryActionButton)
         self.present(actionSheetControllerIOS8, animated: true, completion: nil)
     }
-    
+
     @objc
     func dismissKeyboard() {
         view.endEditing(true)
     }
-    
+
     // MARK: - MEDIA
-    
+
     func openGallery() {
         let image = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
@@ -185,7 +182,7 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
                          message: NSLocalizedString("place.alertNoGalleryPermission", comment: ""))
         }
     }
-    
+
     func openCamera() {
         let image = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.camera){
@@ -198,7 +195,7 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
                          message: NSLocalizedString("palce.alertNoCameraPermission", comment: ""))
         }
     }
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image =  info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.image = image
@@ -206,25 +203,25 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         hideKeyboard()
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     // MARK: - UTILS
-    
+
     func hideKeyboard() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
-    
+
     func warningAlert(title: String, message : String) {
         let alertWarn = UIAlertController(title: title,
                                           message: message,
                                           preferredStyle: .alert)
-        
+
         alertWarn.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertWarn, animated: true, completion: nil)
     }
-    
+
     // MARK: - SETUPS
-    
+
     func setupView() {
         self.placeNameLabel.text = NSLocalizedString("place.name", comment: "")
         self.addressLabel.text = NSLocalizedString("place.address", comment: "")
@@ -240,41 +237,41 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         imageView.layer.cornerRadius = imageView.bounds.width / 2
         imageView.clipsToBounds = true
     }
-    
+
     func setupCategoryPicker() {
         categoryPicker.tag = 1
         categoryTextField.inputView = categoryPicker
         categoryTextField.inputAccessoryView = setupPickerToolbar()
         categoryPicker.delegate = self
     }
-    
+
     func setupSeatPicker() {
         seatPicker.tag = 2
         seatTextField.inputView = seatPicker
         seatTextField.inputAccessoryView = setupPickerToolbar()
         seatPicker.delegate = self
     }
-    
+
     func setupDispoPicker() {
         dateStartPicker.tag = 3
         dispoStartTextField.inputView = dateStartPicker
         dateStartPicker.delegate = self
         dispoStartTextField.inputAccessoryView = setupPickerToolbar()
         dispoStartTextField.delegate = self
-        
+
         dateEndPicker.tag = 4
         dispoEndTextField.inputView = dateEndPicker
         dateEndPicker.delegate = self
         dispoEndTextField.inputAccessoryView = setupPickerToolbar()
         dispoEndTextField.delegate = self
     }
-    
+
     func setupImageClick() {
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(clickImage))
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(singleTap)
     }
-    
+
     func setupPickerToolbar() -> UIToolbar{
         let toolbar = UIToolbar();
         toolbar.sizeToFit()
@@ -286,7 +283,7 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
 
         return toolbar
     }
-    
+
     @objc func cancelPicker(){
         //cancel button dismiss datepicker dialog
         self.view.endEditing(true)
@@ -297,14 +294,14 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
 
     // MARK: - EXTENSIONS
 extension AddPlaceViewController: UIPickerViewDelegate {
-    
+
 }
 
 extension AddPlaceViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if (pickerView.tag == 1) {
             return categoryList.count
@@ -315,7 +312,7 @@ extension AddPlaceViewController: UIPickerViewDataSource {
         }
         return 0
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if (pickerView.tag == 1) {
             return categoryList[row].name
@@ -326,7 +323,7 @@ extension AddPlaceViewController: UIPickerViewDataSource {
         }
         return ""
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (pickerView.tag == 1) {
             categoryTextField.text = categoryList[row].name
@@ -350,7 +347,7 @@ extension AddPlaceViewController: UITextFieldDelegate {
 }
 
 extension AddPlaceViewController: UIActionSheetDelegate {
-    
+
 }
 
 extension AddPlaceViewController: GMSAutocompleteViewControllerDelegate {
@@ -359,7 +356,7 @@ extension AddPlaceViewController: GMSAutocompleteViewControllerDelegate {
     dismiss(animated: true, completion: nil)
   }
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        
+
     }
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         dismiss(animated: true, completion: nil)
