@@ -5,7 +5,7 @@
   Created by Nassim Morouche on 25/12/2019.
   Copyright © 2019 Ramzy Kermad. All rights reserved.
 */
-"app.name" = "FINDOUT"
+"app.name" = "FINDOUT";
 
 "login.welcomeLabel" = "Welcome";
 "login.signinLabel" = "Sign in to continue";
