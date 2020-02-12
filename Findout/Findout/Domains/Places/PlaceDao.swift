@@ -64,7 +64,7 @@ struct PlaceDao {
         self.availableSeat = nb_seat_free
         self.address = address
         self.location = location
-        if(disponibilityStartTime != nil) {
+        if(disponibility_end_time != nil) {
             self.disponibilityStartTime = disponibility_start_time
         }
         if(disponibility_end_time != nil) {
