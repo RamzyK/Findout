@@ -132,8 +132,13 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
             }
             if(st < ed){
                 self.placeServices.create(params: params, image: self.imageView.image!) { (res) in
-                    self.warningAlert(title: NSLocalizedString("place.alertTitleSuccess", comment: ""), message: NSLocalizedString("place.alertSuccessMessage", comment: ""))
-                    self.navigationController?.popViewController(animated: true)
+                    let alert = UIAlertController(title: NSLocalizedString("place.alertTitleSuccess", comment: ""),
+                                                      message: NSLocalizedString("place.alertSuccessMessage", comment: ""),
+                                                      preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                            self.navigationController?.popViewController(animated: true)
+                    }))
+                    self.present(alert, animated: true, completion: nil)
                 }
             } else {
                 self.warningAlert(title: NSLocalizedString("place.alertTitleUnlogical", comment: ""), message: NSLocalizedString("place.alertUnlogicalMessage", comment: ""))
