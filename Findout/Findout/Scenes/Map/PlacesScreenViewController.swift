@@ -531,11 +531,11 @@ class PlacesScreenViewController: UIViewController {
         self.placeCountryLabel.text = self.places[index].address[2]
         self.placeRating.text = Int.random(in: 0...5).description
         DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: URL(fileURLWithPath: self.places[index].place_image)) {
+            if let data = try? Data(contentsOf: URL(string: self.places[index].place_image)!) {
                 DispatchQueue.main.sync {
                     self.placeImage.image = UIImage(data: data)
                 }
-            }else{
+            } else {
                 DispatchQueue.main.sync {
                     self.placeImage.image = UIImage(named: "image-not-found")
                 }
