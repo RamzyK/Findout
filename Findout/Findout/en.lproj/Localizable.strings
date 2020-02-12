@@ -5,6 +5,8 @@
   Created by Nassim Morouche on 25/12/2019.
   Copyright © 2019 Ramzy Kermad. All rights reserved.
 */
+"app.name" = "FINDOUT"
+
 "login.welcomeLabel" = "Welcome";
 "login.signinLabel" = "Sign in to continue";
 "login.signupButtonLabel" = "Sign Up";
@@ -60,9 +62,34 @@
 "reservation.place" = "Choose number of seat";
 "reservation.valider" = "Validate";
 "reservation.cancel" = "Cancel";
+"reservation.heure" = "Hour";
+"reservation.duree" = "Duration";
 
 "listReservation.msgVide" = "No reservation";
 "listReservation.title" = "List of reservation";
 
 "place.alertTitleUnlogical" = "Warning";
 "place.alertUnlogicalMessage" = "Start and End are corrupted";
+
+"alert.warning.title" = "Warning";
+"alert.warning.message" = "Sorry";
+
+"alert.location.title" = "Settings";
+"alert.location.message" = "Allow location from settings";
+
+"alert.camera.title" = "Camera";
+"alert.camera.message" = "We need to access to your Photos";
+"alert.camera.actions.activate" = "Activate";
+"alert.camera.actions.cancel" = "Cancel";
+
+"share.message" = "Check this cool place on Findout, seems cool !";
+
+"error.user.exist" = "Wrong email/password";
+"error.user.email" = "Email has already been used";
+"error.server" = "Server error, please try again!";
+"error.user.fill" = "Please fill the obligatory fields";
+
+"done" = "Done";
+"next" = "Next";
+"warning" = "Warning";
+"cancel" = "Cancel";

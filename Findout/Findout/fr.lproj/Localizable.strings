@@ -5,6 +5,8 @@
   Created by Nassim Morouche on 25/12/2019.
   Copyright © 2019 Ramzy Kermad. All rights reserved.
 */
+"app.name" = "FINDOUT"
+
 "login.welcomeLabel" = "Bienvenue";
 "login.signinLabel" = "Connecte toi pour continuer";
 "login.signupButtonLabel" = "S'inscrire";
@@ -60,9 +62,34 @@
 "reservation.place" = "Choisir le nombre de place";
 "reservation.valider" = "Valider";
 "reservation.cancel" = "Annuler";
+"reservation.heure" = "Heure";
+"reservation.duree" = "Durée";
 
 "listReservation.msgVide" = "Pas de réservation";
 "listReservation.title" = "Liste des reservations";
 
 "place.alertTitleUnlogical" = "Erreur";
 "place.alertUnlogicalMessage" = "La disponibilité de début et de fin sont erronées";
+
+"alert.warning.title" = "Attention";
+"alert.warning.message" = "Désolé";
+
+"alert.location.title" = "Paramètres";
+"alert.location.message" = "Merci d'autoriser la localisation dans les paramètres de l'application";
+
+"alert.camera.title" = "Camera";
+"alert.camera.message" = "Nous avons besoin d'accéder à la galerie pour effectuer cette action";
+"alert.camera.actions.activate" = "Activer";
+"alert.camera.actions.cancel" = "Annuler";
+
+"share.message" = "Regarde cet endroit sur Findout, il a l'air cool !";
+
+"error.user.exist" = "Mauvais email/mot de passe";
+"error.user.email" = "L'email a déjà été utilisé";
+"error.server" = "Erreur serveur, veuillez réessayer";
+"error.user.fill" = "Merci de remplir tous les champs";
+
+"done" = "Terminer";
+"next" = "Suivant";
+"warning" = "Attention";
+"cancel" = "Annuler";

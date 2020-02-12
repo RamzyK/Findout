@@ -138,16 +138,16 @@ class SignupViewController: UIViewController {
                         break
                     case 400:
                         loaderAlert.dismiss(animated: true, completion: nil)
-                        self.errorAlert(message: "L'adresse mail est déjà utilisé")
+                        self.errorAlert(message: NSLocalizedString("error.user.email", comment: ""))
                         break
                     default:
                         loaderAlert.dismiss(animated: true, completion: nil)
-                        self.errorAlert(message: "Erreur serveur, veuillez réessayer")
+                        self.errorAlert(message: NSLocalizedString("error.server", comment: ""))
                         break
                 }
             }
         }else{
-            self.errorAlert(message:"Please fill the obligatory fields")
+            self.errorAlert(message: NSLocalizedString("error.user.fill", comment: ""))
         }
     }
     
@@ -210,7 +210,7 @@ class SignupViewController: UIViewController {
             toolBar.sizeToFit()
 
             // Adding Button ToolBar
-            let doneButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(self.doneClick))
+            let doneButton = UIBarButtonItem(title: NSLocalizedString("next", comment: ""), style: .plain, target: self, action: #selector(self.doneClick))
             let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
             toolBar.setItems([spaceButton, doneButton], animated: false)
             toolBar.isUserInteractionEnabled = true

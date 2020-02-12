@@ -81,9 +81,9 @@ class ReservationViewController: UIViewController {
         valideButtonLabel.setTitle(NSLocalizedString("reservation.valider", comment: ""), for: .normal)
         cancelButtonLabel.setTitle(NSLocalizedString("reservation.cancel", comment: ""), for: .normal)
         dateTextField.delegate = self
-        creneauTextField.placeholder = "Heure"
+        creneauTextField.placeholder = NSLocalizedString("reservation.heure", comment: "")
         creneauTextField.delegate = self
-        dureeCreneauTextField.placeholder = "Duree"
+        dureeCreneauTextField.placeholder = NSLocalizedString("reservation.duree", comment: "")
         dureeCreneauTextField.delegate = self
         reservationView.layer.cornerRadius = 15
         creneauTextField.isEnabled = false
@@ -125,9 +125,9 @@ class ReservationViewController: UIViewController {
         let toolbar = UIToolbar();
         toolbar.sizeToFit()
 
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: select)
+        let doneButton = UIBarButtonItem(title: NSLocalizedString("done", comment: ""), style: .plain, target: self, action: select)
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
+        let cancelButton = UIBarButtonItem(title: NSLocalizedString("cancel", comment: ""), style: .plain, target: self, action: #selector(cancelPicker))
         toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
 
         return toolbar
@@ -167,7 +167,7 @@ class ReservationViewController: UIViewController {
                     }
                 }
             } else {
-                let alert = UIAlertController(title: "Avertissement", message: "Désolé", preferredStyle: .alert)
+                let alert = UIAlertController(title: NSLocalizedString("alert.warning.title", comment: ""), message: NSLocalizedString("alert.warning.message", comment: ""), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
                     self.navigationController?.pushViewController(LoginScreenViewController(), animated: true)
                 }))

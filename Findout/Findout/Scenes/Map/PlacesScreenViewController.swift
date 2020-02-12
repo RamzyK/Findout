@@ -338,12 +338,12 @@ class PlacesScreenViewController: UIViewController {
     }
     
     private func managePermissionDenied(){
-        let alert = UIAlertController(title: "Camera", message: "Nous avons besoin d'accéder à la galerie pour effectuer cette action", preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("alert.camera.title", comment: ""), message: NSLocalizedString("alert.camera.title", comment: ""), preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Activer", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("alert.camera.actions.activate", comment: ""), style: .default, handler: { action in
             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
         }))
-        alert.addAction(UIAlertAction(title: "Annuler", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("alert.camera.actions.cancel", comment: ""), style: .default, handler: nil))
         // Show the alert with animation
         self.present(alert, animated: true)
     }
@@ -480,7 +480,7 @@ class PlacesScreenViewController: UIViewController {
                 }
             }
         } else {
-            let alert = UIAlertController(title: "Avertissement", message: "Désolé", preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("alert.warning.title", comment: ""), message: NSLocalizedString("alert.warning.message", comment: ""), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
                 self.navigationController?.pushViewController(LoginScreenViewController(), animated: true)
             }))
@@ -506,7 +506,7 @@ class PlacesScreenViewController: UIViewController {
                 let image = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
                 
-                let textToShare = "Regarde cet endroit sur Findout, il a l'air cool !"
+                let textToShare = NSLocalizedString("share.message", comment: "")
 
                 if let myWebsite = URL(string: "http://www.google.fr") {//Enter link to your app here
                     let objectsToShare = [textToShare, myWebsite, image ?? #imageLiteral(resourceName: "app-logo")] as [Any]
@@ -689,9 +689,8 @@ extension PlacesScreenViewController: CLLocationManagerDelegate{
     }
 
     private func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-           print("error::: \(error)")
            locationManager.stopUpdatingLocation()
-           let alert = UIAlertController(title: "Settings", message: "Allow location from settings", preferredStyle: UIAlertController.Style.alert)
+           let alert = UIAlertController(title: NSLocalizedString("alert.location.title", comment: ""), message: NSLocalizedString("alert.location.message", comment: ""), preferredStyle: UIAlertController.Style.alert)
            self.present(alert, animated: true, completion: nil)
         alert.addAction(UIAlertAction(title: "TEST", style: .default, handler: { action in
                switch action.style{

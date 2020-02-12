@@ -281,9 +281,9 @@ class AddPlaceViewController: UIViewController, UINavigationControllerDelegate, 
         let toolbar = UIToolbar();
         toolbar.sizeToFit()
 
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(cancelPicker))
+        let doneButton = UIBarButtonItem(title: NSLocalizedString("done", comment: ""), style: .plain, target: self, action: #selector(cancelPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
+        let cancelButton = UIBarButtonItem(title: NSLocalizedString("cancel", comment: ""), style: .plain, target: self, action: #selector(cancelPicker))
         toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
 
         return toolbar

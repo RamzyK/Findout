@@ -43,7 +43,7 @@ class LoginScreenViewController: UIViewController {
 
     // MARK: - SETUP
     func setupView() {
-        self.title = "FINDOUT"
+        self.title = NSLocalizedString("app.name", comment: "")
         self.welcomeLabel.text = NSLocalizedString("login.welcomeLabel", comment: "")
         self.signinLabel.text = NSLocalizedString("login.signinLabel", comment: "")
         self.signupButtonLabel.setTitle(NSLocalizedString("login.signupButtonLabel", comment: ""), for: .normal)
@@ -86,7 +86,7 @@ class LoginScreenViewController: UIViewController {
                     }
                 }else{
                     loaderAlert.dismiss(animated: true){
-                        self.errorAlert(message: "User does not exist!")
+                        self.errorAlert(message: NSLocalizedString("error.user.exist", comment: ""))
                     }
                 }
             }
@@ -111,7 +111,7 @@ class LoginScreenViewController: UIViewController {
             let passwordText = passwordTf.text else{
                 return false
         }
-        if(emailText.count > 0 && passwordText.count > 0 && emailText.isEmailValid()){ // Ajouter  && passwordText.isPasswordValid() dans la condition
+        if(emailText.count > 0 && passwordText.count > 0 && emailText.isEmailValid() && passwordText.isPasswordValid()){ 
             return true
         }else{
             checkOnWichTextFieldIsError()
