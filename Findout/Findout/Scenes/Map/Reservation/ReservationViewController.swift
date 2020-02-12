@@ -145,8 +145,12 @@ class ReservationViewController: UIViewController {
                     return
             }
             let fin = debut + duree
+            var finString = "\(String(fin).prefix(2))"
+            if(fin < 10) {
+                finString = "0\(String(fin).prefix(1))"
+            }
             if(userId != nil) {
-                DisponibilityAPIService.default.addDisponibility(id_place: placeId, id_user: userId!, startTime: creneauTextField.text!, endTime: String(String(fin).prefix(2)), date: selectedDate, nbPlace: placeTextField.text!) { (status) in
+                DisponibilityAPIService.default.addDisponibility(id_place: placeId, id_user: userId!, startTime: creneauTextField.text!, endTime: finString, date: selectedDate, nbPlace: placeTextField.text!) { (status) in
                     if(status == 200) {
                         let alert = UIAlertController(title: NSLocalizedString("place.alertTitleSuccess", comment: ""), message: NSLocalizedString("place.alertSuccessReservation", comment: ""), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
@@ -330,7 +334,9 @@ extension ReservationViewController: UIPickerViewDataSource {
             let dateChoosen = dateFormat.date(from: dateTextField.text!)!
             let date1 = Calendar.current.component(.day, from: Date())
             let date2 = Calendar.current.component(.day, from: dateChoosen)
-            if(date1 == date2) {
+            let dateMonth1 = Calendar.current.component(.month, from: Date())
+            let dateMonth2 = Calendar.current.component(.month, from: dateChoosen)
+            if(date1 == date2 && dateMonth1 == dateMonth2) {
                 debut = debutToday
                 debut += 1
             }
@@ -362,7 +368,7 @@ extension ReservationViewController: UIPickerViewDataSource {
                 return [""]
         }
         var i = 1
-        while (debut < fin) {
+        while (debut < fin-1) {
             tab.append(String(i))
             i += 1
             debut += 1

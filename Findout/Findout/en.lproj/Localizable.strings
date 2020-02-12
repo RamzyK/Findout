@@ -67,6 +67,10 @@
 
 "listReservation.msgVide" = "No reservation";
 "listReservation.title" = "List of reservation";
+"listReservation.the" = "The";
+"listReservation.from" = "from";
+"listReservation.to" = "to";
+"listReservation.places" = "seats";
 
 "place.alertTitleUnlogical" = "Warning";
 "place.alertUnlogicalMessage" = "Start and End are corrupted";

@@ -14,6 +14,10 @@ class ListReservationCell: UITableViewCell {
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var debut: UILabel!
     @IBOutlet weak var fin: UILabel!
-
-
+    @IBOutlet weak var nbPlace: UILabel!
+    @IBOutlet weak var nbPlaceLabel: UILabel!
+    @IBOutlet weak var theLabel: UILabel!
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var toLabel: UILabel!
+    
 }

@@ -67,6 +67,10 @@
 
 "listReservation.msgVide" = "Pas de réservation";
 "listReservation.title" = "Liste des reservations";
+"listReservation.the" = "Le";
+"listReservation.from" = "de";
+"listReservation.to" = "à";
+"listReservation.places" = "places";
 
 "place.alertTitleUnlogical" = "Erreur";
 "place.alertUnlogicalMessage" = "La disponibilité de début et de fin sont erronées";

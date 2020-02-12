@@ -56,6 +56,11 @@ extension ListReservationViewController: UITableViewDataSource {
         cell.date.text = dateFormatter.string(from: date!)
         cell.debut.text = listDispo[indexPath.row].startTime
         cell.fin.text = listDispo[indexPath.row].endTime
+        cell.nbPlace.text = "\(listDispo[indexPath.row].placesAvailable)"
+        cell.theLabel.text = NSLocalizedString("listReservation.the", comment: "")
+        cell.fromLabel.text = NSLocalizedString("listReservation.from", comment: "")
+        cell.toLabel.text = NSLocalizedString("listReservation.to", comment: "")
+        cell.nbPlaceLabel.text = NSLocalizedString("listReservation.places", comment: "")
         return cell
     }
 }
