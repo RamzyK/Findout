@@ -43,6 +43,7 @@ class PlacesScreenViewController: UIViewController {
     var bottomSheetConstrainsDone = false
     var indexForBook : Int = 0
     var fanMenu = FanMenu()
+    let localizeUserView = UIView()
     var allPlaces: [PlaceDao] = []
     var places: [PlaceDao] = []{
         didSet{
@@ -257,7 +258,6 @@ class PlacesScreenViewController: UIViewController {
         let buttonOriginX = Int(self.view.frame.width - 25)
         let buttonOriginY = Int(fanMenu.center.y - 20)
         
-        let localizeUserView = UIView()
         localizeUserView.frame = CGRect(x: 0, y: 0, width: 70, height: 200)
         localizeUserView.center = CGPoint(x: buttonOriginX, y: buttonOriginY)
         
@@ -383,11 +383,15 @@ class PlacesScreenViewController: UIViewController {
     
     @objc private func hideBottomSheet(delta: Int){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .showHideTransitionViews, animations: {
-                   if(self.bottomSheetShowed){
-                       self.bottomSheetView.frame.origin.y += CGFloat(delta) //(self.view.frame.height/3)
-                       self.blurEffectView.frame.origin.y += CGFloat(delta) //(self.view.frame.height/3)
-                       self.bottomSheetShowed = false
-                   }
+               if(self.bottomSheetShowed){
+                   self.bottomSheetView.frame.origin.y += CGFloat(delta) //(self.view.frame.height/3)
+                   self.blurEffectView.frame.origin.y += CGFloat(delta) //(self.view.frame.height/3)
+                   self.bottomSheetShowed = false
+
+                   let buttonOriginX = Int(self.view.frame.width - 25)
+                   let buttonOriginY = Int(self.fanMenu.center.y - 20)
+                   self.localizeUserView.center = CGPoint(x: buttonOriginX, y: buttonOriginY)
+               }
                }, completion: nil)
     }
     
@@ -397,6 +401,10 @@ class PlacesScreenViewController: UIViewController {
                 self.bottomSheetView.frame.origin.y -= (self.view.frame.height/3)
                 self.blurEffectView.frame.origin.y -= (self.view.frame.height/3)
                 self.bottomSheetShowed = true
+                
+                let statusBarY = Int((self.view.window?.windowScene?.statusBarManager?.statusBarFrame.height)! + 20)
+                let width = self.view.frame.width/2 + self.segmentedController.frame.size.width/2 + 40
+                self.localizeUserView.center = CGPoint(x: width, y: CGFloat(statusBarY))
             }
         }, completion: nil)
         if (!self.bottomSheetConstrainsDone){
@@ -411,6 +419,10 @@ class PlacesScreenViewController: UIViewController {
                 self.bottomSheetView.frame.origin.y += (self.view.frame.height/3)
                 self.blurEffectView.frame.origin.y += (self.view.frame.height/3)
                 self.bottomSheetExtanded = false
+                
+                let statusBarY = Int((self.view.window?.windowScene?.statusBarManager?.statusBarFrame.height)! + 20)
+                let width = self.view.frame.width/2 + self.segmentedController.frame.size.width/2 + 40
+                self.localizeUserView.center = CGPoint(x: width, y: CGFloat(statusBarY))
             }else{
                 self.bottomSheetView.frame.origin.y -= (self.view.frame.height/3)
                 self.blurEffectView.frame.origin.y -= (self.view.frame.height/3)
@@ -709,5 +721,4 @@ extension MKMapView {
     let region = MKCoordinateRegion(center: location, latitudinalMeters: latitudinalMeters, longitudinalMeters: longitudinalMeters)
     setRegion(region, animated: true)
   }
-
 }
