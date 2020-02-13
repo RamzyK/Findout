@@ -692,11 +692,11 @@ extension PlacesScreenViewController: CLLocationManagerDelegate{
            locationManager.stopUpdatingLocation()
            let alert = UIAlertController(title: NSLocalizedString("alert.location.title", comment: ""), message: NSLocalizedString("alert.location.message", comment: ""), preferredStyle: UIAlertController.Style.alert)
            self.present(alert, animated: true, completion: nil)
-        alert.addAction(UIAlertAction(title: "TEST", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("warning", comment: ""), style: .default, handler: { action in
                switch action.style{
                case .default: UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-               case .cancel: print("cancel")
-               case .destructive: print("destructive")
+               case .cancel: return
+               case .destructive: return
                @unknown default:
                 break
             }

@@ -110,7 +110,6 @@ class PlaceAPIService: PlaceServices{
             method: .post,
             headers: ["Authorization": "auth_token"],
             encodingCompletion: { encodingResult in
-                print(encodingResult)
                 completion(encodingResult)
             }
         )
