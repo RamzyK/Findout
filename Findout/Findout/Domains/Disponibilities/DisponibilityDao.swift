@@ -11,31 +11,41 @@ import Foundation
 
 struct DisponibilityDao {
     
-     var id_disponibility: String = ""
+     var id: String = ""
      var date: String = ""
      var startTime: String = ""
      var endTime: String = ""
-     var nbPlace: Int = 0
-     var id_user: String = ""
-     var id_place: String = ""
+     var placesAvailable: Int = 0
+     var userID: String = ""
+     var placeID: String = ""
     
     init?(jsonResponse: [String: Any]) {
         guard let dispoId = jsonResponse["id_disponibility"] as? String,
                 let date = jsonResponse["date"] as? String,
                 let start = jsonResponse["start_time"] as? String,
                 let end = jsonResponse["end_time"] as? String,
-                let placesCount = jsonResponse["nb_places"] as? String,
+                let placesCount = jsonResponse["nb_places"] as? Int,
                 let userId = jsonResponse["id_user"] as? String,
                 let placeId = jsonResponse["id_place"] as? String else{
                 return
         }
         
-        self.id_disponibility = dispoId
+        self.id = dispoId
         self.date = date
-        self.start_time = start
+        self.startTime = start
         self.endTime = end
-        self.nbPlace = placesCount
-        self.id_user = userId
-        self.id_place = placeId
+        self.placesAvailable = placesCount
+        self.userID = userId
+        self.placeID = placeId
+    }
+
+    init(id: String, date: String, startTime: String, endTime: String, place: Int, userID: String, placeID: String) {
+        self.id = id
+        self.date = date
+        self.startTime = startTime
+        self.endTime = endTime
+        self.placesAvailable = place
+        self.userID = userID
+        self.placeID = placeID
     }
 }

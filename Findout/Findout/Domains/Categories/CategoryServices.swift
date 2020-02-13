@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+protocol CategoryServices {
+    func getAll(completion: @escaping ([CategoryDao]) -> Void);
+}

@@ -7,7 +7,10 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol UserServices{
-    
+    func getById(_ id: String, completion: @escaping (UserDao?) -> Void)
+    func addUser(user: UserDao, password: String, completion: @escaping (UserDao?, Int) -> Void)
+    func connect(email: String, password: String, completion: @escaping(UserDao?, Int) -> Void)
 }

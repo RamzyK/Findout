@@ -1,0 +1,8 @@
+fastlane_require 'dotenv'
+
+before_all do
+    Dotenv.overload '.env.secret'
+end
+
+app_identifier "#{ENV['ACCESS_TOKEN']}"   # The bundle identifier of your app
+apple_id("#{ENV['APPLE_ID']}") # Your Apple email address

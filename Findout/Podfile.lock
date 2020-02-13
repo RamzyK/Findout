@@ -1,0 +1,36 @@
+PODS:
+  - Alamofire (4.9.0)
+  - FanMenu (0.7.4):
+    - Macaw
+  - GoogleMaps/Base (3.7.0)
+  - GooglePlaces (3.7.0):
+    - GoogleMaps/Base (= 3.7.0)
+  - Macaw (0.9.5):
+    - SWXMLHash
+  - SWXMLHash (5.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - FanMenu
+  - GooglePlaces
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - FanMenu
+    - GoogleMaps
+    - GooglePlaces
+    - Macaw
+    - SWXMLHash
+
+SPEC CHECKSUMS:
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  FanMenu: 773836538a63cddcbf0c5bf320727bb47669f7fd
+  GoogleMaps: 55da829c68aa931f3ae982b9e341cc2f3d89c587
+  GooglePlaces: a62077320f9d64239245af63aa1aa136393ebeb6
+  Macaw: 10bf9e327cb75f24e3225d5229a80ed544df85f0
+  SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
+
+PODFILE CHECKSUM: 7bbdf4f57d587e91c73d7a79d0dcd11eb40ef1bd
+
+COCOAPODS: 1.8.4

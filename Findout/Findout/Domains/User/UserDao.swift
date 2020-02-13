@@ -10,41 +10,34 @@ import Foundation
 
 struct UserDao{
     
-    var id_user: String
+    var userID: String
     var firstname: String
     var lastname: String
-    var birthDate: String?
-    var email: String?
+    var birthDate: String
+    var email: String
     var telephone: String
     
     
     init?(jsonResponse : [String: Any]) {
-        self.id_user = ""
-        self.firstname = ""
-        self.lastname = ""
-        self.telephone = ""
-        guard let id = jsonResponse["id"] as? String,
-                let firstname = jsonResponse["detail"] as? String,
-                let lastname = jsonResponse["coordinates"] as? String,
+
+        guard let id = jsonResponse["_id"] as? String,
+                let firstname = jsonResponse["firstname"] as? String,
+                let lastname = jsonResponse["lastname"] as? String,
+                let birthdate = jsonResponse["birthDate"] as? String,
+                let email = jsonResponse["email"] as? String,
                 let telephone = jsonResponse["telephone"] as? String else{
-                    return
+                    return nil
         }
-        self.id_user = id
+        self.userID = id
         self.firstname = firstname
         self.lastname = lastname
         self.telephone = telephone
-        
-        guard let birthdate = jsonResponse["birthDate"] as? String,
-                let email = jsonResponse["email"] as? String  else{
-                    return
-        }
         self.birthDate = birthdate
         self.email = email
-        
     }
     
-    init(id: String, firstname: String, lastname: String, birthDate: String?, email: String?, tel: String){
-        self.id_user = id
+    init(id: String, firstname: String, lastname: String, birthDate: String, email: String, tel: String){
+        self.userID = id
         self.firstname = firstname
         self.lastname = lastname
         self.birthDate = birthDate

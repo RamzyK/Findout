@@ -12,26 +12,26 @@ struct CategoryDao {
     // Représente 1 type d'activité
     
     var name: String
-    var id_category: String
-    var id_place_list: String
-    
+    var idCategory: String
+    var idActivity: String
+    var imageUrl: String
+
     init?(jsonReponse: [String: Any]){
-        self.name = ""
-        self.id_category = ""
-        self.id_place_list = ""
-        guard let cat_name = jsonReponse["name"] as? String,
-                let id_cat = jsonReponse["id"] as? String,
-                let id_place = jsonReponse["id_place"] as? String else{
-                return
-        }
-        self.name = cat_name
-        self.id_category = id_cat
-        self.id_place_list = id_place
-    }
-    
-    init(name: String, idCat: String, idPlace: String){
+        guard let name = jsonReponse["name"] as? String,
+            let idCategory = jsonReponse["_id"] as? String,
+            let idActivity = jsonReponse["id_activity"] as? String,
+            let imageUrl = jsonReponse["url_image"] as? String else { return nil }
+
         self.name = name
-        self.id_category = idCat
-        self.id_place_list = idPlace
+        self.idCategory = idCategory
+        self.idActivity = idActivity
+        self.imageUrl = imageUrl
+    }
+
+    init(name: String, imageUrl: String ,idCat: String, idActivity: String){
+        self.name = name
+        self.imageUrl = imageUrl
+        self.idCategory = idCat
+        self.idActivity = idActivity
     }
 }

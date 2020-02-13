@@ -1,0 +1,37 @@
+osx_image: xcode11.3
+language: objective-c
+sudo: required
+before_install:
+  - cd ./Findout
+branches:
+ only:
+   - develop
+   - master
+install:
+- /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+- pod install
+- bundle install
+- brew install libsodium
+notifications:
+  email:
+    recipients:
+      - esgi.dev.moc@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always
+script:
+  - echo "C'est le début des choses serieuses, vous pouvez aller prendre un café, revenez dans quelques instants, on s'occupe du reste"
+  - if [ "$TRAVIS_BRANCH" = "develop" ];
+   then bundle exec fastlane ios code_cov;
+        bundle exec fastlane ios tweet;
+        bundle exec fastlane ios send_telegram;
+        bundle exec fastlane ios discord_notification;
+        bundle exec fastlane ios email_notification;
+        echo 'Build finished, close your pull request and merge to develop'; fi
+
+  - if [ "$TRAVIS_BRANCH" = "master" ];
+   then bundle exec fastlane ios code_cov;
+        bundle exec fastlane ios beta_testflight;
+        bundle exec fastlane ios tweet;
+        bundle exec fastlane ios discord_notification;
+        bundle exec fastlane ios email_notification;
+        echo "Tout s'est bien passé!"; fi

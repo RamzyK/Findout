@@ -1,0 +1,111 @@
+fastlane_require 'dotenv'
+
+before_all do
+    Dotenv.overload '.env.secret'
+end
+
+update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+
+  desc "Do a code coverage "
+    lane :code_cov do
+      scan(code_coverage: true)
+      xcov(
+        workspace: "./Findout.xcworkspace",
+        scheme: "Findout",
+        output_directory: "./xcov_output"
+      )
+    end
+
+  desc "Send notification on discord channel"
+    lane :discord_notification do
+      version = get_version_number(
+        xcodeproj: "./Findout.xcodeproj",
+        target: "Findout"
+      )
+      discord(
+        url: "#{ENV['DISCORD_WEB_HOOK']}",
+        app_name: 'Findout',
+        build_number: 1,
+        version: version
+      )
+    end
+
+  desc "Sends Telegram notification"
+    lane :send_telegram do
+      telegram(
+        token: "#{ENV['TELEGRAM_TOKEN']}",
+        chat_id: "#{ENV['TELEGRAM_CHAT_ID']}",
+        text: "Check the new version out of Findout, sah which pleasure",
+      )
+    end
+
+  desc "Creates a tweet on new version"
+    lane :tweet do
+      twitter(
+        access_token: "#{ENV['ACCESS_TOKEN']}",
+        access_token_secret: "#{ENV['ACCESS_TOKEN_SECRET']}",
+        consumer_key: "#{ENV['CONSUMER_KEY']}",
+        consumer_secret: "#{ENV['CONSUMER_SECRET']}",
+        message: "New version of Findout app on iPhone is out!"
+      )
+    end
+
+
+  #desc "Create new screenshots for the App Store in all languages and device types"
+  desc "Additionally, this will add device frames around the screenshots and add the correct titles"
+    lane :screenshots do
+      capture_screenshots
+      frameit(white: true, path: './fastlane/frames')
+      # upload_to_app_store
+    end
+
+    def post_new_mail
+    	RestClient.post "https://api:#{ENV['EMAIL_API_KEY']}"\
+	     "@api.mailgun.net/v3/#{ENV['EMAIL_DOMAIN_NAME']}/messages",
+    	:from => "Findout TEAM <findout-auto-email@#{ENV['EMAIL_DOMAIN_NAME']}>",
+    	:to => ["esgi.dev.moc@gmail.com",
+              "sivithu@icloud.com"],
+    	:subject => "Findout is updated",
+    	:text => "Hi dear user, thanks for using our service Findout,
+      A little notification to let you know that a new version of our app is now out, check it out!
+
+      Sincerly youts,
+
+      Findout Team. "
+    end
+
+  desc "Send email notifications for testers"
+    lane :email_notification do
+      post_new_mail
+    end
+
+  desc "Deploy to TestFlight"
+  lane :beta_testflight do
+    increment_version_number
+    # Use cert to generate a certificate
+    cert(
+      development: true,
+      username: "#{ENV['APPLE_ID']}",
+      platform: "ios"
+    )
+    # Use sigh to download or generate a provisioning profile
+    sigh(
+      app_identifier: "#{ENV['APP_IDENTIFIER']}",
+      username: "#{ENV['APPLE_ID']}",
+    )
+    # # Use gym to archive your app
+    gym(
+      silent: true,
+      output_directory: "./fastlane/builds",
+      scheme: "Findout"
+    )
+    # Use pilot to upload your app to testflight
+    pilot
+
+  end
+end

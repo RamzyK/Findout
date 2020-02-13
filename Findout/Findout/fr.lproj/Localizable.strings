@@ -1,0 +1,99 @@
+/* 
+  Localizable.strings
+  Findout
+
+  Created by Nassim Morouche on 25/12/2019.
+  Copyright © 2019 Ramzy Kermad. All rights reserved.
+*/
+"app.name" = "FINDOUT";
+
+"login.welcomeLabel" = "Bienvenue";
+"login.signinLabel" = "Connecte toi pour continuer";
+"login.signupButtonLabel" = "S'inscrire";
+"login.passwordLabel" = "Mot de passe";
+"login.emailLabel" = "Courriel";
+"login.loginButtonLabel" = "Se connecter";
+"login.loadingMessage" = "Veuillez patienter...";
+
+"signup.signupLabel" = "S'inscrire";
+"signup.nameLabel" = "Prénom";
+"signup.lastnameLabel" = "Nom";
+"signup.emailLabel" = "Courriel";
+"signup.passwordLabel" = "Mot de passe";
+"signup.birthdateLabel" = "Date de naissance";
+"signup.phoneLabel" = "Téléphone";
+"signup.signupButtonLabel" = "Continuer";
+
+"places.title" = "Carte";
+"places.timeLabel" = "Horaires";
+"places.bookButtonLabel" = "Réserver";
+
+"activities.title" = "Quelle activité ?";
+
+"categories.title" = "Catégorie de ";
+"categories.loading" = "Chargement des categories...";
+
+"place.name" = "Nom du lieu";
+"place.address" = "Adresse";
+"place.seat" = "Nombre de place";
+"place.dispo" = "Disponibilité";
+"place.gallery" = "Depuis la gallerie";
+"place.camera" = "Prendre une photo";
+"place.send" = "Envoyer";
+"place.start"  = "Début";
+"place.end" = "Fin";
+"place.category" = "Categorie";
+"place.cancel" = "Annuler";
+"place.loading" = "Chargement des lieux...";
+"place.weekDays" = "Lundi au Dimanche";
+
+"place.alertTitleSuccess" = "Succés";
+"place.alertTitleFailure" = "Erreur";
+"place.alertTryAgainLater" = "Veuillez réesayer plus tard";
+"place.alertMissingFields" = "Vous devez remplir tous les champs!";
+"place.alertAdressNotFound" = "Aucune adresse trouvée!";
+"place.alertNoGalleryPermission" = "L'accès à la gallery doit d'abord être autorisé!";
+"palce.alertNoCameraPermission" = "L'accès à la caméra doit d'abord être autorisé!";
+"place.alertSuccessMessage" = "Votre lieu a été correctement ajouté, merci!";
+"place.alertSuccessReservation" = "Votre reservation a été prise en compte";
+
+"reservation.date" = "Choisir la date";
+"reservation.creneau" = "Choisir le créneau";
+"reservation.place" = "Choisir le nombre de place";
+"reservation.valider" = "Valider";
+"reservation.cancel" = "Annuler";
+"reservation.heure" = "Heure";
+"reservation.duree" = "Durée";
+
+"listReservation.msgVide" = "Pas de réservation";
+"listReservation.title" = "Liste des reservations";
+"listReservation.the" = "Le";
+"listReservation.from" = "de";
+"listReservation.to" = "à";
+"listReservation.places" = "places";
+
+"place.alertTitleUnlogical" = "Erreur";
+"place.alertUnlogicalMessage" = "La disponibilité de début et de fin sont erronées";
+
+"alert.warning.title" = "Attention";
+"alert.warning.message" = "Désolé";
+
+"alert.location.title" = "Paramètres";
+"alert.location.message" = "Merci d'autoriser la localisation dans les paramètres de l'application";
+
+"alert.camera.title" = "Camera";
+"alert.camera.message" = "Nous avons besoin d'accéder à la galerie pour effectuer cette action";
+"alert.camera.actions.activate" = "Activer";
+"alert.camera.actions.cancel" = "Annuler";
+
+"share.message" = "Regarde cet endroit sur Findout, il a l'air cool !";
+
+"error.user.exist" = "Mauvais email/mot de passe";
+"error.user.email" = "L'email a déjà été utilisé";
+"error.server" = "Erreur serveur, veuillez réessayer";
+"error.user.fill" = "Merci de remplir tous les champs";
+
+"done" = "Terminer";
+"next" = "Suivant";
+"warning" = "Attention";
+"cancel" = "Annuler";
