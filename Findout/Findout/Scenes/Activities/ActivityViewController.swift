@@ -74,7 +74,7 @@ class ActivityViewController: UITableViewController {
         label?.text = !isExpanded ? "-" : "+"
 
         button.layer.add(animation, forKey: CATransitionType.fade.rawValue)
-        button.backgroundColor = !isExpanded ? #colorLiteral(red: 0.5723067522, green: 0.5723067522, blue: 0.5723067522, alpha: 1) : #colorLiteral(red: 0.3764309287, green: 0.3764309287, blue: 0.3764309287, alpha: 1)
+        button.backgroundColor = !isExpanded ? #colorLiteral(red: 0.2193810642, green: 0.7583789825, blue: 0.4023743272, alpha: 1) : #colorLiteral(red: 0.2193810642, green: 0.5058907548, blue: 0.4023743272, alpha: 1)
 
         if isExpanded {
             tableView.deleteRows(at: indexPaths, with: .fade)
@@ -103,7 +103,7 @@ class ActivityViewController: UITableViewController {
         let sectionTitle = activityList[section].name.capitalized
 
         button.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50)
-        button.backgroundColor = #colorLiteral(red: 0.5723067522, green: 0.5723067522, blue: 0.5723067522, alpha: 1)
+        button.backgroundColor = #colorLiteral(red: 0.2193810642, green: 0.7583789825, blue: 0.4023743272, alpha: 1)
         button.setTitle(sectionTitle, for: .normal)
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
